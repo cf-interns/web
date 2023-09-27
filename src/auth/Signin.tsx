@@ -1,19 +1,25 @@
 import { ErrorMessage, Field, Form, Formik } from "formik"
 import * as Yup from 'yup'
 import YupPassword from "yup-password"
-import axios from "axios"
 import { Button } from 'flowbite-react'
+import { useNavigate } from "react-router-dom"
+import { useSignInMutation } from "../store/features/auth/authApiSlice"
+import { useDispatch } from "react-redux"
+import { setCredentials } from "../store/features/auth/authSlice"
 
 
 YupPassword(Yup)
 
 const Signin = () => {
 
-    const url = 'http://localhost:5000/api/auth/sign_in'
+    const navigate = useNavigate();
+    const [login, {isLoading}] = useSignInMutation();
+    const dispatch = useDispatch()
+
+    // const url = 'http://localhost:5000/api/auth/sign_in'
 
 
-    return (
-
+    const content  = isLoading ? <h1>Loading...</h1> : 
         <Formik initialValues={{
             email: '',
             password: ''
@@ -26,7 +32,21 @@ const Signin = () => {
 
 
             onSubmit={
-                values => {
+                async values => {
+     
+                 try {
+                    const data = await login(values).unwrap();
+                    console.log(data);
+                    dispatch(setCredentials({...data, user: data}));
+                    navigate("/dashboard")
+                    
+                    return data;
+                 } catch (error) {
+
+                    console.log(error); //Build Custom Error Messages
+                    
+                 }
+/* 
                     console.log(values)
                     axios({
                         method: 'POST',
@@ -42,10 +62,13 @@ const Signin = () => {
                                 console.log(error.response.data);
 
                             }
-                        })
+                        }) */
+
+
                 }
             }
         >
+            
             <section className="bg-gray-50 dark:bg-gray-900">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
@@ -81,7 +104,10 @@ const Signin = () => {
             </section>
 
         </Formik>
-    )
+    
+
+  return content
+  
 }
 
 export default Signin

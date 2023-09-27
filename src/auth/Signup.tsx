@@ -1,9 +1,11 @@
+
+
 import { ErrorMessage, Field, Form, Formik, /* useField */} from "formik";
 import * as Yup from 'yup';
 import YupPassword from "yup-password";
-
 import { Button } from 'flowbite-react';
 import axios from "axios";
+
 
 
 YupPassword(Yup)
@@ -33,6 +35,10 @@ const MyTextInput = ({label, ...props}: InputProps) => {
 } */
 
 const Signup = () => {
+
+
+
+
 
     const url =  'http://localhost:5000/api/auth/sign_up';
      
