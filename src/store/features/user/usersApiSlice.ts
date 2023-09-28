@@ -1,9 +1,11 @@
 
-import { apiSlice } from "../api/apiSlice";
+import { User, apiSlice } from "../api/apiSlice";
+
+type UserResponse = User[]
 
 export const usersApiSlice = apiSlice.injectEndpoints({
-    endpoints: builder => ({
-        getUsers: builder.query({
+    endpoints: build => ({
+        getUsers: build.query<UserResponse, void>({
             query: () => '/users',
             keepUnusedDataFor: 5,
         })

@@ -4,8 +4,9 @@ import { ErrorMessage, Field, Form, Formik, /* useField */} from "formik";
 import * as Yup from 'yup';
 import YupPassword from "yup-password";
 import { Button } from 'flowbite-react';
-import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+import { useSignUpMutation } from "../store/features/auth/authApiSlice";
 
 
 YupPassword(Yup)
@@ -36,15 +37,16 @@ const MyTextInput = ({label, ...props}: InputProps) => {
 
 const Signup = () => {
 
+    const navigate = useNavigate();
+    const [sigup, {isLoading}] = useSignUpMutation();
 
 
 
 
-    const url =  'http://localhost:5000/api/auth/sign_up';
+    // const url =  'http://localhost:5000/api/auth/sign_up';
      
-
-    return (
-        <Formik
+    const content = isLoading ? <h1>Submitting ....</h1>  :
+     <Formik
         
         initialValues={ {
             firstName: '',
@@ -72,10 +74,36 @@ const Signup = () => {
         })}
         onSubmit={
             
-            values => {
+        async values => {
+            console.log(values, 'USER SIGNUP DATA++++++++');
+
+
+                   try {
+                    const data = await sigup(values).unwrap();
+                    navigate("/sign-in");
+
+                    return data;
+                    
+                   } catch (error) {
+                      console.log(error);
+                      
+                   }
+
+
+
+                
+
+
+
+
+
+
+
+
+
                 // console.log(values);
 
-                axios({
+             /*    axios({
                     method: 'POST',
                     url: url,
                     data: values
@@ -91,10 +119,10 @@ const Signup = () => {
                       // The request was made and the server responded with a status code
                       // that falls out of the range of 2xx
                       console.log(error.response.data, 'Failed REsponse');
-                 /*      console.log(error.response.status);
-                      console.log(error.response.headers); */
+                      console.log(error.response.status);
+                      console.log(error.response.headers); 
                     } 
-                  })
+                  }) */
                 
             }
         }
@@ -157,7 +185,7 @@ const Signup = () => {
         
         </Formik>
        
-    )
+     return content;
 }
 
 export default Signup

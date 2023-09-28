@@ -12,22 +12,22 @@ export interface User {
 
 export interface UserResponse {
     user: User
-    token: string;
+
 }
 
 const baseQuery = fetchBaseQuery({
 
     baseUrl: 'http://localhost:5000/api',
     credentials: 'include',
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, /* { getState } */) => {
 
-        const token = (getState() as RootState).auth.token
+      /*   const token = (getState() as RootState).auth.token
 
 
         // If we have a token set in state, let's assume that we should be passing it.
         if (token) {
             headers.set('Authorization', `Bearer ${token}`)
-        }
+        } */
 
         return headers
     }

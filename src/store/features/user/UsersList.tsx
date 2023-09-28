@@ -1,7 +1,6 @@
 import { useGetUsersQuery } from "./usersApiSlice";
 import { Link } from "react-router-dom";
 
-import React from 'react'
 
 const UsersList = () => {
     const {data: users, isLoading,isSuccess, isError, error} = useGetUsersQuery();

@@ -5,7 +5,9 @@ import { Button } from 'flowbite-react'
 import { useNavigate } from "react-router-dom"
 import { useSignInMutation } from "../store/features/auth/authApiSlice"
 import { useDispatch } from "react-redux"
-import { setCredentials } from "../store/features/auth/authSlice"
+import { setCredentials } from "../store/features/auth/authSlice";
+import { Link } from "react-router-dom";
+
 
 
 YupPassword(Yup)
@@ -95,7 +97,7 @@ const Signin = () => {
                                 </div>
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     <Button color="dark" type="submit" className="w-full text-black bg-primary-600  hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:text-white dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</Button>
-                                    <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot Password ?</a>
+                                    <Link className="font-medium text-primary-600 hover:underline dark:text-primary-500" to='/forgot-password'>Forgot Password ?</Link> 
                                 </p>
                             </Form>
                         </div>
