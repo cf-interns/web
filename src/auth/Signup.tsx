@@ -80,7 +80,7 @@ const Signup = () => {
 
                    try {
                     const data = await sigup(values).unwrap();
-                    navigate("/sign-in");
+                    navigate("/");
 
                     return data;
                     

@@ -1,6 +1,7 @@
 import { BaseQueryApi, FetchArgs, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { RootState } from '../../store'
 import { setCredentials, logOut } from '../auth/authSlice';
+import { REHYDRATE } from 'redux-persist';
 
 export interface User {
     firstName: string;
@@ -55,7 +56,7 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, 
             api.dispatch(setCredentials({
 
                 ...refreshResult.data, user,
-                token: ''
+               
             }));
 
             //Retry the original query with new access token
@@ -71,6 +72,21 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, 
 
 export const apiSlice = createApi({
     baseQuery: baseQueryWithReauth,
+    extractRehydrationInfo(
+        action, {reducerPath}
+    ) {
+        if(action.type === REHYDRATE) {
+            return action.payload[reducerPath]
+        }
+
+        if (
+            action.type === REHYDRATE &&
+            action.key === 'root'
+          ) {
+            return action.payload
+          }
+    },
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     endpoints: _builder => ({})
 })

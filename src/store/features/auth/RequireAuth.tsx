@@ -1,10 +1,10 @@
-import { useLocation, Navigate,} from "react-router-dom";
+import { useLocation, Navigate, Outlet} from "react-router-dom";
 
 
 
 
-
-const RequireAuth = () => {
+const ProtectedRoutes = () => {
+  
 
   function doesHttpOnlyCookieExist(cookiename: string) {
     const d = new Date();
@@ -15,15 +15,17 @@ const RequireAuth = () => {
     return document.cookie.indexOf(cookiename + '=') == -1;
   }
 
+   
+   
     // const token = useSelector(selectCurrentToken);
     const location = useLocation();
 
     const checkCookie = doesHttpOnlyCookieExist('Auth')
 
     return (
-        checkCookie ? <p>Verified!</p> :  <Navigate to="/sign-in" state={{from: location}} replace/>
+        checkCookie ? <Outlet />  :  <Navigate to="/" state={{from: location}} replace/>
       )
 
 }
 
-export default RequireAuth
+export default ProtectedRoutes;

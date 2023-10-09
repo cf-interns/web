@@ -14,9 +14,9 @@ type AuthState = {
 
 const authSlice = createSlice({
     name: 'auth',
-    initialState: {user:null, token: null} as AuthState,
+    initialState: {user:null} as AuthState,
     reducers: {
-        setCredentials: (state, {payload: {user}}: PayloadAction<{user: User; token: string}>) => {
+        setCredentials: (state, {payload: {user}}: PayloadAction<{user: User}>) => {
             // const {user, accessToken} = action.payload;
             state.user = user;
          
