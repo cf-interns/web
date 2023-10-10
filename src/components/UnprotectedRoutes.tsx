@@ -1,11 +1,11 @@
 
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import { selectCurrentUser } from '../store/features/auth/authSlice';
+// import { selectCurrentUser } from '../store/features/auth/authSlice';
 
 const UnprotectedRoutes = () => {
 
-    const user = useSelector(selectCurrentUser);
+    const user = localStorage.getItem('user')
     console.log(user, 'Unprotected')
   return (
 

@@ -40,6 +40,7 @@ const Signin = () => {
                     const data = await login(values).unwrap();
                     console.log(data);
                     dispatch(setCredentials({...data, user: data}));
+                    localStorage.setItem('user', JSON.stringify(data));
                     navigate("/dashboard")
                     
                     return data;
@@ -97,7 +98,13 @@ const Signin = () => {
                                 </div>
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     <Button color="dark" type="submit" className="w-full text-black bg-primary-600  hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:text-white dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</Button>
+
+                                    <div className="flex justify-between mt-2">
                                     <Link className="font-medium text-primary-600 hover:underline dark:text-primary-500" to='/forgot-password'>Forgot Password ?</Link> 
+                                    <Link className="font-medium text-primary-600 hover:underline dark:text-primary-500" to='/sign-up'>Don't have an Account?</Link> 
+                                    </div>
+                               
+
                                 </p>
                             </Form>
                         </div>
