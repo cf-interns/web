@@ -5,7 +5,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 const UnprotectedRoutes = () => {
 
-    const user = localStorage.getItem('user')
+    const user = localStorage.getItem('persist:root')
     console.log(user, 'Unprotected')
   return (
 

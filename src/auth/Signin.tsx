@@ -40,7 +40,7 @@ const Signin = () => {
                     const data = await login(values).unwrap();
                     console.log(data);
                     dispatch(setCredentials({...data, user: data}));
-                    localStorage.setItem('user', JSON.stringify(data));
+                    // localStorage.setItem('user', JSON.stringify(data));
                     navigate("/dashboard")
                     
                     return data;
