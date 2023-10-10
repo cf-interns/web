@@ -8,7 +8,7 @@ const DashboardMain = () => {
         <div className="basis-[12%] h-[100vh]">
             <Sidebar />
         </div>
-        <div className="basis-[80%] border">
+        <div className="basis-[88%] border">
             <Dashboard />
         </div>
         <div>

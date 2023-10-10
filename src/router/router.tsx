@@ -3,14 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import Signup from "../auth/Signup";
 import '../App.css'
 import Signin from "../auth/Signin";
-import Welcome from "../store/features/auth/Welcome";
-import UsersList from "../store/features/user/UsersList";
 import ResetPassword from "../components/ResetPassword";
 import ForgotPassword from "../components/ForgotPassword";
-import CheckEmail from "../components/CheckEmail";
 import ProtectedRoutes from "../store/features/auth/RequireAuth";
 import UnprotectedRoutes from "../components/UnprotectedRoutes";
-import Dashboard from "../components/DashboardMain";
 import Main1 from "../components/Main1";
 import CreateApplication from "../components/CreateApplication";
 import Settings from "../components/settings";
@@ -34,8 +30,10 @@ const Routers = () => {
 
 
             <Route element={<ProtectedRoutes />}>
-                <Route path="/dashboard" element={<DashboardMain />} />
+                <Route path="/dashboard" element={<DashboardMain />}>
                  <Route index element={<Main1 />} /> 
+
+                </Route>
                 <Route path="/CreateApplication" element={<CreateApplication />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/allApplication" element={<AllApplication />} />
