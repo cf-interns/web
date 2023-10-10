@@ -1,6 +1,6 @@
 
 import './App.css'
-import Routers from './router/router'
+import Routers from './router/router.tsx'
 
 function App() {
  

@@ -10,6 +10,12 @@ import ForgotPassword from "../components/ForgotPassword";
 import CheckEmail from "../components/CheckEmail";
 import ProtectedRoutes from "../store/features/auth/RequireAuth";
 import UnprotectedRoutes from "../components/UnprotectedRoutes";
+import Dashboard from "../components/DashboardMain";
+import Main1 from "../components/Main1";
+import CreateApplication from "../components/CreateApplication";
+import Settings from "../components/settings";
+import AllApplication from "../components/allApplication";
+import DashboardMain from "../components/DashboardMain";
 
 
 const Routers = () => {
@@ -28,10 +34,12 @@ const Routers = () => {
 
 
             <Route element={<ProtectedRoutes />}>
-                <Route path="/dashboard" element={<Welcome />} />
-                {/* <Route path="welcome" element={<Welcome />} /> */}
-                <Route path="/protected" element={<UsersList />} />
-                <Route path="/check-email" element={<CheckEmail />} />
+                <Route path="/dashboard" element={<DashboardMain />} />
+                 <Route index element={<Main1 />} /> 
+                <Route path="/CreateApplication" element={<CreateApplication />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/allApplication" element={<AllApplication />} />
+
 
             </Route>
 
