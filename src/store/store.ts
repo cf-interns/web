@@ -1,7 +1,8 @@
 import { configureStore} from "@reduxjs/toolkit";
 import { apiSlice } from './features/api/apiSlice';
 
-import authReducer from './features/auth/authSlice.js';
+import authReducer from './features/auth/authSlice.ts';
+import appReducer from './features/application/appSlice.ts';
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore,} from "redux-persist";
 
@@ -18,7 +19,8 @@ const persistedReducer = persistReducer(persistConfig,authReducer)
 export const store = configureStore({
     reducer: {
         [apiSlice.reducerPath]: apiSlice.reducer,
-        auth: persistedReducer
+        auth: persistedReducer,
+        app: appReducer
     },
 
     middleware: getDefaultMiddleware => getDefaultMiddleware({

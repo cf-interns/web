@@ -1,6 +1,6 @@
 import React from "react"
-import Sidebar from "./Sidebar"
-import Dashboard from "./Dashboard"
+import {NavbarDash} from "./Dashboard"
+import SidebarV2 from "./SidebarV2"
 
 const Settings = () => {
 	return (
@@ -8,10 +8,10 @@ const Settings = () => {
 
 			<div className='flex h-full overflow-hidden'>
 				<div className='basis-[12%] h-[100vh] '>
-					<Sidebar />
+					<SidebarV2 />
 				</div>
 				<div className='basis-[88%] border'>
-					<Dashboard />
+					<NavbarDash />
 					<h1 className='text-[#5a5c69] text-[28px] leading-[34px] ml-3 mt-3 font-normal cursor-pointer'>Account Settings</h1>
 
 					<div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
