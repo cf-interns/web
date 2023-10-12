@@ -1,19 +1,24 @@
-import Dashboard from "./Dashboard";
-import Sidebar from "./Sidebar";
+import  { NavbarDash } from "./Dashboard";
+// import Sidebar from "./Sidebar";
 import {Outlet} from 'react-router-dom'
+import SidebarV2 from "./SidebarV2";
 
 const DashboardMain = () => {
   return (
-    <div className=" flex h-full overflow-hidden">
+    <div className="h-full overflow-hidden flex w-[100vw]">
+ 
         <div className="basis-[12%] h-[100vh]">
-            <Sidebar />
-        </div>
-        <div className="basis-[88%] border">
-            <Dashboard />
-        </div>
+        <SidebarV2/>
+
+        </div> 
+        <div className="basis-[88%] border w-fit">
+        <NavbarDash />
         <div>
             <Outlet />
         </div>
+            
+        </div>
+        
     </div>
   )
 }
