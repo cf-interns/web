@@ -14,8 +14,8 @@ const Settings = () => {
 					<NavbarDash />
 					<h1 className='text-[#5a5c69] text-[28px] leading-[34px] ml-3 mt-3 font-normal cursor-pointer'>Account Settings</h1>
 
-					<div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-						<div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-rose-600/40 ring ring-2 ring-emerald-600 lg:max-w-xl">
+					<div className="md:container md:mx-auto px-80 min-h-screen overflow-hidden">
+						<div className="w-full p-6 mt-12 bg-white rounded-md shadow-xl shadow-rose-600/40 ring ring-2 ring-emerald-600 lg:max-w-xl">
 							<h1 className="text-3xl font-semibold text-center text-orange-700 uppercase hover:text-emerald-600">
 								Change Password
 							</h1>

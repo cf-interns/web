@@ -9,8 +9,8 @@ import avt2 from '../assets/react.svg'
 
 export default function SidebarV2() {
   return (
-    <Sidebar aria-label="SidebarV2" className='h-full' style={{borderRadius: '0px', width: 'auto'}}>
-      <Sidebar.Items className='rounded-none'>
+    <Sidebar aria-label="SidebarV2">
+      <Sidebar.Items >
 
         <Sidebar.ItemGroup className='h-full flex-col'>
 
@@ -28,7 +28,7 @@ export default function SidebarV2() {
 
 
             <Sidebar.Item
-            href="#"
+            href="/dashboard"
             icon={AiOutlineAppstore}
           >
             <p>
@@ -40,10 +40,10 @@ export default function SidebarV2() {
             icon={PiAppStoreLogo}
             label="Applications"
           >
-            <Sidebar.Item href="#">
+            <Sidebar.Item href="/allApplication">
               All Apps
             </Sidebar.Item>
-            <Sidebar.Item href="#">
+            <Sidebar.Item href="/CreateApplication">
               Create App
             </Sidebar.Item>
          {/*    <Sidebar.Item href="#">
@@ -55,7 +55,7 @@ export default function SidebarV2() {
           </Sidebar.Collapse>
 
           <Sidebar.Item
-            href="#"
+            href="/settings"
             icon={RiSettings4Line}
           >
             <p>
