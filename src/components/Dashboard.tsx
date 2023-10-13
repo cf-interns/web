@@ -3,10 +3,18 @@
 import { Dropdown, Navbar, } from 'flowbite-react';
 import { Avatar } from 'flowbite-react';
 import avt from '../assets/avatar2.jpeg';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../store/features/auth/authSlice';
+import { useGetSpecificUserQuery } from '../store/features/user/usersApiSlice';
 // import avt2 from '../assets/react.svg'
 
 export const  NavbarDash = () => {
-  return (
+  const dispatch = useDispatch();
+  const {data:user, isLoading} = useGetSpecificUserQuery();
+
+  const content = isLoading ? <h1>Loading ...</h1> : <> 
+  
+  
     <Navbar
       fluid
       // rounded
@@ -22,7 +30,7 @@ export const  NavbarDash = () => {
         </span>
       </Navbar.Brand>
       <div className="flex md:order-2">
-        <h1 className='text-xl text-white p-1'>Alpha</h1>
+        <h1 className='text-xl text-white p-1 mr-2'>{user?.lastName}</h1>
         <Dropdown
           arrowIcon={false}
           inline
@@ -30,20 +38,20 @@ export const  NavbarDash = () => {
         >
           <Dropdown.Header>
             <span className="block text-sm">
-              Alpha
+              {user?.firstName || 'John'}
             </span>
             <span className="block truncate text-sm font-medium">
-              alpha@gns.com
+              {user?.email || 'john@doe.com'}
             </span>
           </Dropdown.Header>
-          <Dropdown.Item>
+          <Dropdown.Item href='/dashboard'>
             Dashboard
           </Dropdown.Item>
-          <Dropdown.Item >
+          <Dropdown.Item href='/settings'>
             Settings
           </Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item >
+          <Dropdown.Item onClick={(() => dispatch(logOut()))} href='/'>
             Sign out
           </Dropdown.Item>
         </Dropdown>
@@ -72,7 +80,13 @@ export const  NavbarDash = () => {
         </Navbar.Link>
       </Navbar.Collapse> */}
     </Navbar>
-  )
+  
+  
+  </>
+
+  return content;
+
+ 
 }
 
 

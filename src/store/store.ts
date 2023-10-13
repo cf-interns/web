@@ -1,4 +1,4 @@
-import { configureStore} from "@reduxjs/toolkit";
+import { combineReducers, configureStore} from "@reduxjs/toolkit";
 import { apiSlice } from './features/api/apiSlice';
 
 import authReducer from './features/auth/authSlice.ts';
@@ -7,21 +7,32 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore,} from "redux-persist";
 
 
-const persistConfig = {
+const rootpersistConfig = {
 
     key: 'root',
     version: 1,
-    storage //check other engines
+    storage, 
+    //check other engines
+    // blacklist: ['app']
 }
 
-const persistedReducer = persistReducer(persistConfig,authReducer)
+const rootReducer = combineReducers({
+
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    auth: authReducer,
+    app: appReducer
+})
+
+const persistedReducer = persistReducer(rootpersistConfig,rootReducer)
 
 export const store = configureStore({
-    reducer: {
+    reducer: persistedReducer,
+
+    /* {
         [apiSlice.reducerPath]: apiSlice.reducer,
         auth: persistedReducer,
         app: appReducer
-    },
+    } */
 
     middleware: getDefaultMiddleware => getDefaultMiddleware({
         serializableCheck: {

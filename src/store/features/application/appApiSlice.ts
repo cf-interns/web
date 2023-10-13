@@ -8,11 +8,11 @@ export const appApiSlice = apiSlice.injectEndpoints({
 
         getAllApps: build.query<AppResponse ,void>({
             query: () => '/applications',
-            keepUnusedDataFor: 5,
+             keepUnusedDataFor: 5,
         }),
         getSpecificApp: build.query<App, void>({
             query: (_id) => `/applications/${_id}`,
-            keepUnusedDataFor: 60
+            // keepUnusedDataFor: 60
         }),
         deleteApp: build.mutation<{success: boolean; _id: number}, number>({
             query(_id) {

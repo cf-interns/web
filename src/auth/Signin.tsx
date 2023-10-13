@@ -101,7 +101,7 @@ const Signin = () => {
 
                                     <div className="flex justify-between mt-2">
                                     <Link className="font-medium text-primary-600 hover:underline dark:text-primary-500" to='/forgot-password'>Forgot Password ?</Link> 
-                                    <Link className="font-medium text-primary-600 hover:underline dark:text-primary-500" to='/sign-up'>Don't have an Account?</Link> 
+                                    {/* <Link className="font-medium text-primary-600 hover:underline dark:text-primary-500" to='/sign-up'>Don't have an Account?</Link>  */}
                                     </div>
                                
 

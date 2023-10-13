@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { User } from "../api/apiSlice";
 import type { PayloadAction } from '@reduxjs/toolkit';
+import storage from "redux-persist/lib/storage";
 
 
 
@@ -22,10 +23,17 @@ const authSlice = createSlice({
          
         },
 
-        logOut: (state,) => {
-            
+        logOut: () => {
+
+      
+                storage.removeItem('persist:root');
+            //    state.user = null;
+            //    state.app = 
+
+            /* 
             state.user = null;
-           
+            localStorage.removeItem('persist:root')
+            */
         }
     },
   

@@ -88,7 +88,7 @@ export const apiSlice = createApi({
     
   }, */
 
-  tagTypes: ['Apps'],
+  tagTypes: ['Apps', 'Passwords'],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   endpoints: _builder => ({})
 })
