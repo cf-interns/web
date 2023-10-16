@@ -1,0 +1,23 @@
+.text{
+    background-color: #2F2E41;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.4s;
+
+}
+.text:hover{
+    background-color: #ff8b2d;
+    transition: 0.7s;
+}
+.message{
+    color: teal;
+    font-size:1rem;
+    font-weight: bold;
+    position: relative;
+    top: 50%;
+    font-family: 'Courier New', Courier, monospace;
+}
+.wrapp{
+    padding: 40px;
+}

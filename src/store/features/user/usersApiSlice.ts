@@ -19,7 +19,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         changePassword: build.mutation<UserPassword, UserChangePasswordResponse>({
             query(body) {
                 return {
-                    url: '/passwords/change-password',
+                    url: 'users/passwords/change-password',
                     method: 'POST',
                     body
                 }

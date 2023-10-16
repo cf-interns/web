@@ -5,6 +5,7 @@ import '../App.css'
 import Signin from "../auth/Signin";
 import ResetPassword from "../components/ResetPassword";
 import ForgotPassword from "../components/ForgotPassword";
+import ErrorPage from "../components/Erropage";
 import ProtectedRoutes from "../store/features/auth/RequireAuth";
 import UnprotectedRoutes from "../components/UnprotectedRoutes";
 import Main1 from "../components/Main1";
@@ -37,7 +38,7 @@ const Routers = () => {
                 <Route path="/CreateApplication" element={<CreateApplication />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/allApplication" element={<AllApplication />} />
-
+                <Route path="*" element={<ErrorPage/>} />
 
             </Route>
 

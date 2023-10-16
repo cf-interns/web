@@ -20,11 +20,7 @@ export const  NavbarDash = () => {
       // rounded
     >
       <Navbar.Brand href="https://flowbite-react.com">
-        {/* <img
-          alt="Flowbite React Logo"
-          className="mr-3 h-fit w-fit sm:h-9"
-          src={avt2}
-        /> */}
+ 
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           {/* GNS */}
         </span>

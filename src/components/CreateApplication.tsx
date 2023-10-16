@@ -3,7 +3,7 @@ import { useCreateAppMutation } from '../store/features/application/appApiSlice'
 import {NavbarDash} from './Dashboard'
 import { ErrorMessage, Field, Form, Formik, /* useField */} from "formik";
 import * as Yup from 'yup';
-
+import "../createapp.css"
 import { Label, } from 'flowbite-react';
 import SidebarV2 from './SidebarV2';
 
@@ -68,40 +68,41 @@ const content = isLoading ? <h1>Submitting ...</h1> :
           <NavbarDash />
           
           
-            <div className=' flex flex-col justify-center h-[85vh] items-center gap-4 w-[100vw]'>
-              <div className='border-grey-600 border p-4 w-[60vw] bg-gray-100 flex flex-col gap-4 items-center '>
-              <h1 className='text-[#5a5c69] text-[28px] leading-[34px] ml-3 mt-3 font-normal cursor-pointer'>Create Your Application</h1>
-          <Form className="flex max-w-md flex-col gap-4 justify-center w-[100%] p-4">
+            <div className='container '>
+              <div className=' wrapper'>
+              <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+                             GNS
+              <h1 className='text-a'>      <span className='oranged'>Create Your </span>   <span>Application  </span> </h1>
+          <Form className="form">
      
-      <div className='flex gap-2 items-center justify-evenly'>
-        <div className="mb-2 block text-center whitespace-nowrap mr-2">
-          <Label color='text-dark'
+      <div className=''>
+        <div className="">
+          <Label className="label"  
+          color='text-dark'
             htmlFor="appName"
             value="Application Name"
           />
         </div>
-        <Field className='ml-4' style={{borderRadius: '4px'}}
+        <Field className="field-form"
           id="appName"
-          sizing='lg'
-          color='black'
           type="text"  placeholder='A GNS application' name='appName'
         />
 
       </div>
-      <ErrorMessage name="appName"  />
+      <ErrorMessage name="appName"   />
 
-      <div className='flex gap-2 items-center justify-evenly'>
-        <div className="mb-2 block text-center whitespace-nowrap mr-12">
-          <Label color='text-dark'
+      <div className=''>
+        <div >
+          <Label className="label" 
+            color='text-dark'
             htmlFor="appdescription"
             value="Application Desc"
           />
         </div>
-        <Field as='textarea' className='bg-white' style={{borderRadius: '4px'}}
+        <Field className="field-form"
+        as='textarea'
         id="description"
         placeholder="App Description"
-        color='black'
-        type='text'
         name='description'
       />
 
@@ -129,7 +130,7 @@ const content = isLoading ? <h1>Submitting ...</h1> :
           Remember me
         </Label>
       </div> */}
-      <button type="submit"  style={{width: '10rem'}} className='self-end text-black border-black rounded-md'>
+      <button className="btn" type="submit">
         Submit
       </button>
     </Form>

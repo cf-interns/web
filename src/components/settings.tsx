@@ -94,7 +94,7 @@ const Settings = () => {
 										</div>
 
 										<Button size='sm' className="w-full rounded-md self-center p-2 m-2 text-green-200" color="green" >
-											<h6 className="text-black hover:text-white">Upadat Info</h6>
+											<h6 className="text-black hover:text-white">Update Info</h6>
 										</Button>
 
 
