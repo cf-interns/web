@@ -12,6 +12,7 @@ import CreateApplication from "../components/CreateApplication";
 import Settings from "../components/settings";
 import AllApplication from "../components/allApplication";
 import DashboardMain from "../components/DashboardMain";
+import ViewDetails from "../components/ViewDetails";
 
 
 const Routers = () => {
@@ -21,7 +22,8 @@ const Routers = () => {
             <Route element={<UnprotectedRoutes />}>
                 <Route path="/" element={<Signin />} />
                 <Route path="/sign-up" element={<Signup />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/forgot-password" element={<ForgotPassword
+                 />} />
                 <Route path="/reset-password/:id" element={<ResetPassword />} />
 
 
@@ -37,6 +39,7 @@ const Routers = () => {
                 <Route path="/CreateApplication" element={<CreateApplication />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/allApplication" element={<AllApplication />} />
+                <Route path="/VIewDetails" element={<ViewDetails/>} />
 
 
             </Route>
