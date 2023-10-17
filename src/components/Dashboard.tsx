@@ -18,7 +18,7 @@ export const  NavbarDash = () => {
     <Navbar
       fluid
       // rounded
-      className='bg-[teal]'
+      
     >
       <Navbar.Brand href="https://flowbite-react.com" >
         {/* <img

@@ -7,7 +7,7 @@ const DashboardMain = () => {
   return (
     <div className="h-full overflow-hidden flex w-[100vw]">
  
-        <div className="basis-[12%] h-[100vh]">
+        <div className="basis-[14%] h-[100vh]">
         <SidebarV2/>
 
         </div> 

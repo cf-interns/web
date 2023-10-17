@@ -2,8 +2,13 @@ import React from "react"
 import SidebarV2 from "./SidebarV2"
 import { NavbarDash } from "./Dashboard"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 const ViewDetails = () => {
+
+const [newTask, setNewTask] = useState("") ;
+const [task, setTask] = useState([]);
+
 	return (
 		<div>
 			<div className="flex">
