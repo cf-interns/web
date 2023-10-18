@@ -73,7 +73,7 @@ const AppDetails = () => {
 									</div>
 									<label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a></label>
 								</div>
-								<button type="submit" className="btn-btn">Submit Application</button>
+								<button type="submit" className="btn-btn">Activate Application</button>
 							</form>
 						</div>
 					</div>

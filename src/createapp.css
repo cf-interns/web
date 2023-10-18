@@ -231,7 +231,8 @@ input{
 .header{
     color: orangered;
     font-weight:500 ;
-    font-size: 2rem;
+    font-size: 1rem !important;
+    margin-left: 50px!important;
 }
 
     }
@@ -242,7 +243,7 @@ input{
 
 
 
-    @media screen and (max-width: 1200px) {.container {
+    @media screen and (max-width: 00px) {.container {
         display: flex;
        justify-content: center;
        align-items: center;

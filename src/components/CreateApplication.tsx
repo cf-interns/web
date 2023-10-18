@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import "../createapp.css"
 import { Label, } from 'flowbite-react';
 import SidebarV2 from './SidebarV2';
+import { Link } from 'react-router-dom';
 
 
 
@@ -130,9 +131,11 @@ const content = isLoading ? <h1>Submitting ...</h1> :
           Remember me
         </Label>
       </div> */}
+      <Link to="//allApplication">
       <button className="btn" type="submit">
         Submit
       </button>
+      </Link>
     </Form>
               </div>
          
