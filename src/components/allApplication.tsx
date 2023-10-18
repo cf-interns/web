@@ -4,9 +4,10 @@ import {NavbarDash} from "./Dashboard"
 // import Sidebar from "./Sidebar"
 import {FiArrowRight,FiPower} from 'react-icons/fi';
 import {TbLayoutGridAdd} from 'react-icons/tb'
-
+import "../createapp.css"
 import { Button, Card } from 'flowbite-react';
 import SidebarV2 from "./SidebarV2";
+import { Link } from "react-router-dom";
 // import { format } from "date-fns";
 
 const AllApplication = () => {
@@ -23,7 +24,7 @@ const AllApplication = () => {
 
 		result = (
 			<div >
-			<div className="flex h-full overflow-hidden">
+			<div className="flex h-full">
 				<div className="basis-[12%] h-[100vh] ">
 					<SidebarV2 />
 				</div>
@@ -35,7 +36,8 @@ const AllApplication = () => {
 						</h1>
 						<Button color="green" className="hover:text-white p-2 m-2 border-0" style={{backgroundColor: 'green'}}>
 		  <p className="mr-1 hover:text-white text-white text-md font-bold">
-			Create An App
+			<Link to="/CreateApplication">Create An App</Link>
+			
 		  </p>
 		  <TbLayoutGridAdd className='text-white'/>
 		</Button>
@@ -65,10 +67,10 @@ const AllApplication = () => {
 							</div>
 						</div>
 					</div> */}
-
-					<section className="flex flex-row gap-3 ml-2 mt-2" >
+                   
+					<section className="wrapper-a" >
 					{apps.map((app, i) => {
-		return <Card className="max-w-sm bg-green-800"  key={i}>
+		return <Card className="card"  key={i}>
 		<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 		  <p>
 			{app.appName}
@@ -100,9 +102,10 @@ const AllApplication = () => {
 		  
 		</p>
 		<Button>
-		  <p className="mr-1">
+			<Link to="/appDetails" >  <p className="mr-1">
 			Open 
-		  </p>
+		  </p></Link>
+		
 		  <FiArrowRight />
 		</Button>
 	  </Card>

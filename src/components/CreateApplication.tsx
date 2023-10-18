@@ -89,7 +89,7 @@ const content = isLoading ? <h1>Submitting ...</h1> :
         />
 
       </div>
-      <ErrorMessage name="appName"   />
+      <ErrorMessage name="appName" component="div" className="text-red-500 text-xs italic"/>
 
       <div className=''>
         <div >
@@ -107,7 +107,7 @@ const content = isLoading ? <h1>Submitting ...</h1> :
       />
 
       </div>
-      <ErrorMessage name="description"  />
+      <ErrorMessage name="description" component="div" className="text-red-500 text-xs italic" />
 
 {/* 
       <div>
