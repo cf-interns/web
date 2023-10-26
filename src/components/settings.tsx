@@ -181,7 +181,7 @@ const Settings = () => {
 
 							<div id="changePassword" className="h-[50%]">
 								<h1 className="text-md p-2">Change Password</h1>
-								<div className="flex justify-evenly items-center p-2 m-auto h-[95%] gap-16">
+								<div className="flex justify-evenly items-center p-2 m-auto h-[95%] gap-32">
 									<div className=""><img src={thumbnail} className="rounded" alt="" /></div>
 									<div className="grow"><Form className="flex flex-col gap-2 w-[60vw]">
 
