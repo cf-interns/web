@@ -13,6 +13,8 @@ import Settings from "../components/settings";
 import AllApplication from "../components/allApplication";
 import DashboardMain from "../components/DashboardMain";
 import ViewDetails from "../components/ViewDetails";
+import Email from "../components/email";
+import Sms from "../components/sms";
 
 
 const Routers = () => {
@@ -40,6 +42,8 @@ const Routers = () => {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/allApplication" element={<AllApplication />} />
                 <Route path="/VIewDetails" element={<ViewDetails/>} />
+                <Route path="/email" element={<Email/>} />
+                <Route path="/sms" element={<Sms/>} />
 
 
             </Route>
