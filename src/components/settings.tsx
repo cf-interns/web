@@ -32,15 +32,7 @@ const Settings = () => {
 					.minUppercase(1, 'Must contain atleast 1 uppercase letter')
 					.minLowercase(1, 'Must contain atleast 1 lowercase letter')
 					.minNumbers(1, 'Must cantain atleast 1 number')
-					.minSymbols(1, 'Must contain atleast 1 symbol'),
-				/* confirmPassword: Yup.string().password().required('Please confrim the new password')
-					.max(25)
-					.min(9)
-					.minUppercase(1, 'Must contain atleast 1 uppercase letter')
-					.minLowercase(1, 'Must contain atleast 1 lowercase letter')
-					.minNumbers(1, 'Must cantain atleast 1 number')
-					.minSymbols(1, 'Must contain atleast 1 symbol'),
- */
+					.minSymbols(1, 'Must contain atleast 1 symbol')
 
 			})}
 
@@ -65,7 +57,7 @@ const Settings = () => {
 					<div className='basis-[12%] h-[100vh] '>
 						<SidebarV2 />
 					</div>
-					<div className='basis-[88%] border h-[100vh]'>
+					<div className='basis-[88%] border h-[90vh]'>
 						<NavbarDash />
 						<h1 className='text-2xl font-bold p-2 text-start ml-[54px]'>Account Settings</h1>
 
@@ -80,21 +72,21 @@ const Settings = () => {
 
 										<div className="flex flex-col gap-2 whitespace-nowrap">
 											<Label htmlFor="firstName" value="First Name" color='text-dark' className="text-sm" />
-											<TextInput placeholder="John" sizing='sm' />
+											<TextInput placeholder="John" sizing='sm' style={{backgroundColor: 'white',}}/>
 										</div>
 
 										<div className="flex flex-col gap-2 whitespace-nowrap">
 											<Label htmlFor="firstName" value="Last Name" color='text-dark' className="text-sm" />
-											<TextInput placeholder="John"  sizing='sm' />
+											<TextInput placeholder="John"  sizing='sm' style={{backgroundColor: 'white'}}/>
 										</div>
 
 										<div className="flex flex-col gap-2">
 											<Label htmlFor="firstName" value="Email" color='text-dark' className="text-sm mr-8" />
-											<TextInput placeholder="John" sizing='sm' />
+											<TextInput placeholder="John" sizing='sm' style={{backgroundColor: 'white'}}	/>
 										</div>
 
-										<Button size='sm' className="w-full rounded-md self-center p-2 m-2 text-green-200" color="green" >
-											<h6 className="text-black hover:text-white">Upadat Info</h6>
+										<Button size='sm' className="w-full rounded-md self-center p-2 m-2 text-green-200" style={{backgroundColor: 'rgb(31 41 55 / 1'}} >
+											<h6 className="text-white hover:text-white">Upadat Info</h6>
 										</Button>
 
 
@@ -116,7 +108,7 @@ const Settings = () => {
 
 										<div className="flex flex-col gap-2 whitespace-nowrapp">
 											<Label htmlFor="Old Password" value="Old Password" color='text-dark' className="text-sm " />
-											<Field placeholder="John" id="oldPassword" type="oldPassword" name="oldPassword" sizing='sm' className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" color='black' />
+											<Field placeholder="John" id="oldPassword" type="oldPassword" name="oldPassword" sizing='sm' className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5" color='black' />
 
 
 										</div>
@@ -124,22 +116,14 @@ const Settings = () => {
 
 										<div className="flex flex-col gap-2 whitespace-nowrapp">
 											<Label htmlFor="New Password" value="New Password" color='text-dark' className="text-sm " />
-											<Field placeholder="Jokjjk%43!=hn" id='newPassword' sizing='sm' type="newPassword" name="newPassword" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" color='' />
+											<Field placeholder="Jokjjk%43!=hn" id='newPassword' sizing='sm' type="newPassword" name="newPassword" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " color='black' />
 
 										</div>
 										<ErrorMessage name="newPassword" />
 
 
-									{/* 	<div className="flex flex-col gap-2 whitespace-nowrapp">
-											<Label htmlFor="confirmPassword" value="Confirm Password" color='text-dark' className="text-sm mr-8" />
-											<Field placeholder="Jokjjk%43!=hn" id='confirmPassword' type="confrimPassword" name="confirmPassword" size={60} sizing='lg' className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" color='' />
-
-										</div>
-										<ErrorMessage name="confrimPassword" /> */}
-
-
-										<Button as='button' type="submit" size='sm' className="w-full rounded-md self-center p-2 m-2 text-green-200" color="green" >
-											<h6 className="text-black hover:text-white">Change Password</h6>
+										<Button as='button' type="submit" size='sm' className="w-full rounded-md self-center p-2 m-2 text-green-200"  style={{backgroundColor: 'rgb(31 41 55 / 1'}}>
+											<h6 className="text-white hover:text-white">Change Password</h6>
 										</Button>
 
 
@@ -148,6 +132,7 @@ const Settings = () => {
 									</div>
 								</div>
 							</div>
+							
 
 
 

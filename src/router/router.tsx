@@ -12,6 +12,9 @@ import CreateApplication from "../components/CreateApplication";
 import Settings from "../components/settings";
 import AllApplication from "../components/allApplication";
 import DashboardMain from "../components/DashboardMain";
+import Email from "../components/SendEmail";
+import SendSMS from "../components/sendSMS";
+import SendPush from "../components/SendPush";
 
 
 const Routers = () => {
@@ -37,8 +40,9 @@ const Routers = () => {
                 <Route path="/CreateApplication" element={<CreateApplication />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/allApplication" element={<AllApplication />} />
-
-
+                <Route path='/send-email' element={<Email />}/>
+                <Route path='/send-sms' element={<SendSMS />}/>
+                <Route path='/send-push' element={<SendPush />}/>
             </Route>
 
         </Routes>

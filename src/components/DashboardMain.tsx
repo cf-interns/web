@@ -2,6 +2,8 @@ import  { NavbarDash } from "./Dashboard";
 // import Sidebar from "./Sidebar";
 import {Outlet} from 'react-router-dom'
 import SidebarV2 from "./SidebarV2";
+import PushNotifications from "./PushNotifications";
+import 'react-toastify/dist/ReactToastify.css';
 
 const DashboardMain = () => {
   return (
@@ -15,6 +17,8 @@ const DashboardMain = () => {
         <NavbarDash />
         <div>
             <Outlet />
+        <PushNotifications />
+
         </div>
             
         </div>
