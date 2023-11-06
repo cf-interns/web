@@ -13,7 +13,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
         sendEmail: build.mutation<EmailResponse, Partial<Email>>({
            query({id, text,to,from, subject}) {
                return {
-                url: `/email/sendmail/${id}`,
+                url: `/emails/send/${id}`,
                 method: 'POST',
                 body: {text, subject,to, from}
                }

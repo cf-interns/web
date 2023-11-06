@@ -6,12 +6,12 @@ import { NavbarDash } from "./Dashboard";
 import SidebarV2 from "./SidebarV2";
 
  const Email = () => {
-    const appId = 'a819e4ab-f538-47c1-a3e8-59e043f9317e';
+    const appId = '0d6cc5e8-48f2-47cd-a035-ee98b4f65cc4';
     const [sendEmail, {isLoading}] = useSendEmailMutation()
-    const content = isLoading ? <h1>Submitting ....</h1> : 
+ 
 
 
-    <Formik initialValues={{
+   return  <Formik initialValues={{
         id: appId,
         text: '',
         subject: '',
@@ -86,7 +86,7 @@ import SidebarV2 from "./SidebarV2";
                   </div>
 
                   <button type="submit" style={{ backgroundColor: 'rgb(31 41 55 / 1)', }} className='self-center text-white border-black rounded-md hover:bg-green-300 p-2 hover:text-white w-full bg-gray-300'>
-                    Submit
+                    {isLoading ? 'Submitting ...': 'Submit'}
                   </button>
 
 
@@ -103,7 +103,6 @@ import SidebarV2 from "./SidebarV2";
 
     </Formik>
 
-    return content;
  
 }
 

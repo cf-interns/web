@@ -7,7 +7,7 @@ import SidebarV2 from "./SidebarV2";
 
 const SendPush = () => {
 
-    const appId = 'a819e4ab-f538-47c1-a3e8-59e043f9317e';
+    const appId = '3b6cc465-62bf-403e-a22e-24fc6727daaf';
     const [sendPush, {isLoading}] = useSendPushMutation()
     const content = isLoading ? <h1>Submitting ...</h1> : 
 
