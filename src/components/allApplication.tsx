@@ -156,7 +156,7 @@ const AllApplication = () => {
 											2- Can't call hook and pass needed params
 											
 											*/}
-											<div  className="pointer-cursor text-white bg-teal-900 px-6 w-28 rounded-lg" onClick={() => {
+											<div  className="cursor-pointer text-white bg-teal-900 px-6 w-28 rounded-lg" onClick={() => {
 												updateAppStatus({_id:app?._id ,status: 'ACTIVE'})
 												console.log(updateAppStatus);
 												
@@ -179,7 +179,7 @@ const AllApplication = () => {
 							})}
 						</section>
 					</div>
-					<p>I just got a vision victory </p>
+					
 				</div>
 			</div>
 		)
