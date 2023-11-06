@@ -41,7 +41,7 @@ const Routers = () => {
                 <Route path="/CreateApplication" element={<CreateApplication />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/allApplication" element={<AllApplication />} />
-                <Route path="/VIewDetails" element={<ViewDetails/>} />
+                <Route path="/VIewDetails/:id" element={<ViewDetails/>} />
                 <Route path="/email" element={<Email/>} />
                 <Route path="/sms" element={<Sms/>} />
 

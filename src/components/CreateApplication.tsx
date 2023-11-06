@@ -1,75 +1,52 @@
+import { useCreateAppMutation } from "../store/features/application/appApiSlice"
+import { NavbarDash } from "./Dashboard"
+import { ErrorMessage, Field, Form, Formik /* useField */ } from "formik"
+import * as Yup from "yup"
 
-import { useCreateAppMutation } from '../store/features/application/appApiSlice'
-import {NavbarDash} from './Dashboard'
-import { ErrorMessage, Field, Form, Formik, /* useField */} from "formik";
-import * as Yup from 'yup';
-
-import { Label, } from 'flowbite-react';
-import SidebarV2 from './SidebarV2';
-import { Link } from 'react-router-dom';
-
-
-
-
-
-
+import { Label } from "flowbite-react"
+import SidebarV2 from "./SidebarV2"
+import { Link } from "react-router-dom"
 
 const CreateApplication = () => {
+	const [createApp, { isLoading }] = useCreateAppMutation()
 
-  const [createApp, {isLoading}] = useCreateAppMutation()
+	const content = isLoading ? (
+		<h1>Submitting ...</h1>
+	) : (
+		<Formik
+			initialValues={{
+				appName: "",
 
-const content = isLoading ? <h1>Submitting ...</h1> : 
+				description: "",
+			}}
+			validationSchema={Yup.object({
+				appName: Yup.string()
+					.min(10, "Name must be a minimum of 10 characters or more")
+					.required("Application Name is required"),
 
+				description: Yup.string().required("A description is required!"),
+			})}
+			onSubmit={async (values) => {
+				try {
+					const data = await createApp(values).unwrap()
+					console.log(data)
+					return data
 
-<Formik initialValues={ {
+					//Navigate Somewhre
+				} catch (error) {
+					return error
+				}
+			}}
+		>
+			<div>
+				<div className="flex">
+					<div className="basis-[12%] h-[100vh] ">
+						<SidebarV2 />
+					</div>
+					<div className="basis-[88%] w-[80vw]">
+						<NavbarDash />
 
-  appName: '',
-
-  description: '',
-
-}}
-
-
-  validationSchema={Yup.object({
-    appName: Yup.string()
-        .min(10, 'Name must be a minimum of 10 characters or more')
-        .required('Application Name is required'),
-
-    description: Yup.string()
-        .required('A description is required!')    
-  })}
-
-
-  onSubmit={
-     async values => {
-      try {
-        const data = await createApp(values).unwrap();
-        return data;
-        console.log(data);
-        
-        //Navigate Somewhre
-      } catch (error) {
-        return error
-      }
-     }
-  }
-
-
-
-
-
->
-
-<div>
-      <div className='flex'>
-        <div className='basis-[12%] h-[100vh] '>
-          <SidebarV2 />
-        </div>
-        <div className='basis-[88%] w-[80vw]'>
-          <NavbarDash />
-          
-          
-          <div className="flex px-2 divide-x-2 mt-8">
+						<div className="flex px-2 divide-x-2 mt-8">
 							<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
 								Create Application
 							</h1>
@@ -141,48 +118,55 @@ const content = isLoading ? <h1>Submitting ...</h1> :
 							</nav>
 						</div>
 
+						<div className=" flex flex-col justify-center h-[85vh] items-center gap-4 w-[80vw]">
+							<div className="bg-[white] flex flex-col items-center w-3/6 h-96 mb-10 shadow-2xl rounded-lg">
+								<h1 className="text-[#5a5c69] text-[28px] leading-[34px] ml-3 mt-10 font-normal cursor-pointer">
+									Create Your Application
+								</h1>
+								<Form className="flex max-w-md flex-col gap-4 mt-10 justify-center w-[100%] p-4">
+									<div className="flex gap-2 items-center justify-evenly">
+										<div className="mb-2 block text-center whitespace-nowrap mr-2">
+											<Label
+												color="text-dark"
+												htmlFor="appName"
+												value="Application Name"
+											/>
+										</div>
+										<Field
+											className="ml-4"
+											style={{ borderRadius: "4px" }}
+											id="appName"
+											sizing="lg"
+											color="black"
+											type="text"
+											placeholder="A GNS application"
+											name="appName"
+										/>
+									</div>
+									<ErrorMessage name="appName" />
 
-            <div className=' flex flex-col justify-center h-[85vh] items-center gap-4 w-[100vw]'>
-              <div className='border-grey-600 border p-4 w-[60vw] bg-gray-100 flex flex-col gap-4 items-center '>
-              <h1 className='text-[#5a5c69] text-[28px] leading-[34px] ml-3 mt-3 font-normal cursor-pointer'>Create Your Application</h1>
-          <Form className="flex max-w-md flex-col gap-4 justify-center w-[100%] p-4">
-     
-      <div className='flex gap-2 items-center justify-evenly'>
-        <div className="mb-2 block text-center whitespace-nowrap mr-2">
-          <Label color='text-dark'
-            htmlFor="appName"
-            value="Application Name"
-          />
-        </div>
-        <Field className='ml-4' style={{borderRadius: '4px'}}
-          id="appName"
-          sizing='lg'
-          color='black'
-          type="text"  placeholder='A GNS application' name='appName'
-        />
+									<div className="flex gap-2 items-center justify-evenly">
+										<div className="mb-2 block text-center whitespace-nowrap mr-12">
+											<Label
+												color="text-dark"
+												htmlFor="appdescription"
+												value="Application Desc"
+											/>
+										</div>
+										<Field
+											as="textarea"
+											className="bg-white"
+											style={{ borderRadius: "4px" }}
+											id="description"
+											placeholder="App Description"
+											color="black"
+											type="text"
+											name="description"
+										/>
+									</div>
+									<ErrorMessage name="description" />
 
-      </div>
-      <ErrorMessage name="appName"  />
-
-      <div className='flex gap-2 items-center justify-evenly'>
-        <div className="mb-2 block text-center whitespace-nowrap mr-12">
-          <Label color='text-dark'
-            htmlFor="appdescription"
-            value="Application Desc"
-          />
-        </div>
-        <Field as='textarea' className='bg-white' style={{borderRadius: '4px'}}
-        id="description"
-        placeholder="App Description"
-        color='black'
-        type='text'
-        name='description'
-      />
-
-      </div>
-      <ErrorMessage name="description"  />
-
-{/* 
+									{/* 
       <div>
         <div className="mb-2 block">
           <Label color='text-dark' 
@@ -203,18 +187,18 @@ const content = isLoading ? <h1>Submitting ...</h1> :
           Remember me
         </Label>
       </div> */}
-      <button type="submit"  style={{width: '10rem'}} className='self-end text-black border-black rounded-md'>
-        Submit
-      </button>
-    </Form>
-              </div>
-         
-            </div>
-         
-          
-         
+									<button
+										type="submit"
+										style={{ width: "10rem" }}
+										className="self-end text-black bg-[red1] border-black focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800 rounded-md"
+									>
+										Submit
+									</button>
+								</Form>
+							</div>
+						</div>
 
-          {/* <div className="relative flex flex-col justify-center m">
+						{/* <div className="relative flex flex-col justify-center m">
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-rose-600/40 ring ring-2 ring-emerald-600 lg:max-w-xl">
           <div className="md:container md:mx-auto px-96 min-h-screen overflow-hidden">
             <div className="w-full p-6 mt-12 bg-white rounded-md shadow-xl shadow-rose-600/40 ring ring-2 ring-emerald-600 lg:max-w-xl">
@@ -260,17 +244,13 @@ const content = isLoading ? <h1>Submitting ...</h1> :
               </Form>
             </div>
           </div> */}
+					</div>
+				</div>
+			</div>
+		</Formik>
+	)
 
-        </div>
-      </div>
-    </div>
-
-</Formik>
-
-
-return content;
-
- 
+	return content
 }
 
-export default CreateApplication;
+export default CreateApplication

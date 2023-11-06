@@ -2,6 +2,7 @@ import React from "react"
 
 import SidebarV2 from "./SidebarV2"
 import { NavbarDash } from "./Dashboard"
+import { Link } from "react-router-dom"
 
 const Email = () => {
 	return (
@@ -12,6 +13,77 @@ const Email = () => {
 				</div>
 				<div className="basis-[88%] border">
 					<NavbarDash />
+					<div className="flex px-2 divide-x-2 mt-8">
+						<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
+							Send Email
+						</h1>
+
+						<nav className="flex px-4" aria-label="Breadcrumb">
+							<ol className="inline-flex items-center space-x-1 md:space-x-3">
+								<li className="inline-flex items-center">
+									<Link
+										to="/dashboard"
+										className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-teal-600 dark:text-gray-400"
+									>
+										<svg
+											className="w-3 h-3 mr-2.5"
+											aria-hidden="true"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="currentColor"
+											viewBox="0 0 20 20"
+										>
+											<path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+										</svg>
+										Home
+									</Link>
+								</li>
+								<li>
+									<div className="flex items-center">
+										<svg
+											className="w-3 h-3 text-gray-400 mx-1"
+											aria-hidden="true"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 6 10"
+										>
+											<path
+												stroke="currentColor"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="m1 9 4-4-4-4"
+											/>
+										</svg>
+										<span className="ml-1 text-sm font-medium text-gray-700 md:ml-2 dark:text-gray-400 ">
+											components
+										</span>
+									</div>
+								</li>
+								<li aria-current="page">
+									<div className="flex items-center">
+										<svg
+											className="w-3 h-3 text-gray-400 mx-1"
+											aria-hidden="true"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 6 10"
+										>
+											<path
+												stroke="currentColor"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="m1 9 4-4-4-4"
+											/>
+										</svg>
+										<span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
+											All Application
+										</span>
+									</div>
+								</li>
+							</ol>
+						</nav>
+					</div>
 
 					<div className="bg-[white] flex flex-col w-3/6 h-96 mt-32 ml-96 shadow-2xl rounded-lg">
 						<div className="p-4">
@@ -25,7 +97,7 @@ const Email = () => {
 								type="text"
 								id="default-input"
 								className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							/> 
+							/>
 						</div>
 						<div className="p-4">
 							<label
@@ -42,7 +114,7 @@ const Email = () => {
 						</div>
 						<div className="px-4 py-2 bg-white rounded-t-lg dark:bg-white-800">
 							<label htmlFor="comment" className="sr-only">
-								Your comment 
+								Your comment
 							</label>
 							<textarea
 								id="comment"
@@ -55,7 +127,7 @@ const Email = () => {
 						<div className="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
 							<button
 								type="submit"
-								className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+								className="inline-flex items-center py-2.5 px-4 text-xl font-medium text-center text-black bg-[red] rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
 							>
 								Send Email
 							</button>

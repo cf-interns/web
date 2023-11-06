@@ -1,12 +1,13 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { useGetAllAppsQuery } from "../store/features/application/appApiSlice"
+import { useGetAllAppsQuery, useGetSpecificAppQuery } from "../store/features/application/appApiSlice"
 import { NavbarDash } from "./Dashboard"
-import Sidebar from "./Sidebar"
+// import Sidebar from "./Sidebar"
 import { FiArrowRight } from "react-icons/fi"
 
 import { Button, Card } from "flowbite-react"
 import SidebarV2 from "./SidebarV2"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
+import { useUpdateAppStatusMutation } from "../store/features/application/appApiSlice"
 // import { format } from "date-fns";
 
 const AllApplication = () => {
@@ -19,7 +20,14 @@ const AllApplication = () => {
 		isSuccess,
 		isError,
 		error,
-	} = useGetAllAppsQuery()
+	} = useGetAllAppsQuery();
+	
+	const { id } = useParams();
+
+	const [updateAppStatus] = useUpdateAppStatusMutation();
+	console.log(updateAppStatus);
+	
+	// app({status: 'ACTIVE'})
 
 	let result
 
@@ -141,11 +149,26 @@ const AllApplication = () => {
 										<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 											<p>{app.appName}</p>
 										</h5>
-										<p className="font-normal text-gray-900 dark:text-white">
+										
+										
+											{/* 
+											1- Why's this behaving like a link?
+											2- Can't call hook and pass needed params
+											
+											*/}
+											<div  className="pointer-cursor text-white bg-teal-900 px-6 w-28 rounded-lg" onClick={() => {
+												updateAppStatus({_id:app?._id ,status: 'ACTIVE'})
+												console.log(updateAppStatus);
+												
+												}}>Activate</div >
+											{/* <button type="submit" onClick={() => app({status: 'ACTIVEs'})}>ACTIVATE</button> */}
+											
+										
+										<div className="font-normal text-gray-900 dark:text-white">
 											<p>Status: {app.status}</p>
 											<p>Created: {app.createdAt.toString()}</p>
-										</p>
-										<Link to="/ViewDetails">
+										</div>
+										<Link to={`/ViewDetails/${app._id}`}>
 											<Button>
 												<p className="mr-1">View Details</p>
 												<FiArrowRight />
@@ -156,6 +179,7 @@ const AllApplication = () => {
 							})}
 						</section>
 					</div>
+					<p>I just got a vision victory </p>
 				</div>
 			</div>
 		)
