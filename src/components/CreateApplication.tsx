@@ -110,27 +110,7 @@ const content = isLoading ? <h1>Submitting ...</h1> :
       </div>
       <ErrorMessage name="description" component="div" className="text-red-500 text-xs italic" />
 
-{/* 
-      <div>
-        <div className="mb-2 block">
-          <Label color='text-dark' 
-            htmlFor="password1"
-            value="Your password"
-          />
-        </div>
-        <TextInput
-          id="password1"
-          required
-          type="password"
-        />
-      </div>
 
-      <div className="flex items-center gap-2">
-        <Checkbox id="remember" />
-        <Label htmlFor="remember">
-          Remember me
-        </Label>
-      </div> */}
       <Link to="//allApplication">
       <button className="btn" type="submit">
         Submit
@@ -141,53 +121,8 @@ const content = isLoading ? <h1>Submitting ...</h1> :
          
             </div>
          
-          
-         
 
-          {/* <div className="relative flex flex-col justify-center m">
-            <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl shadow-rose-600/40 ring ring-2 ring-emerald-600 lg:max-w-xl">
-              <h1 className="text-3xl font-semibold text-center text-orange-700 uppercase hover:text-emerald-600">
-                Create Application
-              </h1>
-              <Form className="mt-6">
-                <div className="mb-2">
-                  <label
-                    htmlFor="appName"
-                    className="block text-sm font-semibold text-gray-800"
-                  >
-                    Application Name
-                  </label>
-                  <Field
-                    type="text" id='appName' placeholder='Global Notification System' name='appName'
-                    className="block w-full px-4 py-2 mt-2 text-emerald-700 bg-white border rounded-md focus:border-emerald-400 focus:ring-emerald-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                   <ErrorMessage name="appName"  />
 
-                </div>
-                <div className="mb-2">
-                  <label
-                    htmlFor="description"
-                    className="block text-sm font-semibold text-gray-800"
-                  >
-                    Description
-                  </label>
-                  <Field
-                     type="text" id='description' placeholder='A GNS application' name='description'
-
-                    className="block w-full px-4 py-2 mt-2 text-emerald-700 bg-white border rounded-md focus:border-emerald-400 focus:ring-emerald-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                   <ErrorMessage name="description"  />
-
-                </div>
-
-                <div className="mt-6">
-                  <button className="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-orange-700 rounded-lg hover:bg-emerald-600 focus:outline-none focus:bg-emerald-600">
-                    Submit
-                  </button>
-                </div>
-              </Form>
-            </div>
-          </div> */}
 
         </div>
       </div>

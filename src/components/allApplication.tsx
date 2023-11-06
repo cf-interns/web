@@ -123,7 +123,10 @@ const AllApplication = () => {
 		</div>
 		)
 	 } else if(isError) {
-		result = <h1>Sorry we can't process your request</h1>
+		result = 
+		<div>
+		<h1>Sorry we can't process your request</h1>
+		</div>
 		console.log(error);
 		
 	 }

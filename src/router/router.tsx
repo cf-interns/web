@@ -6,8 +6,9 @@ import Signin from "../auth/Signin";
 import ResetPassword from "../components/ResetPassword";
 import ForgotPassword from "../components/ForgotPassword";
 import ErrorPage from "../components/Erropage";
-import AppDetails from "../components/bulkEmail";
+import AppDetails from "../components/AppEmail";
 import SendEmail from "../components/SendEmail";
+import Trail from "../components/trail";
 import SmsNotifiaction from "../components/Smsnotification";
 import PushNotification from "../components/SendPushnotif";
 import ProtectedRoutes from "../store/features/auth/RequireAuth";
@@ -46,6 +47,7 @@ const Routers = () => {
                 <Route path="/sendpushnotification" element={<PushNotification/>} />
                 <Route path="/sendemail" element={<SendEmail/>} />
                 <Route path="/smsnotification" element={<SmsNotifiaction/>} />
+                <Route path="/trail" element={<Trail/>} />
                 <Route path="*" element={<ErrorPage/>} />
                
 
