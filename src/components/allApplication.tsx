@@ -270,8 +270,4 @@ const AllApplication = () => {
 
 export default AllApplication
 
-/* 
 
-return (
-		
-	)*/
