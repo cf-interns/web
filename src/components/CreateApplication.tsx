@@ -4,8 +4,14 @@ import { ErrorMessage, Field, Form, Formik /* useField */ } from "formik"
 import * as Yup from "yup"
 
 
+/* import { useCreateAppMutation } from '../store/features/application/appApiSlice'
+import {NavbarDash} from './Dashboard' */
+// import { ErrorMessage, Field, Form, Formik, /* useField */} from "formik";
+// import * as Yup from 'yup';
+import "../createapp.css"
 import { Label, } from 'flowbite-react';
 import SidebarV2 from './SidebarV2';
+import { Link } from 'react-router-dom';
 
 
 
@@ -58,48 +64,68 @@ const CreateApplication = () => {
 
     >
 
-      <div>
-        <div className='flex'>
-          <div className='basis-[12%] h-[100vh] '>
-            <SidebarV2 />
-          </div>
-          <div className='basis-[88%] w-[80vw]'>
-            <NavbarDash />
+<div>
+      <div className='flex'>
+        <div className='basis-[12%] h-[100vh] '>
+          <SidebarV2 />
+        </div>
+        <div className='basis-[88%] w-[80vw]'>
+          <NavbarDash />
+          
+          
+            <div className='container '>
+              <div className=' wrapper'>
+              <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+                             GNS
+              <h1 className='text-a'>      <span className='oranged'>Create Your </span>   <span>Application  </span> </h1>
+          <Form className="form">
+     
+      <div className=''>
+        <div className="">
+          <Label className="label"  
+          color='text-dark'
+            htmlFor="appName"
+            value="Application Name"
+          />
+        </div>
+        <Field className="field-form"
+          id="appName"
+          type="text"  placeholder='A GNS application' name='appName'
+        />
+
+      </div>
+      <ErrorMessage name="appName" component="div" className="text-red-500 text-xs italic"/>
+
+      <div className=''>
+        <div >
+          <Label className="label" 
+            color='text-dark'
+            htmlFor="appdescription"
+            value="Application Desc"
+          />
+        </div>
+        <Field className="field-form"
+        as='textarea'
+        id="description"
+        placeholder="App Description"
+        name='description'
+      />
+
+      </div>
+      <ErrorMessage name="description" component="div" className="text-red-500 text-xs italic" />
 
 
-            <div className="flex justify-center w-[90vw] ">
-              <div className="w-[70vw] h-auto">
-                <Form className="bg-white rounded px-8 pt-6 pb-8 mb-4 my-32 " style={{ boxShadow: '71px 38px 50px 22px rgba(0,0,0,0.1)' }}>
-                  <div className="mb-4">
-                    <Label color='text-dark'
-                      htmlFor="appName"
-                      value="Application Name"
-                      className='text-xl text-center p-1'
-                    />
-                    <Field className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline" id="appName" type="text" placeholder="A GNS application" name='appName' sizing='lg' />
-                    <ErrorMessage name="appName" >{msg => <div className="text-red-800 text-xs italic text-center">{msg}</div>}</ErrorMessage>
-
-                  </div>
-                  <div className="mb-4">
-                    <Label color='text-dark'
-                      htmlFor="description"
-                      value="Application Description"
-                      className='text-xl text-center p-1'
-                    />
-                    <Field className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-[12vh]" id="description" as='textarea' type="text" placeholder="App Description" name='description' sizing='lg' />
-                    <ErrorMessage name="description"  >{msg => <div className="text-red-800 text-xs italic text-center">{msg}</div>}</ErrorMessage>
-
-                  </div>
-
-                  <button type="submit" style={{ backgroundColor: 'rgb(31 41 55 / 1)', }} className='self-center text-white border-black rounded-md hover:bg-green-300 p-2 hover:text-white w-full bg-gray-300'>
-                    Submit
-                  </button>
-
-
-                </Form>
-
+      <Link to="//allApplication">
+      <button className="btn" type="submit">
+        Submit
+      </button>
+      </Link>
+    </Form>
               </div>
             </div>
+         
+
+
 
 
           </div>

@@ -1,6 +1,7 @@
 
 import './App.css'
 import Routers from './router/router.tsx'
+import Sidebar from './components/Sidebar.tsx'
 
 function App() {
  

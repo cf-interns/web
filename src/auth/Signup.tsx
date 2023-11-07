@@ -145,22 +145,22 @@ const Signup = () => {
                                  <div>
                                          <label htmlFor="firstName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">FirstName</label>
                                          <Field  type="text"  id="firtsName" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John"  name='firstName'/>
-                                         <ErrorMessage name="firstName"  />
+                                         <ErrorMessage name="firstName"  component="div" className="text-red-500 text-xs italic"/>
                                      </div>
                                      <div>
                                          <label htmlFor="lastName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">LastName</label>
                                          <Field type="text" id="lastName" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" name='lastName' />
-                                         <ErrorMessage name="lastName" />
+                                         <ErrorMessage name="lastName" component="div" className="text-red-500 text-xs italic"/>
                                      </div>  
                                      <div>
                                          <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                          <Field type="email" id="email" placeholder="test@gns.com" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" name='email'/>
-                                        <ErrorMessage  name="email"/>
+                                        <ErrorMessage  name="email"component="div" className="text-red-500 text-xs italic"/>
                                      </div>
                                      <div>
                                          <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                          <Field type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" name='password' />
-                                         <ErrorMessage  name="password"  />
+                                         <ErrorMessage  name="password"  component="div" className="text-red-500 text-xs italic"/>
                                      </div>
                                      <div className="flex items-start">
                                          <div className="flex items-center h-5">

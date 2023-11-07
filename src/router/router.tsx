@@ -5,6 +5,12 @@ import '../App.css'
 import Signin from "../auth/Signin";
 import ResetPassword from "../components/ResetPassword";
 import ForgotPassword from "../components/ForgotPassword";
+import ErrorPage from "../components/Erropage";
+import AppDetails from "../components/AppEmail";
+import SendEmail from "../components/SendEmail";
+import Trail from "../components/trail";
+import SmsNotifiaction from "../components/Smsnotification";
+import PushNotification from "../components/SendPushnotif";
 import ProtectedRoutes from "../store/features/auth/RequireAuth";
 import UnprotectedRoutes from "../components/UnprotectedRoutes";
 import Main1 from "../components/Main1";
@@ -50,6 +56,13 @@ const Routers = () => {
                 <Route path="/email" element={<Email/>} />
                 <Route path="/sms" element={<Sms/>} />
 
+                <Route path="/appDetails" element={<AppDetails/>} />
+                <Route path="/sendpushnotification" element={<PushNotification/>} />
+                <Route path="/sendemail" element={<SendEmail/>} />
+                <Route path="/smsnotification" element={<SmsNotifiaction/>} />
+                <Route path="/trail" element={<Trail/>} />
+                <Route path="*" element={<ErrorPage/>} />
+               
 
             </Route>
 

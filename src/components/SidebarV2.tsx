@@ -47,6 +47,28 @@ export default function SidebarV2() {
               Create App
             </Sidebar.Item>
          {/*    <Sidebar.Item href="#">
+              href="/dashboard"
+              icon={AiOutlineAppstore}
+            ><Link to="/dashboard">
+              <p>
+              Dashboard
+            </p></Link>
+
+            </Sidebar.Item>
+
+            <Sidebar.Collapse
+              icon={PiAppStoreLogo}
+              label="Applications"
+            >
+              <Sidebar.Item>
+                <Link to="/allApplication">  All Apps</Link>
+
+              </Sidebar.Item>
+              <Sidebar.Item>
+                <Link to="/CreateApplication"> Create App</Link>
+
+              </Sidebar.Item>
+              {/*    <Sidebar.Item href="#">
               Refunds
             </Sidebar.Item>
             <Sidebar.Item href="#">
