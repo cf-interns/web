@@ -1,8 +1,8 @@
+import { useCreateAppMutation } from "../store/features/application/appApiSlice"
+import { NavbarDash } from "./Dashboard"
+import { ErrorMessage, Field, Form, Formik /* useField */ } from "formik"
+import * as Yup from "yup"
 
-import { useCreateAppMutation } from '../store/features/application/appApiSlice'
-import { NavbarDash } from './Dashboard'
-import { ErrorMessage, Field, Form, Formik, /* useField */ } from "formik";
-import * as Yup from 'yup';
 
 import { Label, } from 'flowbite-react';
 import SidebarV2 from './SidebarV2';
@@ -114,4 +114,4 @@ const CreateApplication = () => {
 
 }
 
-export default CreateApplication;
+export default CreateApplication

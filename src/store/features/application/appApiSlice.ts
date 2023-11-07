@@ -43,8 +43,10 @@ export const appApiSlice = apiSlice.injectEndpoints({
              keepUnusedDataFor: 5,
         }),
 
-
+/* 
         getSpecificApp: build.query<App, void>({
+        }),  */
+        getSpecificApp: build.query<App, string>({
             query: (_id) => `/applications/${_id}`,
             // keepUnusedDataFor: 60
         }),
@@ -79,9 +81,9 @@ export const appApiSlice = apiSlice.injectEndpoints({
             query(data) {
                 const {_id, ...body} = data
                 return {
-                    url: `/applications/${_id}`,
+                    url: `/applications/${_id}/status`,
                     method: 'PATCH',
-                    body
+                    body,
                 }
             },
 

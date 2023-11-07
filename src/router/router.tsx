@@ -15,6 +15,8 @@ import DashboardMain from "../components/DashboardMain";
 import Email from "../components/SendEmail";
 import SendSMS from "../components/sendSMS";
 import SendPush from "../components/SendPush";
+import ViewDetails from "../components/ViewDetails";
+import Sms from "../components/sms";
 
 
 const Routers = () => {
@@ -24,7 +26,8 @@ const Routers = () => {
             <Route element={<UnprotectedRoutes />}>
                 <Route path="/" element={<Signin />} />
                 <Route path="/sign-up" element={<Signup />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/forgot-password" element={<ForgotPassword
+                 />} />
                 <Route path="/reset-password/:id" element={<ResetPassword />} />
 
 
@@ -43,6 +46,11 @@ const Routers = () => {
                 <Route path='/send-email' element={<Email />}/>
                 <Route path='/send-sms' element={<SendSMS />}/>
                 <Route path='/send-push' element={<SendPush />}/>
+                <Route path="/VIewDetails/:id" element={<ViewDetails/>} />
+                <Route path="/email" element={<Email/>} />
+                <Route path="/sms" element={<Sms/>} />
+
+
             </Route>
 
         </Routes>

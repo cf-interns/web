@@ -1,49 +1,121 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { useGetAllAppsQuery } from "../store/features/application/appApiSlice"
-import {NavbarDash} from "./Dashboard"
+import { useGetAllAppsQuery, useGetSpecificAppQuery } from "../store/features/application/appApiSlice"
+import { NavbarDash } from "./Dashboard"
 // import Sidebar from "./Sidebar"
-import {FiArrowRight,FiPower} from 'react-icons/fi';
-import {TbLayoutGridAdd} from 'react-icons/tb'
+import { FiArrowRight } from "react-icons/fi"
 
-import { Button, Card } from 'flowbite-react';
-import SidebarV2 from "./SidebarV2";
+import { Button, Card } from "flowbite-react"
+import SidebarV2 from "./SidebarV2"
+import { Link, useParams } from "react-router-dom"
+import { useUpdateAppStatusMutation } from "../store/features/application/appApiSlice"
 // import { format } from "date-fns";
 
 const AllApplication = () => {
-//1- Get all apps
-//2- Render using .map()
+	//1- Get all apps
+	//2- Render using .map()
 
-	const {data: apps, isLoading, isSuccess, isError, error} = useGetAllAppsQuery();
+	const {
+		data: apps,
+		isLoading,
+		isSuccess,
+		isError,
+		error,
+	} = useGetAllAppsQuery();
+	
+	const { id } = useParams();
 
-	 let result;
+	const [updateAppStatus] = useUpdateAppStatusMutation();
+	console.log(updateAppStatus);
+	
+	// app({status: 'ACTIVE'})
 
-	 if(isLoading) {
+	let result
+
+	if (isLoading) {
 		result = <h1>Loading ...</h1>
-	 } else if(isSuccess) {
-
+	} else if (isSuccess) {
 		result = (
-			<div >
-			<div className="flex h-full overflow-hidden">
-				<div className="basis-[12%] h-[100vh] ">
-					<SidebarV2 />
-				</div>
-				<div className="basis-[88%] border">
-					<NavbarDash />
-					<div className="flex items-center justify-between mt-6 flex-wrap">
-						<h1 className="text-4xl text-gray-500 text-center font-bold m-auto p-2 mb-2">
-							All Applications
-						</h1>
-						<Button color="green" className="hover:text-white p-2 m-2 border-0" style={{backgroundColor: 'green'}}>
-		  <p className="mr-1 hover:text-white text-white text-md font-bold">
-			Create An App
-		  </p>
-		  <TbLayoutGridAdd className='text-white'/>
-		</Button>
+			<div>
+				<div className="flex h-full overflow-hidden">
+					<div className="basis-[14%] h-[100vh] ">
+						<SidebarV2 />
 					</div>
+					<div className="basis-[88%] border">
+						<NavbarDash />
+						<div className="flex px-2 divide-x-2 mt-8">
+							<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
+								All Applications
+							</h1>
 
+							<nav className="flex px-4" aria-label="Breadcrumb">
+								<ol className="inline-flex items-center space-x-1 md:space-x-3">
+									<li className="inline-flex items-center">
+										<Link
+											to="/dashboard"
+											className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-teal-600 dark:text-gray-400"
+										>
+											<svg
+												className="w-3 h-3 mr-2.5"
+												aria-hidden="true"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="currentColor"
+												viewBox="0 0 20 20"
+											>
+												<path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+											</svg>
+											Home
+										</Link>
+									</li>
+									<li>
+										<div className="flex items-center">
+											<svg
+												className="w-3 h-3 text-gray-400 mx-1"
+												aria-hidden="true"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 6 10"
+											>
+												<path
+													stroke="currentColor"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="m1 9 4-4-4-4"
+												/>
+											</svg>
+											<span className="ml-1 text-sm font-medium text-gray-700 md:ml-2 dark:text-gray-400 ">
+												components
+											</span>
+										</div>
+									</li>
+									<li aria-current="page">
+										<div className="flex items-center">
+											<svg
+												className="w-3 h-3 text-gray-400 mx-1"
+												aria-hidden="true"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 6 10"
+											>
+												<path
+													stroke="currentColor"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="m1 9 4-4-4-4"
+												/>
+											</svg>
+											<span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
+												All Application
+											</span>
+										</div>
+									</li>
+								</ol>
+							</nav>
+						</div>
 
-					{/* This needs to rendered dynamically by mapping through the number apps the user has created */}
-				{/* 	<div className=" flex ml-8 p-6 mt-10 h-80 overflow-hidden">
+						{/* This needs to rendered dynamically by mapping through the number apps the user has created */}
+						{/* 	<div className=" flex ml-8 p-6 mt-10 h-80 overflow-hidden">
 						<div className="w-full p-1 bg-white rounded-md shadow-xl shadow-rose-600/40 ring ring-2 ring-emerald-600 lg:max-w-xl">
 							<div className="flex justify-between bg-[teal] text-white h-[100px]">
 								<h1 className="uppercase text-[20px] mt-16">gns</h1>
@@ -66,73 +138,60 @@ const AllApplication = () => {
 						</div>
 					</div> */}
 
-					<section className="flex flex-row gap-3 ml-2 mt-2" >
-					{apps.map((app, i) => {
-		return <Card className="max-w-sm bg-green-800"  key={i}>
-		<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-		  <p>
-			{app.appName}
-		  </p>
-		</h5>
-		<p className="font-normal text-gray-900 dark:text-white ">
-			<div className="flex items-center gap-4">
-				<div className="flex gap-2">
-					<h1>Status:</h1>
-				<p className="text-md text-red-300">
-			{app.status}
-		  </p>
-				</div>
-			
-		  <span><Button color="green" className="border-0">
-		  <p className="mr-1">
-			Activate 
-		  </p>
-		  <FiPower />
-		</Button></span>
-			</div>
-			<div className="flex flex-col gap-1">
-			<h1 className="text-green-200 text-md">GNS Application</h1>
-		  <p>
-			Created: {app.createdAt.toString()}
-		  </p>
-			</div>
-		
-		  
-		</p>
-		<Button>
-		  <p className="mr-1">
-			Open 
-		  </p>
-		  <FiArrowRight />
-		</Button>
-	  </Card>
-		
-	})}
-					</section>
-	
-	
-
-
-
-
+						<section className="flex flex-row gap-3 ml-2 mt-20">
+							{apps.map((app, i) => {
+								return (
+									<Card
+										className="max-w-sm bg-green-800"
+										style={{ backgroundColor: "teal" }}
+										key={i}
+									>
+										<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+											<p>{app.appName}</p>
+										</h5>
+										
+										
+											{/* 
+											1- Why's this behaving like a link?
+											2- Can't call hook and pass needed params
+											
+											*/}
+											<div  className="cursor-pointer text-white bg-teal-900 px-6 w-28 rounded-lg" onClick={() => {
+												updateAppStatus({_id:app?._id ,status: 'ACTIVE'})
+												console.log(updateAppStatus);
+												
+												}}>Activate</div >
+											{/* <button type="submit" onClick={() => app({status: 'ACTIVEs'})}>ACTIVATE</button> */}
+											
+										
+										<div className="font-normal text-gray-900 dark:text-white">
+											<p>Status: {app.status}</p>
+											<p>Created: {app.createdAt.toString()}</p>
+										</div>
+										<Link to={`/ViewDetails/${app._id}`}>
+											<Button>
+												<p className="mr-1">View Details</p>
+												<FiArrowRight />
+											</Button>
+										</Link>
+									</Card>
+								)
+							})}
+						</section>
+					</div>
+					
 				</div>
 			</div>
-		</div>
 		)
-	 } else if(isError) {
+	} else if (isError) {
 		result = <h1>Sorry we can't process your request</h1>
-		console.log(error);
-		
-	 }
+		console.log(error)
+	}
 
-
-	 return result;
-
-	
+	return result
 }
 
 export default AllApplication
-
 
 /* 
 

@@ -1,4 +1,3 @@
-
 import { NavbarDash } from "./Dashboard"
 import SidebarV2 from "./SidebarV2"
 import { Button, Label, TextInput } from "flowbite-react";
@@ -7,6 +6,7 @@ import { ErrorMessage, Field, Form, Formik, /* useField */ } from "formik";
 import * as Yup from 'yup';
 
 import { useChangePasswordMutation } from "../store/features/user/usersApiSlice";
+import { Link } from "react-router-dom";
 
 const Settings = () => {
 
@@ -54,14 +54,85 @@ const Settings = () => {
 			<div>
 
 				<div className='flex h-full overflow-hidden'>
-					<div className='basis-[12%] h-[100vh] '>
+					<div className='basis-[14%] h-[100vh] '>
 						<SidebarV2 />
 					</div>
 					<div className='basis-[88%] border h-[90vh]'>
 						<NavbarDash />
-						<h1 className='text-2xl font-bold p-2 text-start ml-[54px]'>Account Settings</h1>
+						<div className="flex px-2 divide-x-2 mt-8">
+							<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
+								Account Settings
+							</h1>
 
-						<div className="flex flex-col w-[80vw] m-auto p-2 rounded">
+							<nav className="flex px-4" aria-label="Breadcrumb">
+								<ol className="inline-flex items-center space-x-1 md:space-x-3">
+									<li className="inline-flex items-center">
+										<Link
+											to="/dashboard"
+											className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-teal-600 dark:text-gray-400"
+										>
+											<svg
+												className="w-3 h-3 mr-2.5"
+												aria-hidden="true"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="currentColor"
+												viewBox="0 0 20 20"
+											>
+												<path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+											</svg>
+											Home
+										</Link>
+									</li>
+									<li>
+										<div className="flex items-center">
+											<svg
+												className="w-3 h-3 text-gray-400 mx-1"
+												aria-hidden="true"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 6 10"
+											>
+												<path
+													stroke="currentColor"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="m1 9 4-4-4-4"
+												/>
+											</svg>
+											<span className="ml-1 text-sm font-medium text-gray-700 md:ml-2 dark:text-gray-400 ">
+												Settings
+											</span>
+										</div>
+									</li>
+									<li aria-current="page">
+										<div className="flex items-center">
+											<svg
+												className="w-3 h-3 text-gray-400 mx-1"
+												aria-hidden="true"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 6 10"
+											>
+												<path
+													stroke="currentColor"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="m1 9 4-4-4-4"
+												/>
+											</svg>
+											<span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
+												Account Settings
+											</span>
+										</div>
+									</li>
+								</ol>
+							</nav>
+						</div>
+						{/* <h1 className='text-2xl font-bold p-2 text-start ml-[54px]'>Account Settings</h1> */}
+
+						<div className="flex flex-col w-[80vw] mt-20 ml-10 p-2 rounded">
 
 							<div className=" h-[50%]" id="userInfo">
 								<h1 className="text-md p-2">User Settings</h1>
@@ -102,7 +173,7 @@ const Settings = () => {
 
 							<div id="changePassword" className="h-[50%]">
 								<h1 className="text-md p-2">Change Password</h1>
-								<div className="flex justify-evenly items-center p-2 m-auto h-[95%] gap-16">
+								<div className="flex justify-evenly items-center p-2 m-auto h-[95%] gap-32">
 									<div className=""><img src={thumbnail} className="rounded" alt="" /></div>
 									<div className="grow"><Form className="flex flex-col gap-2 w-[60vw]">
 
