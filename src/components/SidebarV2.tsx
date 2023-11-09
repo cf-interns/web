@@ -1,5 +1,4 @@
 import { Sidebar } from "flowbite-react"
-import { HiUser } from "react-icons/hi"
 import { AiOutlineAppstore } from "react-icons/ai"
 import { PiAppStoreLogo } from "react-icons/pi"
 import { RiSettings4Line } from "react-icons/ri"

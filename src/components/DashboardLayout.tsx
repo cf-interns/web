@@ -1,8 +1,12 @@
-import React, { Fragment } from "react"
+import React, { Fragment, ReactNode } from "react"
 import SidebarV2 from "./SidebarV2"
 import { NavbarDash } from "./Dashboard"
+interface props{
+    children: ReactNode
+}
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout(props: props) {
+    const { children } = props
 	return (
 		<Fragment>
 			<div className="flex h-full overflow-y">
