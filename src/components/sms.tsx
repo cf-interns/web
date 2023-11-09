@@ -5,13 +5,7 @@ import { Link } from "react-router-dom"
 
 const Sms = () => {
 	return (
-		<div>
-			<div className="flex h-full overflow-hidden">
-				<div className="basis-[14%] h-[100vh] ">
-					<SidebarV2 />
-				</div>
-				<div className="basis-[88%] border">
-					<NavbarDash />
+		<DashboardLayout>
 					<div className="flex px-2 divide-x-2 mt-8">
 						<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
 							SMS

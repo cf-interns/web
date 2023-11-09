@@ -2,12 +2,12 @@
 import { Navigate, Outlet } from "react-router-dom"
 // import { selectCurrentUser } from '../store/features/auth/authSlice';
 
-const UnprotectedRoutes = () => {
+const ProtectedRoutes = () => {
 	const user = localStorage.getItem("persist:root")
 	const data = JSON.stringify(user)
 	console.log(data, "Unprotected")
 
-	return !user ? <Outlet /> : <Navigate to="/dashboard" />
+	return user ? <Outlet /> : <Navigate to="/dashboard" />
 }
 
-export default UnprotectedRoutes
+export default ProtectedRoutes

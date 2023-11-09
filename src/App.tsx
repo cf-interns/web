@@ -1,20 +1,8 @@
-
-import './App.css'
-import Routers from './router/router.tsx'
-import Sidebar from './components/Sidebar.tsx'
+import "./App.css"
+import Routers from "./router/router.tsx"
 
 function App() {
- 
-
-  return (
-     <div>
-         {/* Nav */}
-         <div>
-          <Routers />
-         </div>
-         {/* Footer */}
-     </div>
-  )
+	return <Routers />
 }
 
 export default App

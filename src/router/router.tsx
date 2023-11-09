@@ -1,73 +1,28 @@
-
-import { Route, Routes } from "react-router-dom";
-import Signup from "../auth/Signup";
-import '../App.css'
-import Signin from "../auth/Signin";
-import ResetPassword from "../components/ResetPassword";
-import ForgotPassword from "../components/ForgotPassword";
-import ErrorPage from "../components/Erropage";
-import AppDetails from "../components/AppEmail";
-import SendEmail from "../components/SendEmail";
-import Trail from "../components/trail";
-import SmsNotifiaction from "../components/Smsnotification";
-import PushNotification from "../components/SendPushnotif";
-import ProtectedRoutes from "../store/features/auth/RequireAuth";
-import UnprotectedRoutes from "../components/UnprotectedRoutes";
-import Main1 from "../components/Main1";
-import CreateApplication from "../components/CreateApplication";
-import Settings from "../components/settings";
-import AllApplication from "../components/allApplication";
-import DashboardMain from "../components/DashboardMain";
-import Email from "../components/SendEmail";
-import SendSMS from "../components/sendSMS";
-import SendPush from "../components/SendPush";
-import ViewDetails from "../components/ViewDetails";
-import Sms from "../components/sms";
-
+import { Route, Routes } from "react-router-dom"
+import UnprotectedRoutes from "../components/UnprotectedRoutes"
+import { unprotectedRoutes } from "./unprotectedRoute"
+import ErrorPage from "../pages/Erropage"
+import { protectedRoutes } from "./protectedRoutes"
+import ProtectedRoutes from "../components/ProtectedRoutes"
 
 const Routers = () => {
-    return (
-        <Routes>
+	return (
+		<Routes>
+			<Route element={<UnprotectedRoutes />}>
+				{unprotectedRoutes.map((route, key) => (
+					<Route key={key} path={route.path} element={route.element} />
+				))}
+			</Route>
 
-            <Route element={<UnprotectedRoutes />}>
-                <Route path="/" element={<Signin />} />
-                <Route path="/sign-up" element={<Signup />} />
-                <Route path="/forgot-password" element={<ForgotPassword
-                 />} />
-                <Route path="/reset-password/:id" element={<ResetPassword />} />
+			<Route element={<ProtectedRoutes />}>
+				{protectedRoutes.map((route, key) => (
+					<Route key={key} path={route.path} element={route.element} />
+				))}
+			</Route>
 
-
-            </Route>
-
-
-
-            <Route element={<ProtectedRoutes />}>
-                <Route path="/dashboard" element={<DashboardMain />}>
-                 <Route index element={<Main1 />} /> 
-
-                </Route>
-                <Route path="/CreateApplication" element={<CreateApplication />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/allApplication" element={<AllApplication />} />
-                <Route path='/send-email' element={<Email />}/>
-                <Route path='/send-sms' element={<SendSMS />}/>
-                <Route path='/send-push' element={<SendPush />}/>
-                <Route path="/VIewDetails/:id" element={<ViewDetails/>} />
-                <Route path="/email" element={<Email/>} />
-                <Route path="/sms" element={<Sms/>} />
-
-                <Route path="/appDetails" element={<AppDetails/>} />
-                <Route path="/sendpushnotification" element={<PushNotification/>} />
-                <Route path="/sendemail" element={<SendEmail/>} />
-                <Route path="/smsnotification" element={<SmsNotifiaction/>} />
-                <Route path="/trail" element={<Trail/>} />
-                <Route path="*" element={<ErrorPage/>} />
-               
-
-            </Route>
-
-        </Routes>
-    )
+			<Route path="*" element={<ErrorPage />} />
+		</Routes>
+	)
 }
 
-export default Routers;
+export default Routers
