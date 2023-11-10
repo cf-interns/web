@@ -11,10 +11,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         getUsers: build.query<UserResponse, void>({
             query: () => '/users',
             // keepUnusedDataFor: 5,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            providesTags: (result, error, arg) => result ? [...result.map(({_id}) => ({type: 'User' as const, _id })), 'User'] : ['User']
         }),
         getSpecificUser: build.query<User, void>({
             query: () => `/users/`,
-            // keepUnusedDataFor: ,
+            keepUnusedDataFor: 1,
         }),
         changePassword: build.mutation<UserPassword, UserChangePasswordResponse>({
             query(body) {
@@ -24,7 +26,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                     body
                 }
             },
-            invalidatesTags: [{ type: 'Passwords', id: 'PASS' }],
+            invalidatesTags: [{ type: 'User', id: 'Password' }],
         })
     })
 })

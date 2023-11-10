@@ -30,19 +30,18 @@ const AllApplication = () => {
 	// const { id } = useParams();
 
 	const [updateAppStatus] = useUpdateAppStatusMutation()
-	console.log(updateAppStatus)
 
 	// app({status: 'ACTIVE'})
 
 	let result
 
 	if (isLoading) {
-		result = <h1>Loading ...</h1>
+		result = <h1 className="text-2xl text-center font-bold align-center">Loading Apps ...</h1>
 	} else if (isSuccess) {
 		result = (
 			<DashboardLayout>
 				<div className="border w-full">
-					<div className="flex px-2 divide-x-2 mt-8  w-full">
+					<div className="flex px-2 divide-x-2 mt-8  w-full gap-2">
 						<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
 							All Applications
 						</h1>
@@ -114,29 +113,7 @@ const AllApplication = () => {
 						</nav>
 					</div>
 
-					{/* This needs to rendered dynamically by mapping through the number apps the user has created */}
-					{/* 	<div className=" flex ml-8 p-6 mt-10 h-80 overflow-hidden">
-						<div className="w-full p-1 bg-white rounded-md shadow-xl shadow-rose-600/40 ring ring-2 ring-emerald-600 lg:max-w-xl">
-							<div className="flex justify-between bg-[teal] text-white h-[100px]">
-								<h1 className="uppercase text-[20px] mt-16">gns</h1>
-								<p className="mt-20">view Details</p>
-							</div>
-							<div>
-								<div className="flex justify-between">
-									<p className="mt-3">status: Active</p>
-									<button
-										className="bg-[teal] text-white rounded-lg mt-6 px-[20px] h-[25px] text-[15px]"
-										type="button"
-									>
-										Deactivate
-									</button>
-								</div>
-								<div className="mt-6">
-									<p>Created: 20/09/2023</p>
-								</div>
-							</div>
-						</div>
-					</div> */}
+				
 
 					<div className="mt-5 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-5 pb-5">
 						{apps.map((app, i) => {

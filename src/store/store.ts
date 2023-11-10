@@ -5,6 +5,7 @@ import authReducer from './features/auth/authSlice.ts';
 import appReducer from './features/application/appSlice.ts';
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore,} from "redux-persist";
+import { setupListeners } from "@reduxjs/toolkit/query";
 
 
 const rootpersistConfig = {
@@ -51,3 +52,5 @@ export type RootState = ReturnType<typeof store.getState>
 
 //Infered types: {user: UserStae}
 export type AppDispatch = typeof store.dispatch
+
+setupListeners(store.dispatch)

@@ -3,15 +3,16 @@ import { ErrorMessage, Field, Form, Formik /* useField */ } from "formik"
 import * as Yup from "yup"
 import "../createapp.css"
 import { Label } from "flowbite-react"
-import { Link } from "react-router-dom"
+
 import DashboardLayout from "../components/DashboardLayout"
+import { ToastContainer, toast } from "react-toastify";
+ import "react-toastify/dist/ReactToastify.css";
 
 const CreateApplication = () => {
-	const [createApp, { isLoading }] = useCreateAppMutation()
+	const [createApp, { isLoading, }] = useCreateAppMutation()
+	const notifySucess = () => toast("App Created Successfully");
 
-	const content = isLoading ? (
-		<h1>Submitting ...</h1>
-	) : (
+	return (
 		<Formik
 			initialValues={{
 				appName: "",
@@ -28,6 +29,8 @@ const CreateApplication = () => {
 			onSubmit={async (values) => {
 				try {
 					const data = await createApp(values).unwrap()
+					notifySucess()
+
 					return data
 
 					//Navigate Somewhre
@@ -97,19 +100,17 @@ const CreateApplication = () => {
 								className="text-red-500 text-xs italic"
 							/>
 
-							<Link to="//allApplication">
-								<button className="btn" type="submit">
-									Submit
-								</button>
-							</Link>
+							<button className="btn" type="submit">
+								{isLoading ? "Submitting ..." : "Submit"}
+							</button>
 						</Form>
+						<ToastContainer />
 					</div>
 				</div>
 			</DashboardLayout>
 		</Formik>
 	)
 
-	return content
 }
 
 export default CreateApplication

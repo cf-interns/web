@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode } from "react"
+import  { Fragment, ReactNode } from "react"
 import SidebarV2 from "./SidebarV2"
 import { NavbarDash } from "./Dashboard"
 interface props{
@@ -10,7 +10,7 @@ export default function DashboardLayout(props: props) {
 	return (
 		<Fragment>
 			<div className="flex h-full overflow-y">
-				<div className="basis-[14%] h-[100vh] ">
+				<div className="w-fit h-[100vh] ">
 					<SidebarV2 />
 				</div>
 				<div className="border w-full bg-gray-300">

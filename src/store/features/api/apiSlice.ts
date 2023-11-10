@@ -71,9 +71,9 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, 
 
 
 export const apiSlice = createApi({
-  baseQuery: baseQueryWithReauth,
-  
- /*  extractRehydrationInfo(
+	baseQuery: baseQueryWithReauth,
+
+	/*  extractRehydrationInfo(
     action, { reducerPath }
   ) {
     if (action.type === REHYDRATE) {
@@ -88,8 +88,9 @@ export const apiSlice = createApi({
     
   }, */
 
-  tagTypes: ['Apps', 'Passwords', 'SMS'],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  endpoints: _builder => ({})
+	tagTypes: ["Apps", /* "Passwords", */ "User"],
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	endpoints: (_builder) => ({}),
+  keepUnusedDataFor: 60,
 })
 
