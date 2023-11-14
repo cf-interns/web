@@ -131,13 +131,25 @@ const AllApplication = () => {
 									</h5>
 
 									<div
-										className="cursor-pointer flex p-2 gap-2 text-white bg-teal-900 w-28 rounded-lg"
+										className="cursor-pointer justify-center flex p-2 gap-2 text-white bg-teal-900 w-fit   rounded-lg"
 										onClick={() => {
-											updateAppStatus({ _id: app?._id, status: "ACTIVE" })
+											updateAppStatus({
+												_id: app?._id,
+												status: app.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
+											})
 											console.log(updateAppStatus)
 										}}
 									>
-										{isLoading ? <CustomLoader /> : 'Activate'}
+										{isLoading ? (
+											<>
+												<CustomLoader />
+												Activating...
+											</>
+										) : app.status === "ACTIVE" ? (
+											"Desactivate"
+										) : (
+											"Activate"
+										)}
 									</div>
 
 									<div className="font-normal text-gray-900 dark:text-white">
