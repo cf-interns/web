@@ -109,7 +109,7 @@ export default function SidebarV2() {
 											</Tooltip>
 										) : (
 											<>
-												<BsMenuButtonWide size={30} />
+												<BsMenuButtonWide size={14} />
 												All Applications
 											</>
 										)}
@@ -128,7 +128,7 @@ export default function SidebarV2() {
 											</Tooltip>
 										) : (
 											<>
-												<IoCreateOutline size={30} />
+												<IoCreateOutline size={18} />
 												Create application
 											</>
 										)}
