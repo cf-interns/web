@@ -88,6 +88,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
                     url: `/applications/${_id}/status`,
                     method: 'PATCH',
                     body,
+                    
                 }
             },
 
