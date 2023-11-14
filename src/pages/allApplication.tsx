@@ -12,6 +12,7 @@ import "../createapp.css"
 import { Button, Card } from "flowbite-react"
 import { Link } from "react-router-dom"
 import DashboardLayout from "../components/DashboardLayout"
+import CustomLoader from "../components/CustomLoader"
 
 // import { format } from "date-fns";
 
@@ -36,7 +37,11 @@ const AllApplication = () => {
 	let result
 
 	if (isLoading) {
-		result = <h1 className="text-2xl text-center font-bold align-center">Loading Apps ...</h1>
+		result = (
+			<h1 className="text-2xl text-center font-bold align-center">
+				Loading Apps ...
+			</h1>
+		)
 	} else if (isSuccess) {
 		result = (
 			<DashboardLayout>
@@ -113,8 +118,6 @@ const AllApplication = () => {
 						</nav>
 					</div>
 
-				
-
 					<div className="mt-5 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-5 pb-5">
 						{apps.map((app, i) => {
 							return (
@@ -128,13 +131,13 @@ const AllApplication = () => {
 									</h5>
 
 									<div
-										className="cursor-pointer text-white bg-teal-900 px-6 w-28 rounded-lg"
+										className="cursor-pointer flex p-2 gap-2 text-white bg-teal-900 w-28 rounded-lg"
 										onClick={() => {
 											updateAppStatus({ _id: app?._id, status: "ACTIVE" })
 											console.log(updateAppStatus)
 										}}
 									>
-										Activate
+										{isLoading ? <CustomLoader /> : 'Activate'}
 									</div>
 
 									<div className="font-normal text-gray-900 dark:text-white">
