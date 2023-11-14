@@ -48,7 +48,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
         }),  */
         getSpecificApp: build.query<App, string>({
             query: (_id) => `/applications/${_id}`,
-            // keepUnusedDataFor: 60
+            keepUnusedDataFor: 10
         }),
 
 

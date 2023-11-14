@@ -1,8 +1,9 @@
-import { Button, Label, TextInput } from "flowbite-react"
+
 import thumbnail from "../assets/avatar.jpeg"
 import { ErrorMessage, Field, Form, Formik /* useField */ } from "formik"
 import * as Yup from "yup"
-
+import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+// import Link from 'next/link';
 import { useChangePasswordMutation } from "../store/features/user/usersApiSlice"
 import { Link } from "react-router-dom"
 import DashboardLayout from "../components/DashboardLayout"
@@ -115,20 +116,23 @@ const Settings = () => {
 						</ol>
 					</nav>
 				</div>
-				{/* <h1 className='text-2xl font-bold p-2 text-start ml-[54px]'>Account Settings</h1> */}
+		
 
-				<div className="flex flex-col w-[80vw] mt-20 ml-10 p-2 rounded">
-					<div className="flex flex-col w-[60vw] m-auto p-2 rounded">
+				{/* <div className="flex justify-center">
+					<div className="flex flex-col m-auto p-2 rounded">
 						<div className=" h-[50%]" id="userInfo">
+
+
+
 							<h1 className="text-md p-2">User Settings</h1>
-							<div className="flex justify-evenly items-center p-2 m-auto h-[95%] gap-10 bg-white rounded-xl">
+							<div className="flex justify-evenly items-center p-5 m-auto gap-2 bg-white rounded-xl dark:bg-gray-800 ">
 								<div className="">
-									<img src={thumbnail} className="rounded" alt="" />
+								
 								</div>
 								<div></div>
-								<div className="">
-									<form className="flex flex-col gap-2 w-[60vw]">
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+								<div className="flex w-[60vw]">
+									<form className="flex flex-col gap-2 ">
+										<div className="flex flex-col gap-2 whitespace-nowrap ">
 											<Label
 												htmlFor="firstName"
 												value="First Name"
@@ -136,13 +140,13 @@ const Settings = () => {
 												className="text-sm"
 											/>
 											<TextInput
-												placeholder="John"
+												placeholder="Johnstevenson"
 												sizing="sm"
 												style={{ backgroundColor: "white" }}
 											/>
 										</div>
 
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+										<div className="flex flex-col gap-2 whitespace-nowrap ">
 											<Label
 												htmlFor="firstName"
 												value="Last Name"
@@ -150,68 +154,50 @@ const Settings = () => {
 												className="text-sm"
 											/>
 											<TextInput
-												placeholder="John"
+												placeholder="John@gmail.com"
 												sizing="sm"
 												style={{ backgroundColor: "white" }}
+												
 											/>
-										</div>
-
-										<div className="flex flex-col gap-2 w-80">
-											<Label
-												htmlFor="firstName"
-												value="Email"
-												color="text-dark"
-												className="text-sm mr-8"
-											/>
-											<TextInput
-												placeholder="John"
-												sizing="sm"
-												style={{ backgroundColor: "white" }}
-											/>
+											
 										</div>
 
 										<Button
 											size="sm"
-											className="w-full rounded-md self-center p-2 m-2 text-green-200"
-											style={{ backgroundColor: "rgb(31 41 55 / 1" }}
-										/>
-										<h6 className="text-white hover:text-white">Upadat Info</h6>
-										<Button
-											size="sm"
-											className="w-full rounded-md p-2 m-2 text-green-200 w-80"
+											className="w-full rounded-md p-2  mt-5 mb-5 text-green-200 "
 											color="green"
 										>
 											<h6 className="text-black">Update Info</h6>
 										</Button>
 									</form>
+									<div className="text-red-500">hello</div>
 								</div>
 							</div>
 						</div>
 
 						<br />
-
-						<div id="changePassword" className="h-[50%] bg-white rounded-xl">
-							<h1 className="text-md p-2">Change Password</h1>
-							<div className="flex justify-evenly items-center p-2 m-auto h-[95%] gap-32">
+	                    <h1 className="text-md p-2">Change password</h1>
+						<div id="changePassword" className="h-[50%] bg-white dark:bg-gray-800 rounded-xl">
+							<div className="flex justify-evenly items-center p-2 m-auto  gap-8">
 								<div className="">
-									<img src={thumbnail} className="rounded" alt="" />
+								
 								</div>
-								<div className="grow">
-									<Form className="flex flex-col gap-2 w-[60vw]">
-										<div className="flex flex-col gap-2 whitespace-nowrapp w-80">
+								<div className="flex w-[60vw]">
+									<Form className="flex flex-col gap-2 ">
+										<div className="flex flex-col gap-2 whitespace-nowrapp ">
 											<Label
-												htmlFor="Old Password"
+												htmlFor="old Password"
 												value="Old Password"
 												color="text-dark"
 												className="text-sm "
 											/>
 											<Field
-												placeholder="John"
+												placeholder="OLd Password"
 												id="oldPassword"
 												type="oldPassword"
 												name="oldPassword"
 												sizing="sm"
-												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2"
 												color="black"
 											/>
 										</div>
@@ -221,7 +207,7 @@ const Settings = () => {
 											className="text-red-500 text-xs italic"
 										/>
 
-										<div className="flex flex-col gap-2 whitespace-nowrapp w-80">
+										<div className="flex flex-col gap-2 whitespace-nowrapp ">
 											<Label
 												htmlFor="New Password"
 												value="New Password"
@@ -229,23 +215,15 @@ const Settings = () => {
 												className="text-sm "
 											/>
 											<Field
-												placeholder="Jokjjk%43!=hn"
+												placeholder="New Password"
 												id="newPassword"
 												sizing="sm"
 												type="newPassword"
 												name="newPassword"
-												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2"
 												color="black"
 											/>
-											<Field
-												placeholder=".................."
-												id="newPassword"
-												sizing="sm"
-												type="newPassword"
-												name="newPassword"
-												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-												color=""
-											/>
+									
 										</div>
 										<ErrorMessage
 											name="newPassword"
@@ -257,28 +235,79 @@ const Settings = () => {
 											as="button"
 											type="submit"
 											size="sm"
-											className="w-full rounded-md self-center p-2 m-2 text-green-200"
-											style={{ backgroundColor: "rgb(31 41 55 / 1" }}
-										/>
-										<h6 className="text-white hover:text-white">
-											Change Password
-										</h6>
-
-										<Button
-											as="button"
-											type="submit"
-											size="sm"
-											className="w-full rounded-md p-2 m-2 text-green-200 w-80"
+											className="w-full rounded-md p-2  mt-5 mb-5 text-green-200 "
 											color="green"
 										>
 											<h6 className="text-black">Change Password</h6>
 										</Button>
 									</Form>
+									<div className="text-red-500">hello</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> */}
+				<div className="flex gap-32 justify-center mt-20 flex-col  w-100">
+					
+					<div className="flex gap-20 justify-center  ">
+                <form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 ">
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="email2" value="Your email" />
+        </div>
+        <TextInput id="email2" type="email" placeholder="name@flowbite.com" required shadow />
+      </div>
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="password2" value="Your password" />
+        </div>
+        <TextInput id="password2" type="password" required sizing="md"/>
+      </div>
+   
+        
+      <div className="flex items-center gap-2">
+        <Checkbox id="agree" />
+        <Label htmlFor="agree" className="flex">
+          I agree with the&nbsp;
+          <Link href="#" className="text-cyan-600 hover:underline dark:text-cyan-500">
+            terms and conditions
+          </Link>
+        </Label>
+      </div>
+      <Button type="submit">Register new account</Button>
+    </form>
+
+
+	<form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20  ">
+   
+   
+      
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="password2" value="Your password" />
+        </div>
+        <TextInput id="password2" type="password" required shadow />
+      </div>
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="repeat-password" value="Repeat password" />
+        </div>
+        <TextInput id="repeat-password" type="password" required shadow />
+      </div>
+      <div className="flex items-center gap-2">
+        <Checkbox id="agree" />
+        <Label htmlFor="agree" className="flex">
+          I agree with the&nbsp;
+          <Link href="#" className="text-cyan-600 hover:underline dark:text-cyan-500">
+            terms and conditions
+          </Link>
+        </Label>
+      </div>
+      <Button type="submit">Register new account</Button>
+    </form>
+	</div>		
+	</div>
+
 			</DashboardLayout>
 		</Formik>
 	)

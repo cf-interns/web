@@ -164,7 +164,7 @@ const AllApplication = () => {
 										<p>Status: {app.status}</p>
 										<p>Created: {app.createdAt.toString()}</p>
 									</div>
-									<Link to={`/ViewDetails/${app._id}`}>
+									<Link to={`/appDetail/${app._id}`}>
 										<Button>
 											<p className="mr-1">View Details</p>
 											<FiArrowRight />
