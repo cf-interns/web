@@ -41,6 +41,9 @@ export const appApiSlice = apiSlice.injectEndpoints({
         getAllApps: build.query<AppResponse ,void>({
             query: () => '/applications',
              keepUnusedDataFor: 5,
+             // eslint-disable-next-line @typescript-eslint/no-unused-vars
+             providesTags: ['Apps']
+             
         }),
 
 /* 
@@ -49,6 +52,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
         getSpecificApp: build.query<App, string>({
             query: (_id) => `/applications/${_id}`,
             // keepUnusedDataFor: 60
+            providesTags: ['Apps']
         }),
 
 
@@ -73,7 +77,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
                 }
             },
 
-            invalidatesTags: [{type: 'Apps', id: 'LIST'}],
+            invalidatesTags: ['Apps'],
         }),
 
 
