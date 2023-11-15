@@ -22,10 +22,11 @@ export default function SidebarV2() {
 	return (
 		<Sidebar
 			aria-label="SidebarV2"
-			style={{ boxShadow: "none" }}
+			style={{ boxShadow: "none"}}
 			collapsed={collapse}
+			className="bg-gray-50 dark:bg-gray-800"
 		>
-			<Sidebar.Items>
+			<Sidebar.Items >
 				<Sidebar.ItemGroup className="h-full flex-col ">
 					<div className="mb-9 text-2xl text-white flex justify-between">
 						{!collapse && (

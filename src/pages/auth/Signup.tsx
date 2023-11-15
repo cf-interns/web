@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 
 YupPassword(Yup)
 import { useSignUpMutation } from "../../store/features/auth/authApiSlice";
+import CustomLoader from "../../components/CustomLoader"
 
 /* type InputProps = {
     label: string;
@@ -239,7 +240,15 @@ const Signup = () => {
 										href="#"
 										className="font-medium text-primary-600 hover:underline dark:text-primary-500"
 									>
-										Login here
+										{/* Login here */}
+
+										{isLoading ? (
+											<>
+												<CustomLoader />
+												Signing in...
+											</>
+										) : "Signin"
+										}
 									</a>
 								</p>
 							</Form>
