@@ -3,6 +3,7 @@ import { apiSlice } from './features/api/apiSlice';
 
 import authReducer from './features/auth/authSlice.ts';
 import appReducer from './features/application/appSlice.ts';
+import notificationReducer from './features/notifications/notificationsSlice.ts'
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore,} from "redux-persist";
 import { setupListeners } from "@reduxjs/toolkit/query";
@@ -14,14 +15,15 @@ const rootpersistConfig = {
     version: 1,
     storage, 
     //check other engines
-    // blacklist: ['app']
+     blacklist: ['notification']
 }
 
 const rootReducer = combineReducers({
 
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authReducer,
-    app: appReducer
+    app: appReducer,
+    notification: notificationReducer
 })
 
 const persistedReducer = persistReducer(rootpersistConfig,rootReducer)
