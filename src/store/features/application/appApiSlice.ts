@@ -31,7 +31,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
         sendSMS: build.mutation<EmailResponse, Partial<SMS>>({
             query({id, message, mobiles}){
                 return {
-                    url: `/sms/sendsms/${id}`,
+                    url: `/notifications/send-sms/${id}`,
                     method: 'POST',
                     body: {message, mobiles}
                 }
@@ -54,7 +54,6 @@ export const appApiSlice = apiSlice.injectEndpoints({
             // keepUnusedDataFor: 60
             providesTags: ['Apps']
         }),
-
 
         deleteApp: build.mutation<{success: boolean; _id: number}, number>({
             query(_id) {
