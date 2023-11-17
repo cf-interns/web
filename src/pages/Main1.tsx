@@ -12,7 +12,14 @@ import sent from "../assets/compose-mail-14297.png"
 import sms from "../assets/sms-8687.svg"
 import notif from "../assets/notification-bell-5743.svg"
 import email from "../assets/email-8704.png"
-import NotificationTable from "./notifiTable"
+import NotificationTable from "./notifiTable";
+
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.min.css'
+
+
+// import "primereact/resources/themes/lara-light-indigo/theme.css"
+// import 'primereact/resources/primereact.min.css'; //core css
 
 const data = [
 	{
@@ -75,7 +82,7 @@ const Main1 = () => {
 					Dashboard
 				</h1>
 				<div
-					className=" bg-gray-100 flex items-center justify-center bg-gray-100 m-4 rounded"
+					className="  flex items-center justify-center bg-gray-100 m-4 rounded"
 					id="Widgets"
 				>
 					<div className="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
@@ -199,7 +206,7 @@ const Main1 = () => {
 							</LineChart>
 						</div>
 					</div>
-					<div className="mb-5 ">
+					<div className="mb-5">
 						<NotificationTable />
 					</div>
 				</div>
