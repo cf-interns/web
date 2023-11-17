@@ -20,6 +20,7 @@ import { useGetAllNotificationsQuery } from "../store/features/notifications/not
 import { useState } from "react"
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
 import { Dialog } from "primereact/dialog"
+import NotificationData from "../components/NotificationData"
 
 function NotificationTable() {
 	const { data: realData } = useGetAllNotificationsQuery({
@@ -252,7 +253,8 @@ function NotificationTable() {
 		>
 			<DataTable
 				// header={header}
-				value={realData?.notifications}
+				// value={realData?.notifications}
+				value={data}
 				sortMode="multiple"
 				// tableStyle={{ minWidth: "50rem", padding: "10rem" }}
 				showGridlines
@@ -377,16 +379,16 @@ function NotificationTable() {
 						border: "1px solid lightgray",
 					}}
 					body={(row) => (
-							<Button
-								label="Show"
-								icon="pi pi-external-link mr-2"
-								onClick={() => {
-									setVisible(true)
-									setSelectedNotif(row)
-								}}
-								severity="info"
-								className="hover:bg-gray-200 w-fit p-2"
-							/>
+						<Button
+							label="Show"
+							icon="pi pi-external-link mr-2"
+							onClick={() => {
+								setVisible(true)
+								setSelectedNotif(row)
+							}}
+							severity="info"
+							className="hover:bg-gray-200 w-fit p-2"
+						/>
 					)}
 				/>
 			</DataTable>
@@ -398,14 +400,101 @@ function NotificationTable() {
 				onHide={() => setVisible(false)}
 				className="bg-gray-300"
 			>
+			<NotificationData />
+			</Dialog>
+		</div>
+	)
+}
+export default NotificationTable
 
-				<div id="app" className="bg-gray-200 w-fit h-fit">
-					<div className="w-fit mx-auto px-8 py-8">
-						<h2 className="uppercase font-bold text-gray-600 text-3xl text-center pb-8">
-							Notification # 4000
-						</h2>
-						<div className="relative">
-							<table className="sm:shadow-2xl border-collapse w-full">
+/* 
+<Table hoverable>
+			<Table.Head>
+				<Table.HeadCell classNameName="p-4">
+					<Checkbox />
+				</Table.HeadCell>
+				<Table.HeadCell>Product name</Table.HeadCell>
+				<Table.HeadCell>Color</Table.HeadCell>
+				<Table.HeadCell>Category</Table.HeadCell>
+				<Table.HeadCell>Price</Table.HeadCell>
+				<Table.HeadCell>
+					<span className="sr-only">Edit</span>
+				</Table.HeadCell>
+				<Table.HeadCell>
+					<span className="sr-only">Delete</span>
+				</Table.HeadCell>
+			</Table.Head>
+			<Table.Body className="divide-y">
+				<Table.Row className="bg-white">
+					<Table.Cell className="p-4">
+						<Checkbox />
+					</Table.Cell>
+					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
+						{'Apple MacBook Pro 17"'}
+					</Table.Cell>
+					<Table.Cell>Sliver</Table.Cell>
+					<Table.Cell>Laptop</Table.Cell>
+					<Table.Cell>$2999</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Edit
+						</a>
+					</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Delete
+						</a>
+					</Table.Cell>
+				</Table.Row>
+				<Table.Row className="bg-white">
+					<Table.Cell className="p-4">
+						<Checkbox />
+					</Table.Cell>
+					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
+						Microsoft Surface Pro
+					</Table.Cell>
+					<Table.Cell>White</Table.Cell>
+					<Table.Cell>Laptop PC</Table.Cell>
+					<Table.Cell>$1999</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Edit
+						</a>
+					</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Delete
+						</a>
+					</Table.Cell>
+				</Table.Row>
+				<Table.Row className="bg-white">
+					<Table.Cell className="p-4">
+						<Checkbox />
+					</Table.Cell>
+					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
+						Magic Mouse 2
+					</Table.Cell>
+					<Table.Cell>Black</Table.Cell>
+					<Table.Cell>Accessories</Table.Cell>
+					<Table.Cell>$99</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Edit
+						</a>
+					</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Delete
+						</a>
+					</Table.Cell>
+				</Table.Row>
+			</Table.Body>
+		</Table> */
+
+
+/* 
+
+	<table className="sm:shadow-2xl border-collapse w-full">
 								<thead className="sm:visible invisible absolute sm:relative bg-gray-100">
 									<tr className="border-t-2 border-gray-400 sm:flexxx sm:inline-block">
 										<th className="text-left text-gray-700 capitalize px-4 py-4">
@@ -556,95 +645,4 @@ function NotificationTable() {
 									</tr>
 								</tbody>
 							</table>
-						</div>
-					</div>
-				</div>
-			</Dialog>
-		</div>
-	)
-}
-export default NotificationTable
-
-/* 
-<Table hoverable>
-			<Table.Head>
-				<Table.HeadCell classNameName="p-4">
-					<Checkbox />
-				</Table.HeadCell>
-				<Table.HeadCell>Product name</Table.HeadCell>
-				<Table.HeadCell>Color</Table.HeadCell>
-				<Table.HeadCell>Category</Table.HeadCell>
-				<Table.HeadCell>Price</Table.HeadCell>
-				<Table.HeadCell>
-					<span className="sr-only">Edit</span>
-				</Table.HeadCell>
-				<Table.HeadCell>
-					<span className="sr-only">Delete</span>
-				</Table.HeadCell>
-			</Table.Head>
-			<Table.Body className="divide-y">
-				<Table.Row className="bg-white">
-					<Table.Cell className="p-4">
-						<Checkbox />
-					</Table.Cell>
-					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
-						{'Apple MacBook Pro 17"'}
-					</Table.Cell>
-					<Table.Cell>Sliver</Table.Cell>
-					<Table.Cell>Laptop</Table.Cell>
-					<Table.Cell>$2999</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Edit
-						</a>
-					</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Delete
-						</a>
-					</Table.Cell>
-				</Table.Row>
-				<Table.Row className="bg-white">
-					<Table.Cell className="p-4">
-						<Checkbox />
-					</Table.Cell>
-					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
-						Microsoft Surface Pro
-					</Table.Cell>
-					<Table.Cell>White</Table.Cell>
-					<Table.Cell>Laptop PC</Table.Cell>
-					<Table.Cell>$1999</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Edit
-						</a>
-					</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Delete
-						</a>
-					</Table.Cell>
-				</Table.Row>
-				<Table.Row className="bg-white">
-					<Table.Cell className="p-4">
-						<Checkbox />
-					</Table.Cell>
-					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
-						Magic Mouse 2
-					</Table.Cell>
-					<Table.Cell>Black</Table.Cell>
-					<Table.Cell>Accessories</Table.Cell>
-					<Table.Cell>$99</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Edit
-						</a>
-					</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Delete
-						</a>
-					</Table.Cell>
-				</Table.Row>
-			</Table.Body>
-		</Table> */
+*/		

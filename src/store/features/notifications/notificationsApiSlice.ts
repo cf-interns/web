@@ -23,9 +23,10 @@ export const notificationApiSlice = apiSlice.injectEndpoints({
 			query(args) {
 				const { appToken } = args
 				return {
-					url: `notifications/all-notifications/${appToken}`,
+					url: `notifications/all-notifications/${appToken}`, 
 				}
 			},
+			// getTotalSMS: 
 		}),
 	}),
 })
