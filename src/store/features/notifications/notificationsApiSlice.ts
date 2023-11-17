@@ -26,6 +26,8 @@ export const notificationApiSlice = apiSlice.injectEndpoints({
 					url: `notifications/all-notifications/${appToken}`, 
 				}
 			},
+			providesTags: ['Notifications'],
+			// invalidatesTags: (_id) => [{type: 'Notifications', _id}]
 			// getTotalSMS: 
 		}),
 	}),

@@ -1,43 +1,53 @@
+import { Notification } from "../interfaces/notifications.interface"
 
-const NotificationData = () => {
-  return (
-		<div id="app" className="bg-gray-200 w-fit h-fit">
-			<div className="w-fit mx-auto px-8 py-8 h-fit">
+const NotificationData = (props: { prop: Notification }) => {
+	const { prop } = props 
+	
+	return (
+		<div id="app" className="bg-gray-100 m-auto w-fit h-fit">
+			<div className="w-fit mx-auto  px-8 py-8 h-fit">
 				<h2 className="uppercase font-bold text-gray-600 text-3xl text-center pb-8">
-					Notification # 4000
+					{`${prop.notification_type} Notification`}
 				</h2>
 
-				<div className="shadow-lg flex h-fit gap-4 justify-between">
+				<div className="shadow-lg flex h-fit gap-4 justify-between p-2 m-2">
 					<div id="NotifInfo">
 						<h1 className="text-2xl mb-3">Notification Data</h1>
 						<div className="flex flex-col p-2">
-							<label className="text-md "># ID</label>
-							<p className="font-bold text-xl text-black">
-								yuyhjjhvj#HJBjhjJ#JHJHVHJ
+							<label className="text-lg "># ID</label>
+							<p className="font-bold text-xl text-black ">
+								{prop?._id || 'N/A'}
 							</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md "> Title</label>
-							<p className="font-bold text-xl text-black">GNS 1</p>
-						</div>
-						<div className="flex flex-col p-2">
-							<label className="text-md  ">Body</label>
+							<label className="text-lg "> Title</label>
 							<p className="font-bold text-xl text-black">
-								Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-								Reprehenderit 1
+								{prop?.title ? prop.title : "N/A"}
 							</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md  ">Recipient</label>
-							<p className="font-bold text-xl text-black">124587521821</p>
+							<label className="text-lg  ">Body</label>
+							<p className="font-bold text-xl text-black">
+								{prop?.body || "Lorem Ipseum kvikjavsasjkas"}
+							</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md  ">Sent at:</label>
-							<p className="font-bold text-xl text-black">02/02/23 09:00P M</p>
+							<label className="text-lg  ">Recipient</label>
+							<p className="font-bold text-xl text-black">
+								{prop?.recipient || "N/A"}
+							</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md  ">Subject</label>
-							<p className="font-bold text-xl text-black">GNS URGENT!</p>
+							<label className="text-lg  ">Sent at:</label>
+							<p className="font-bold text-xl text-black">
+								{prop?.created_at ? prop.created_at.toLocaleString() : "N/A"}
+							</p>
+						</div>
+						<div className="flex flex-col p-2">
+							<label className="text-lg  ">Subject</label>
+							<p className="font-bold text-xl text-black">
+								{prop?.subject || "N/A"}
+							</p>
 						</div>
 					</div>
 
@@ -45,55 +55,61 @@ const NotificationData = () => {
 						<div className="flex flex-col p-2">
 							<h1 className="text-2xl mb-3">Notification Status</h1>
 
-							<label className="text-md">Status</label>
+							<label className="text-lg">Status</label>
 							<p className="font-bold text-xl text-green-400">ACTIVE</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md">Token</label>
+							<label className="text-lg">Token</label>
 							<p className="font-bold text-xl text-black">
-								iujkjkdskjbkj465758856h6%$
+								{prop?.author?.token}
 							</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md">Provider</label>
-							<p className="font-bold text-xl text-black">Nexah</p>
+							<label className="text-lg">Provider</label>
+							<p className="font-bold text-xl text-black">{prop?.provider}</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md">Type</label>
-							<p className="font-bold text-xl text-black">SMS</p>
+							<label className="text-lg">Type</label>
+							<p className="font-bold text-xl text-black">
+								{prop?.notification_type}
+							</p>
 						</div>
 					</div>
 					<div id="NotifAppDetail">
 						<div className="flex flex-col p-2">
 							<h1 className="text-2xl mb-3">Application Data</h1>
 
-							<label className="text-md">App Name</label>
-							<p className="font-bold text-xl ">GNS TEST APP 1</p>
+							<label className="text-lg">App Name</label>
+							<p className="font-bold text-xl ">{prop?.author?.appName}</p>
 						</div>
-						<div className="flex flex-col p-2">
-							<label className="text-md">App Token</label>
+					{/* 	<div className="flex flex-col p-2">
+							<label className="text-lg">App Token</label>
 							<p className="font-bold text-xl text-black">
-								iujkjkdskjbkj465758856h6%$
+								{prop?.author?.token}
 							</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md">App # ID</label>
-							<p className="font-bold text-xl text-black">lkjblflbeljfl</p>
+							<label className="text-lg">App # ID</label>
+							<p className="font-bold text-xl text-black">
+								{prop?.author?._id}
+							</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md">App Status</label>
+							<label className="text-lg">App Status</label>
 							<p className="font-bold text-xl text-green-400">ACTIVE</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-md">Created On</label>
-							<p className="font-bold text-xl text-black">02/02/23</p>
-						</div>
-						<div className="flex flex-col p-2">
-							<label className="text-md">Decription</label>
+							<label className="text-lg">Created On</label>
 							<p className="font-bold text-xl text-black">
-								Lorem ipsum dolor sit amet consectetur adipisicing{" "}
+								{prop?.author?.createdAt.toLocaleString()}
 							</p>
 						</div>
+						<div className="flex flex-col p-2">
+							<label className="text-lg">Decription</label>
+							<p className="font-bold text-xl text-black">
+								{prop?.author?.description}
+							</p>
+						</div> */}
 					</div>
 				</div>
 			</div>
