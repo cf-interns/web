@@ -59,6 +59,14 @@ const data = [
 	},
 ]
 
+
+// const { emailTotalQuantity } = useSelector((state) => state.email);
+// const { smsTotalQuantity } = useSelector((state) => state.sms);
+// const { notificationTotalQuantity } = useSelector((state) => state.notification);
+// const { TotalQuantity } = useSelector((state) => state.total);
+
+
+
 const Main1 = () => {
 	return (
 		<DashboardLayout>
