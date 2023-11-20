@@ -13,6 +13,7 @@ import SmsNotification from "../pages/Smsnotification"
 import SendEmail from "../pages/SendEmail"
 import Settings from "../pages/settings"
 import Main1 from "../pages/Main1"
+import UsersTable from "../pages/UsersTable"
 
 const protectedRoutes = [
 	{
@@ -70,6 +71,10 @@ const protectedRoutes = [
 	{
 		path: "/trail",
 		element: <Trail />,
+	},
+	{
+		path: "/users",
+		element: <UsersTable />,
 	},
 ]
 

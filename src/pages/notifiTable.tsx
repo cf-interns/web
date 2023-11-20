@@ -20,92 +20,91 @@ import { useGetAllNotificationsQuery } from "../store/features/notifications/not
 import { useState } from "react"
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
 import { Dialog } from "primereact/dialog"
-import NotificationData from "../components/NotificationData"
-import { Notification } from "../interfaces/notifications.interface"
+import { Notification } from "../interfaces/notifications.interface";
+import { store } from "../store/store"
+
 
 function NotificationTable() {
 	const { data: realData } = useGetAllNotificationsQuery({
-		appToken: "8e59360a-e326-4828-8a5f-d9eafa93ae12",
+		appToken: "642c7d0d-4fdc-4c8e-9f3e-4ecb71ccf6f0",
 	})
 
 	// console.log("test", realData)'
 	const [visible, setVisible] = useState(false)
-	const [selectedNotif, setSelectedNotif] = useState<Notification>();
-	const [globalFilterValue, setGlobalFilterValue] = useState<string>("")
+	const [selectedNotif, setSelectedNotif] = useState<Notification>()
 
-
-	// const data = [
-	// 	{
-	// 		_id: 1,
-	// 		title: "Title 1",
-	// 		body: "Lorem Ipseum",
-	// 		status: "PENDING",
-	// 		type: "SMS",
-	// 	},
-	// 	{
-	// 		_id: 2,
-	// 		title: "Title 2",
-	// 		body: "Lorem Ipseum",
-	// 		status: "SUCCESS",
-	// 		type: "EMAIL",
-	// 	},
-	// 	{
-	// 		_id: 3,
-	// 		title: "Title 3",
-	// 		body: "Lorem Ipseum 3",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 4,
-	// 		title: "Title 4",
-	// 		body: "Lorem Ipseum 4",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 5,
-	// 		title: "Title 5",
-	// 		body: "Lorem Ipseum 5",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 6,
-	// 		title: "Title 6",
-	// 		body: "Lorem Ipseum 6",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 7,
-	// 		title: "Title 7",
-	// 		body: "Lorem Ipseum 7",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 8,
-	// 		title: "Title 8",
-	// 		body: "Lorem Ipseum 8",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 9,
-	// 		title: "Title 9",
-	// 		body: "Lorem Ipseum 9",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 10,
-	// 		title: "Title 10",
-	// 		body: "Lorem Ipseum 10",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// ]
+	const data = [
+		{
+			_id: 1,
+			title: "Title 1",
+			body: "Lorem Ipseum",
+			status: "PENDING",
+			type: "SMS",
+		},
+		{
+			_id: 2,
+			title: "Title 2",
+			body: "Lorem Ipseum",
+			status: "SUCCESS",
+			type: "EMAIL",
+		},
+		{
+			_id: 3,
+			title: "Title 3",
+			body: "Lorem Ipseum 3",
+			status: "FAILED",
+			type: "PUSH",
+		},
+		{
+			_id: 4,
+			title: "Title 4",
+			body: "Lorem Ipseum 4",
+			status: "FAILED",
+			type: "PUSH",
+		},
+		{
+			_id: 5,
+			title: "Title 5",
+			body: "Lorem Ipseum 5",
+			status: "FAILED",
+			type: "PUSH",
+		},
+		{
+			_id: 6,
+			title: "Title 6",
+			body: "Lorem Ipseum 6",
+			status: "FAILED",
+			type: "PUSH",
+		},
+		{
+			_id: 7,
+			title: "Title 7",
+			body: "Lorem Ipseum 7",
+			status: "FAILED",
+			type: "PUSH",
+		},
+		{
+			_id: 8,
+			title: "Title 8",
+			body: "Lorem Ipseum 8",
+			status: "FAILED",
+			type: "PUSH",
+		},
+		{
+			_id: 9,
+			title: "Title 9",
+			body: "Lorem Ipseum 9",
+			status: "FAILED",
+			type: "PUSH",
+		},
+		{
+			_id: 10,
+			title: "Title 10",
+			body: "Lorem Ipseum 10",
+			status: "FAILED",
+			type: "PUSH",
+		},
+	]
 
 	const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />
 	const paginatorRight = <Button type="button" icon="pi pi-download" text />
@@ -644,4 +643,95 @@ export default NotificationTable
 									</tr>
 								</tbody>
 							</table>
-*/		
+						</div>
+					</div>
+				</div>
+			</Dialog>
+		</div>
+	)
+}
+export default NotificationTable
+
+/* 
+<Table hoverable>
+			<Table.Head>
+				<Table.HeadCell classNameName="p-4">
+					<Checkbox />
+				</Table.HeadCell>
+				<Table.HeadCell>Product name</Table.HeadCell>
+				<Table.HeadCell>Color</Table.HeadCell>
+				<Table.HeadCell>Category</Table.HeadCell>
+				<Table.HeadCell>Price</Table.HeadCell>
+				<Table.HeadCell>
+					<span className="sr-only">Edit</span>
+				</Table.HeadCell>
+				<Table.HeadCell>
+					<span className="sr-only">Delete</span>
+				</Table.HeadCell>
+			</Table.Head>
+			<Table.Body className="divide-y">
+				<Table.Row className="bg-white">
+					<Table.Cell className="p-4">
+						<Checkbox />
+					</Table.Cell>
+					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
+						{'Apple MacBook Pro 17"'}
+					</Table.Cell>
+					<Table.Cell>Sliver</Table.Cell>
+					<Table.Cell>Laptop</Table.Cell>
+					<Table.Cell>$2999</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Edit
+						</a>
+					</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Delete
+						</a>
+					</Table.Cell>
+				</Table.Row>
+				<Table.Row className="bg-white">
+					<Table.Cell className="p-4">
+						<Checkbox />
+					</Table.Cell>
+					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
+						Microsoft Surface Pro
+					</Table.Cell>
+					<Table.Cell>White</Table.Cell>
+					<Table.Cell>Laptop PC</Table.Cell>
+					<Table.Cell>$1999</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Edit
+						</a>
+					</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Delete
+						</a>
+					</Table.Cell>
+				</Table.Row>
+				<Table.Row className="bg-white">
+					<Table.Cell className="p-4">
+						<Checkbox />
+					</Table.Cell>
+					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
+						Magic Mouse 2
+					</Table.Cell>
+					<Table.Cell>Black</Table.Cell>
+					<Table.Cell>Accessories</Table.Cell>
+					<Table.Cell>$99</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Edit
+						</a>
+					</Table.Cell>
+					<Table.Cell>
+						<a href="#" className="font-medium text-cyan-600 hover:underline ">
+							Delete
+						</a>
+					</Table.Cell>
+				</Table.Row>
+			</Table.Body>
+		</Table> */
