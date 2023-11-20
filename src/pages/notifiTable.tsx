@@ -23,7 +23,6 @@ import { Dialog } from "primereact/dialog"
 import { Notification } from "../interfaces/notifications.interface";
 import { store } from "../store/store"
 
-import { store } from "../store/store"
 // import { useDispatch } from "react-redux"
 import { setUpNotifications } from "../store/features/notifications/notificationsSlice"
 
