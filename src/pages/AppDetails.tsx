@@ -52,32 +52,32 @@ const AppDetails = () => {
 						
 						<div className="flex flex-col items-center pb-10 m-4">
 
-							<h5 className="text-2xl text-right font-meduim mb-8 ">Application Details</h5>
+							<h5 className="text-2xl text-right font-meduim mb-8 text-teal-700 dark:text-white ">Application Details</h5>
 							<div className="grid grid-flow-row-dense grid-cols-3 gap-4 grid-rows-3 m-4...">
 
 								<div className="m-4 p-0">
 									<h1 className="text-zinc-600">Application name</h1>
-									<p className="text-[white]">{app?.appName}</p>
+									<p className="text-zinc-700 font-bold dark:text-white">{app?.appName}</p>
 								</div>
 								<div className="m-4 p-0">
 									<h1 className="text-zinc-600">ID</h1>
-									<p className="text-[white]">{app?._id}</p>
+									<p className="text-zinc-700 font-bold dark:text-white">{app?._id}</p>
 								</div>
 								<div className="m-4 p-0">
 									<h1 className="text-zinc-600">Application status</h1>
-									<p className="text-[white]">{app?.status}</p>
+									<p className="text-zinc-700 font-bold dark:text-white">{app?.status}</p>
 								</div>
 								<div className="m-4 p-0">
 									<h1 className="text-zinc-600">Created date</h1>
-									<p className="text-[white]">{app?.createdAt.toString()}</p>
+									<p className="text-black font-bold dark:text-white">{app?.createdAt.toString()}</p>
 								</div>
 								<div className="m-4 p-0">
 									<h1 className="text-zinc-600">Token</h1>
-									<p className="text-[white]">{app?.token}</p>
+									<p className="text-zinc-700 font-bold dark:text-white">{app?.token}</p>
 								</div>
 								<div className="m-4 p-0">
 									<h1 className="text-zinc-600">App Description</h1>
-									<p className="text-[white]">{app?.description}</p>
+									<p className="text-zinc-700 font-bold dark:text-white">{app?.description}</p>
 								</div>
 								<div className="m-4 p-0 col-span-3 p-2 m-2">
 									<div>

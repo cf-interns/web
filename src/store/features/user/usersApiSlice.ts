@@ -29,4 +29,4 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     })
 })
 
-export const { useGetUsersQuery, useGetSpecificUserQuery, useChangePasswordMutation } = usersApiSlice
+export const { useGetUsersQuery, useGetSpecificUserQuery, useChangePasswordMutation} = usersApiSlice

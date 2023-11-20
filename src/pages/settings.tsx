@@ -19,27 +19,17 @@ const Settings = () => {
 				oldPassword: "",
 				newPassword: "",
 				confirmPassword: "",
-				email: "",
-				firstName: "",
-				lastName: "",
+
 			}}
 			validationSchema={Yup.object({
-				firstName:Yup.string(),
-				email: Yup.string()
-				.email()
-				.required("email must contain @"),
+		
 				oldPassword: Yup.string()
 					.password()
 					.required("Previous Password is required!"),
 				newPassword: Yup.string()
 					.password()
-					.required("Please enter the new password")
-					.max(25)
-					.min(9)
-					.minUppercase(1, "Must contain atleast 1 uppercase letter")
-					.minLowercase(1, "Must contain atleast 1 lowercase letter")
-					.minNumbers(1, "Must cantain atleast 1 number")
-					.minSymbols(1, "Must contain atleast 1 symbol"),
+					.required("Please enter the new password"),
+			
 					confirmPassword:Yup.string()
 					.password()
 					.required("Please confirm the new password")
@@ -51,7 +41,7 @@ const Settings = () => {
 					console.log(data, "USER PASSWORD++++++")
 					return data
 				} catch (error) {
-					console.log(error)
+					console.log(error);
 				}
 			}}
 		>
@@ -127,142 +117,12 @@ const Settings = () => {
 						</ol>
 					</nav>
 				</div>
-		
-
-				{/* <div className="flex justify-center">
-					<div className="flex flex-col m-auto p-2 rounded">
-						<div className=" h-[50%]" id="userInfo">
-
-
-
-							<h1 className="text-md p-2">User Settings</h1>
-							<div className="flex justify-evenly items-center p-5 m-auto gap-2 bg-white rounded-xl dark:bg-gray-800 ">
-								<div className="">
-								
-								</div>
-								<div></div>
-								<div className="flex w-[60vw]">
-									<form className="flex flex-col gap-2 ">
-										<div className="flex flex-col gap-2 whitespace-nowrap ">
-											<Label
-												htmlFor="firstName"
-												value="First Name"
-												color="text-dark"
-												className="text-sm"
-											/>
-											<TextInput
-												placeholder="Johnstevenson"
-												sizing="sm"
-												style={{ backgroundColor: "white" }}
-											/>
-										</div>
-
-										<div className="flex flex-col gap-2 whitespace-nowrap ">
-											<Label
-												htmlFor="firstName"
-												value="Last Name"
-												color="text-dark"
-												className="text-sm"
-											/>
-											<TextInput
-												placeholder="John@gmail.com"
-												sizing="sm"
-												style={{ backgroundColor: "white" }}
-												
-											/>
-											
-										</div>
-
-										<Button
-											size="sm"
-											className="w-full rounded-md p-2  mt-5 mb-5 text-green-200 "
-											color="green"
-										>
-											<h6 className="text-black">Update Info</h6>
-										</Button>
-									</form>
-									<div className="text-red-500">hello</div>
-								</div>
-							</div>
-						</div>
-
-						<br />
-	                    <h1 className="text-md p-2">Change password</h1>
-						<div id="changePassword" className="h-[50%] bg-white dark:bg-gray-800 rounded-xl">
-							<div className="flex justify-evenly items-center p-2 m-auto  gap-8">
-								<div className="">
-								
-								</div>
-								<div className="flex w-[60vw]">
-									<Form className="flex flex-col gap-2 ">
-										<div className="flex flex-col gap-2 whitespace-nowrapp ">
-											<Label
-												htmlFor="old Password"
-												value="Old Password"
-												color="text-dark"
-												className="text-sm "
-											/>
-											<Field
-												placeholder="OLd Password"
-												id="oldPassword"
-												type="oldPassword"
-												name="oldPassword"
-												sizing="sm"
-												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2"
-												color="black"
-											/>
-										</div>
-										<ErrorMessage
-											name="oldPassword"
-											component="div"
-											className="text-red-500 text-xs italic"
-										/>
-
-										<div className="flex flex-col gap-2 whitespace-nowrapp ">
-											<Label
-												htmlFor="New Password"
-												value="New Password"
-												color="text-dark"
-												className="text-sm "
-											/>
-											<Field
-												placeholder="New Password"
-												id="newPassword"
-												sizing="sm"
-												type="newPassword"
-												name="newPassword"
-												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2"
-												color="black"
-											/>
-									
-										</div>
-										<ErrorMessage
-											name="newPassword"
-											component="div"
-											className="text-red-500 text-xs italic"
-										/>
-
-										<Button
-											as="button"
-											type="submit"
-											size="sm"
-											className="w-full rounded-md p-2  mt-5 mb-5 text-green-200 "
-											color="green"
-										>
-											<h6 className="text-black">Change Password</h6>
-										</Button>
-									</Form>
-									<div className="text-red-500">hello</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> */}
+	
 				<div className="flex  justify-start mt-10 flex-col  ">
 					
 					<div className="flex gap-20 justify-start m-10  ">
-                <form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md ">
-				<h1 className=" mb-4 font-extrabold text-3xl text-center text-teal-900 dark:text-white">User Info</h1>
+                {/* <form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md pl-">
+				<h1 className=" mb-4 font-extrabold text-3xl text-center text-teal-900 dark:text-white">User Information</h1>
 					<div className="flex flex-wrap gap-2 justify-center">
      
       <Avatar rounded />
@@ -299,11 +159,11 @@ const Settings = () => {
 												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-80 p-2"
 												color="black"
 											/>
-												{/* <ErrorMessage
+												<ErrorMessage
 											name="email"
 											component="div"
 											className="text-red-500 text-xs italic"
-										/> */}
+										/>
       </div>
       <div>
         <div className="mb-2 block">
@@ -318,30 +178,29 @@ const Settings = () => {
 												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-80 p-2"
 												color="black"
 											/>
-												{/* <ErrorMessage
+												<ErrorMessage
 											name="email"
 											component="div"
 											className="text-red-500 text-xs italic"
 										/>
-		 */}
+		
       </div>
         
       <div className="flex items-center gap-2 rounded-md">
-        {/* <Checkbox id="agree" /> */}
+   
         <Label htmlFor="agree" className="flex">
-          {/* I agree with the&nbsp; */}
+    
           <Link to="#" className="text-cyan-600 hover:underline dark:text-cyan-500">
-            {/* terms and conditions */}
-          </Link>
+           </Link>
         </Label>
       </div>
 	  <button type="submit"  className="bg-teal-500 text-black  hover:bg-teal-700 text-white font-bold py-2 px-4 border-b-4 border-teal-900 hover:border-teal-900 rounded w-80 bg-red-900  dark:text-white ">
 Update User
 </button>
-    </form>
+    </form> */}
 
 
-	<form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md  ">
+	<Form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md  ">
    
    <h1 className=" mb-4 font-extrabold text-3xl text-center text-teal-900 dark:text-white">Change password</h1>
    <div className="flex flex-wrap gap-2 justify-center">
@@ -401,19 +260,23 @@ Update User
 										/>
       </div>
       <div className="flex items-center gap-2">
-        {/* <Checkbox id="agree" /> */}
+    
         <Label htmlFor="agree" className="flex">
-          {/* I agree with the&nbsp; */}
+       
           <Link to="#" className="text-cyan-600 hover:underline dark:text-cyan-500 ">
-            {/* terms and conditions */}
+          
           </Link>
         </Label>
       </div>
-	  <button type="submit"  className="bg-teal-500 text-black  hover:bg-teal-700 text-white font-bold py-2 px-4 border-b-4 border-teal-900 hover:border-teal-900 rounded w-80 bg-red-900  dark:text-white ">
+	  <button type="submit" onClick={() => console.log('Clicked!!')}  className="bg-teal-500 text-black  hover:bg-teal-700 text-white font-bold py-2 px-4 border-b-4 border-teal-900 hover:border-teal-900 rounded w-80 bg-red-900  dark:text-white ">
 Update password
 </button>
-    </form>
+
+    </Form>
 	</div>		
+	</div>
+	<div>
+		
 	</div>
 
 			</DashboardLayout>
