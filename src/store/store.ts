@@ -15,7 +15,7 @@ const rootpersistConfig = {
     version: 1,
     storage, 
     //check other engines
-     blacklist: ['notification']
+    //  blacklist: ['notification']
 }
 
 const rootReducer = combineReducers({

@@ -5,7 +5,7 @@ import { Label } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
 
 const SendEmail = () => {
-	const appId = "0d6cc5e8-48f2-47cd-a035-ee98b4f65cc4"
+	const appId = "c9649ec3-8b56-488d-8fe8-6cb2310b791b"
 	const [sendEmail, { isLoading }] = useSendEmailMutation()
 
 	return (

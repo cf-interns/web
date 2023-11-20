@@ -5,7 +5,7 @@ import { Label } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
 
 const SendSMS = () => {
-	const appId = "8e59360a-e326-4828-8a5f-d9eafa93ae12"
+	const appId = "cf850751-9960-447c-bb92-c9bb168f4caa"
 	const [sendSMS, { isLoading /* isSuccess */ }] = useSendSMSMutation()
 
 	return (

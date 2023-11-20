@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from "../../store";
+import { Notification } from "../../../interfaces/notifications.interface";
 
 
 type NotificationsState = {
