@@ -9,11 +9,12 @@ import { persistReducer, persistStore } from "redux-persist"
 import { setupListeners } from "@reduxjs/toolkit/query"
 
 const rootpersistConfig = {
-	key: "root",
-	version: 1,
-	storage,
-	//check other engines
-	//  blacklist: ['notification']
+
+    key: 'root',
+    version: 1,
+    storage, 
+    //check other engines
+     blacklist: ['notification']
 }
 
 const rootReducer = combineReducers({

@@ -32,10 +32,10 @@ const protectedRoutes = [
 		path: "/allApplication",
 		element: <AllApplication />,
 	},
-	{
+	/* {
 		path: "/send-email",
 		element: <Email />,
-	},
+	}, */
 	{
 		path: "/send-sms",
 		element: <SendSMS />,
