@@ -25,6 +25,7 @@ import { store } from "../store/store"
 
 // import { useDispatch } from "react-redux"
 import { setUpNotifications } from "../store/features/notifications/notificationsSlice"
+import NotificationData from "../components/NotificationData"
 
 function NotificationTable() {
 	const { data: realData } = useGetAllNotificationsQuery({
