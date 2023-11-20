@@ -2,7 +2,7 @@
 import thumbnail from "../assets/avatar.jpeg"
 import { ErrorMessage, Field, Form, Formik /* useField */ } from "formik"
 import * as Yup from "yup"
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Avatar, Label, TextInput } from 'flowbite-react';
 // import Link from 'next/link';
 import { useChangePasswordMutation } from "../store/features/user/usersApiSlice"
 import { Link } from "react-router-dom"
@@ -19,8 +19,15 @@ const Settings = () => {
 				oldPassword: "",
 				newPassword: "",
 				confirmPassword: "",
+				email: "",
+				firstName: "",
+				lastName: "",
 			}}
 			validationSchema={Yup.object({
+				firstName:Yup.string(),
+				email: Yup.string()
+				.email()
+				.required("email must contain @"),
 				oldPassword: Yup.string()
 					.password()
 					.required("Previous Password is required!"),
@@ -33,6 +40,10 @@ const Settings = () => {
 					.minLowercase(1, "Must contain atleast 1 lowercase letter")
 					.minNumbers(1, "Must cantain atleast 1 number")
 					.minSymbols(1, "Must contain atleast 1 symbol"),
+					confirmPassword:Yup.string()
+					.password()
+					.required("Please confirm the new password")
+				
 			})}
 			onSubmit={async (values) => {
 				try {
@@ -247,63 +258,160 @@ const Settings = () => {
 						</div>
 					</div>
 				</div> */}
-				<div className="flex gap-32 justify-center mt-20 flex-col  w-100">
+				<div className="flex  justify-start mt-10 flex-col  ">
 					
-					<div className="flex gap-20 justify-center  ">
-                <form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 ">
+					<div className="flex gap-20 justify-start m-10  ">
+                <form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md ">
+				<h1 className=" mb-4 font-extrabold text-3xl text-center text-teal-900 dark:text-white">User Info</h1>
+					<div className="flex flex-wrap gap-2 justify-center">
+     
+      <Avatar rounded />
+    </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="email2" value="Your email" />
+          <Label htmlFor="email2" value="User email" />
         </div>
-        <TextInput id="email2" type="email" placeholder="name@flowbite.com" required shadow />
+		<Field
+												placeholder="email Address"
+												id="eamil"
+												type=""
+												name="email"
+												sizing="sm"
+												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-80 p-2"
+												color="black"
+											/>
+												<ErrorMessage
+											name="email"
+											component="div"
+											className="text-red-500 text-xs italic"
+										/>
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="password2" value="Your password" />
+          <Label htmlFor="password2" value="first name" />
         </div>
-        <TextInput id="password2" type="password" required sizing="md"/>
+		<Field
+												placeholder="first name"
+												id="text"
+												type=""
+												name="text"
+												sizing="sm"
+												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-80 p-2"
+												color="black"
+											/>
+												{/* <ErrorMessage
+											name="email"
+											component="div"
+											className="text-red-500 text-xs italic"
+										/> */}
       </div>
-   
+      <div>
+        <div className="mb-2 block">
+          <Label htmlFor="password2" value="User Last name" />
+        </div>
+		<Field
+												placeholder="last name"
+												id="text"
+												type=""
+												name="text"
+												sizing="sm"
+												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-80 p-2"
+												color="black"
+											/>
+												{/* <ErrorMessage
+											name="email"
+											component="div"
+											className="text-red-500 text-xs italic"
+										/>
+		 */}
+      </div>
         
-      <div className="flex items-center gap-2">
-        <Checkbox id="agree" />
+      <div className="flex items-center gap-2 rounded-md">
+        {/* <Checkbox id="agree" /> */}
         <Label htmlFor="agree" className="flex">
-          I agree with the&nbsp;
-          <Link href="#" className="text-cyan-600 hover:underline dark:text-cyan-500">
-            terms and conditions
+          {/* I agree with the&nbsp; */}
+          <Link to="#" className="text-cyan-600 hover:underline dark:text-cyan-500">
+            {/* terms and conditions */}
           </Link>
         </Label>
       </div>
-      <Button type="submit">Register new account</Button>
+	  <button type="submit"  className="bg-teal-500 text-black  hover:bg-teal-700 text-white font-bold py-2 px-4 border-b-4 border-teal-900 hover:border-teal-900 rounded w-80 bg-red-900  dark:text-white ">
+Update User
+</button>
     </form>
 
 
-	<form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20  ">
+	<form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md  ">
    
-   
-      
+   <h1 className=" mb-4 font-extrabold text-3xl text-center text-teal-900 dark:text-white">Change password</h1>
+   <div className="flex flex-wrap gap-2 justify-center">
+     
+	 <Avatar rounded />
+   </div>
       <div>
         <div className="mb-2 block">
           <Label htmlFor="password2" value="Your password" />
         </div>
-        <TextInput id="password2" type="password" required shadow />
+		<Field
+												placeholder="OLd Password"
+												id="oldPassword"
+												type="oldPassword"
+												name="oldPassword"
+												sizing="sm"
+												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-80 p-2"
+												color="black"
+											/>
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="repeat-password" value="Repeat password" />
+          <Label htmlFor="repeat-password" value="Repeat password"  />
         </div>
-        <TextInput id="repeat-password" type="password" required shadow />
+		<Field
+												placeholder="New Password"
+												id="newPassword"
+												sizing="sm"
+												type="newPassword"
+												name="newPassword"
+												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2"
+												color="black"
+											/>
+														<ErrorMessage
+											name="newPassword"
+											component="div"
+											className="text-red-500 text-xs italic"
+										/>
+      </div>
+	  <div>
+        <div className="mb-2 block">
+          <Label htmlFor="repeat-password" value="confirm password"  />
+        </div>
+		<Field
+												placeholder="confirm Password"
+												id="confirmPassword"
+												sizing="sm"
+												type=""
+												name="confirmPassword"
+												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2"
+												color="gray"
+											/>
+														<ErrorMessage
+											name="confirmPassword"
+											component="div"
+											className="text-red-500 text-xs italic"
+										/>
       </div>
       <div className="flex items-center gap-2">
-        <Checkbox id="agree" />
+        {/* <Checkbox id="agree" /> */}
         <Label htmlFor="agree" className="flex">
-          I agree with the&nbsp;
-          <Link href="#" className="text-cyan-600 hover:underline dark:text-cyan-500">
-            terms and conditions
+          {/* I agree with the&nbsp; */}
+          <Link to="#" className="text-cyan-600 hover:underline dark:text-cyan-500 ">
+            {/* terms and conditions */}
           </Link>
         </Label>
       </div>
-      <Button type="submit">Register new account</Button>
+	  <button type="submit"  className="bg-teal-500 text-black  hover:bg-teal-700 text-white font-bold py-2 px-4 border-b-4 border-teal-900 hover:border-teal-900 rounded w-80 bg-red-900  dark:text-white ">
+Update password
+</button>
     </form>
 	</div>		
 	</div>

@@ -33,10 +33,9 @@
     cursor: pointer;
     padding:10px 40px 0px 20px;
     background-color: rgb(208, 208, 208);
-    color: teal;
     margin-top: 20px !important;
     margin-bottom: 20px !important;
-    background-color: rgba(76, 162, 162, 0.47) !important;
+    background-color: rgba(73, 73, 73, 0.47) !important;
     width: 400px;
     border-radius: 10px !important;
 }
@@ -46,7 +45,9 @@
 ErrorMessage{
     color: red !important;
 }
-
+.Textinput{
+    border-radius: 15px !important;
+}
 .btn{
     background-color:teal !important;
     color: white;
@@ -109,12 +110,11 @@ ErrorMessage{
     border-radius: 10px !important;
     transition: 0.5s;
 }
-.header{
-    color: orangered;
-    font-weight:500 ;
-    font-size: 2rem;
-}
+
 .main-container{
     background-color: white;
     opacity: 0.8;  
+}
+input{
+    border-radius: 8px !important;
 }

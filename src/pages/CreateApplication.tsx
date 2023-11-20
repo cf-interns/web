@@ -98,9 +98,10 @@ const CreateApplication = () => {
 							/>
 
 							<Link to="//allApplication">
-								<button className="btn" type="submit">
-									Submit
-								</button>
+							<button type="submit"  className="bg-teal-500 text-black  hover:bg-teal-700 text-white font-bold py-2 px-4 border-b-4 border-teal-900 hover:border-teal-900 rounded w-full bg-red-900  dark:text-white ">
+Update password
+</button>
+
 							</Link>
 						</Form>
 					</div>

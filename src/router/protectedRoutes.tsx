@@ -54,7 +54,7 @@ const protectedRoutes = [
 	},
 	{
 		path: "/appDetail/:id",
-		element: <AppDetail/>,
+		element: <AppDetails/>,
 	},
 	{
 		path: "/sendpushnotification",
