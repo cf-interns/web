@@ -73,9 +73,9 @@ const Main1 = () => {
     </Card>
 			</div>
 			<div className="ml-40 mb-20 mt-5 ">
-      <Box maxW={1200} mx="auto" px={120} pt={4} fontSize="sm">
+      {/* <Box maxW={1200} mx="auto" px={120} pt={4} fontSize="sm">
       <TaskTable />
-    </Box>
+    </Box> */}
 			</div>
 		</DashboardLayout>
 	)
