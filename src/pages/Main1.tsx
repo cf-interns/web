@@ -16,7 +16,7 @@ import NotificationTable from "./notifiTable";
 
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css'
-
+import { store } from "../store/store"
 
 // import "primereact/resources/themes/lara-light-indigo/theme.css"
 // import 'primereact/resources/primereact.min.css'; //core css
@@ -65,6 +65,11 @@ const data = [
 		amt: 2100,
 	},
 ]
+
+
+const getItemsInStore = store.getState();
+console.log(getItemsInStore.notification, 'Store');
+
 
 const Main1 = () => {
 	return (

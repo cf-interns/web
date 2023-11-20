@@ -20,16 +20,27 @@ import { useGetAllNotificationsQuery } from "../store/features/notifications/not
 import { useState } from "react"
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
 import { Dialog } from "primereact/dialog"
+import { Notification } from "../interfaces/notifications.interface";
+import { store } from "../store/store"
+
 
 function NotificationTable() {
 	const { data: realData } = useGetAllNotificationsQuery({
-		appToken: "642c7d0d-4fdc-4c8e-9f3e-4ecb71ccf6f0",
-	})
+		appToken: "cf850751-9960-447c-bb92-c9bb168f4caa",
+	});
+
+	const getItemsInStore = store.getState()
+	console.log(getItemsInStore.notification, "Store")
+
+	const filteredSms = realData?.notifications.filter(
+		(i: Notification) => i.notification_type === "AUTOMATIC"
+	)
+	console.log(filteredSms, 'filtered Notification' )
 
 	// console.log("test", realData)'
 	const [visible, setVisible] = useState(false)
 	const [selectedNotif, setSelectedNotif] = useState<Notification>()
-
+/* 
 	const data = [
 		{
 			_id: 1,
@@ -102,7 +113,7 @@ function NotificationTable() {
 			type: "PUSH",
 		},
 	]
-
+ */
 	const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />
 	const paginatorRight = <Button type="button" icon="pi pi-download" text />
 	const [filters, setFilters] = useState<DataTableFilterMeta>({
@@ -565,86 +576,3 @@ function NotificationTable() {
 }
 export default NotificationTable
 
-/* 
-<Table hoverable>
-			<Table.Head>
-				<Table.HeadCell classNameName="p-4">
-					<Checkbox />
-				</Table.HeadCell>
-				<Table.HeadCell>Product name</Table.HeadCell>
-				<Table.HeadCell>Color</Table.HeadCell>
-				<Table.HeadCell>Category</Table.HeadCell>
-				<Table.HeadCell>Price</Table.HeadCell>
-				<Table.HeadCell>
-					<span className="sr-only">Edit</span>
-				</Table.HeadCell>
-				<Table.HeadCell>
-					<span className="sr-only">Delete</span>
-				</Table.HeadCell>
-			</Table.Head>
-			<Table.Body className="divide-y">
-				<Table.Row className="bg-white">
-					<Table.Cell className="p-4">
-						<Checkbox />
-					</Table.Cell>
-					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
-						{'Apple MacBook Pro 17"'}
-					</Table.Cell>
-					<Table.Cell>Sliver</Table.Cell>
-					<Table.Cell>Laptop</Table.Cell>
-					<Table.Cell>$2999</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Edit
-						</a>
-					</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Delete
-						</a>
-					</Table.Cell>
-				</Table.Row>
-				<Table.Row className="bg-white">
-					<Table.Cell className="p-4">
-						<Checkbox />
-					</Table.Cell>
-					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
-						Microsoft Surface Pro
-					</Table.Cell>
-					<Table.Cell>White</Table.Cell>
-					<Table.Cell>Laptop PC</Table.Cell>
-					<Table.Cell>$1999</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Edit
-						</a>
-					</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Delete
-						</a>
-					</Table.Cell>
-				</Table.Row>
-				<Table.Row className="bg-white">
-					<Table.Cell className="p-4">
-						<Checkbox />
-					</Table.Cell>
-					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
-						Magic Mouse 2
-					</Table.Cell>
-					<Table.Cell>Black</Table.Cell>
-					<Table.Cell>Accessories</Table.Cell>
-					<Table.Cell>$99</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Edit
-						</a>
-					</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Delete
-						</a>
-					</Table.Cell>
-				</Table.Row>
-			</Table.Body>
-		</Table> */
