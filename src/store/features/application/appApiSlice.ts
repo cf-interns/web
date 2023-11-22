@@ -1,23 +1,24 @@
-import { Email, Push, SMS,  } from "../../../interfaces/appService.interface";
-import { App } from "../../../interfaces/application.interface";
-import { apiSlice } from "../api/apiSlice";
+import { Email, Push, SMS } from "../../../interfaces/appService.interface"
+import { App } from "../../../interfaces/application.interface"
+import { apiSlice } from "../api/apiSlice"
 
-type AppResponse = App[];
+type AppResponse = App[]
 //  type SMSResponse = SMS[];
-type EmailResponse = Email[];
- type PushResponse = Push[];
+type EmailResponse = Email[]
+type PushResponse = Push[]
 
 export const appApiSlice = apiSlice.injectEndpoints({
 	endpoints: (build) => ({
 		sendEmail: build.mutation<EmailResponse, Partial<Email>>({
 			query({ id, text, to, from, subject }) {
 				return {
-					url: `/emails/send/${id}`,
+					url: `/notifications/send-email/${id}`,
 					method: "POST",
 					body: { text, subject, to, from },
 				}
 			},
 			invalidatesTags: ["Notifications"],
+			
 		}),
 		sendPush: build.mutation<PushResponse, Partial<Push>>({
 			query({ id, notification, token }) {
@@ -94,7 +95,13 @@ export const appApiSlice = apiSlice.injectEndpoints({
 	}),
 })
 
-
 export const {
-useGetAllAppsQuery, useGetSpecificAppQuery, useDeleteAppMutation, useCreateAppMutation, useUpdateAppStatusMutation, useSendEmailMutation, useSendSMSMutation, useSendPushMutation
+	useGetAllAppsQuery,
+	useGetSpecificAppQuery,
+	useDeleteAppMutation,
+	useCreateAppMutation,
+	useUpdateAppStatusMutation,
+	useSendEmailMutation,
+	useSendSMSMutation,
+	useSendPushMutation,
 } = appApiSlice

@@ -6,10 +6,13 @@ import * as Yup from "yup"
 import { useChangePasswordMutation } from "../store/features/user/usersApiSlice"
 import { Link } from "react-router-dom"
 import DashboardLayout from "../components/DashboardLayout"
+import { useSelector } from "react-redux"
+import { RootState } from "../store/store"
 
 const Settings = () => {
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
-
+	const notifications = useSelector((store: RootState) => store.notification)
+	console.log("notifications", notifications)
 	const content = isLoading ? (
 		<h1>Submitting ...</h1>
 	) : (

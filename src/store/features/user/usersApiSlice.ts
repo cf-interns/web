@@ -27,7 +27,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 }
             },
             invalidatesTags: [{ type: 'User', id: 'Password' }],
-        })
+        }),
     })
 })
 

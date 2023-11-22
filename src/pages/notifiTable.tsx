@@ -16,31 +16,25 @@ import { FilterMatchMode, FilterOperator } from "primereact/api"
 import { InputText } from "primereact/inputtext"
 import { Button } from "primereact/button"
 import { Tag } from "primereact/tag"
-import { useGetAllNotificationsQuery } from "../store/features/notifications/notificationsApiSlice"
+import { NotificationApiResponse } from "../store/features/notifications/notificationsApiSlice"
 import { useState } from "react"
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
 import { Dialog } from "primereact/dialog"
-import { Notification } from "../interfaces/notifications.interface";
-import { store } from "../store/store"
-
+import { Notification } from "../interfaces/notifications.interface"
 // import { useDispatch } from "react-redux"
-import { setUpNotifications } from "../store/features/notifications/notificationsSlice"
 import NotificationData from "../components/NotificationData"
 
-function NotificationTable() {
-	const { data: realData } = useGetAllNotificationsQuery({
-		appToken: "8e59360a-e326-4828-8a5f-d9eafa93ae12",
-	})
-	// const dispatch = useDispatch();
-
-	const getItemsInStore = store.getState()
-	console.log(getItemsInStore.notification.notification, "Store2")
+function NotificationTable({
+	realData,
+}: {
+	realData: NotificationApiResponse | undefined
+}) {
+	// console.log(updateStoreNotifications, "Store2")
 
 	// console.log("test", realData)'
 	const [visible, setVisible] = useState(false)
-	const [selectedNotif, setSelectedNotif] = useState<Notification>();
+	const [selectedNotif, setSelectedNotif] = useState<Notification>()
 	const [globalFilterValue, setGlobalFilterValue] = useState<string>("")
-
 
 	// const data = [
 	// 	{
@@ -412,243 +406,3 @@ function NotificationTable() {
 	)
 }
 export default NotificationTable
-
-/* 
-<Table hoverable>
-			<Table.Head>
-				<Table.HeadCell classNameName="p-4">
-					<Checkbox />
-				</Table.HeadCell>
-				<Table.HeadCell>Product name</Table.HeadCell>
-				<Table.HeadCell>Color</Table.HeadCell>
-				<Table.HeadCell>Category</Table.HeadCell>
-				<Table.HeadCell>Price</Table.HeadCell>
-				<Table.HeadCell>
-					<span className="sr-only">Edit</span>
-				</Table.HeadCell>
-				<Table.HeadCell>
-					<span className="sr-only">Delete</span>
-				</Table.HeadCell>
-			</Table.Head>
-			<Table.Body className="divide-y">
-				<Table.Row className="bg-white">
-					<Table.Cell className="p-4">
-						<Checkbox />
-					</Table.Cell>
-					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
-						{'Apple MacBook Pro 17"'}
-					</Table.Cell>
-					<Table.Cell>Sliver</Table.Cell>
-					<Table.Cell>Laptop</Table.Cell>
-					<Table.Cell>$2999</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Edit
-						</a>
-					</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Delete
-						</a>
-					</Table.Cell>
-				</Table.Row>
-				<Table.Row className="bg-white">
-					<Table.Cell className="p-4">
-						<Checkbox />
-					</Table.Cell>
-					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
-						Microsoft Surface Pro
-					</Table.Cell>
-					<Table.Cell>White</Table.Cell>
-					<Table.Cell>Laptop PC</Table.Cell>
-					<Table.Cell>$1999</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Edit
-						</a>
-					</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Delete
-						</a>
-					</Table.Cell>
-				</Table.Row>
-				<Table.Row className="bg-white">
-					<Table.Cell className="p-4">
-						<Checkbox />
-					</Table.Cell>
-					<Table.Cell className="whitespace-nowrap font-medium text-gray-900 ">
-						Magic Mouse 2
-					</Table.Cell>
-					<Table.Cell>Black</Table.Cell>
-					<Table.Cell>Accessories</Table.Cell>
-					<Table.Cell>$99</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Edit
-						</a>
-					</Table.Cell>
-					<Table.Cell>
-						<a href="#" className="font-medium text-cyan-600 hover:underline ">
-							Delete
-						</a>
-					</Table.Cell>
-				</Table.Row>
-			</Table.Body>
-		</Table> */
-
-
-/* 
-
-	<table className="sm:shadow-2xl border-collapse w-full">
-								<thead className="sm:visible invisible absolute sm:relative bg-gray-100">
-									<tr className="border-t-2 border-gray-400 sm:flexxx sm:inline-block">
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Notification ID
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Status
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Body
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Title
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Subject
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Type
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Provider
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Recipient
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Token
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Request Data
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Response Data
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											Author App
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											App Created On
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											App Description
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											App Token
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											App Status
-										</th>
-										<th className="text-left text-gray-700 capitalize px-4 py-4">
-											App Created On
-										</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr className="bg-white shadow-lg sm:shadow-none mb-6 sm:mb-0 flex flex-row flex-wrap cursor-pointer hover:bg-gray-100 sm:flex-no-wrap border-l-2 border-r-2 hover:border-gray-600">
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												{selectedNotif?.body}
-											</span>
-											{selectedNotif?.body}
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-										<td className="pl-4 pt-8 sm:pt-0 pb-2 text-left relative w-2/4 border-t border-l sm:border-l-0 border-gray-400 sm:flex-1">
-											<span className="font-bold font-thin text-xs text-gray-700 uppercase sm:hidden absolute top-0 inset-x-0 p-1 bg-gray-300 pl-2">
-												DATA
-											</span>
-											DATA
-										</td>
-									</tr>
-								</tbody>
-							</table>
-*/		

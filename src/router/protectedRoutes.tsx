@@ -14,6 +14,7 @@ import SendEmail from "../pages/SendEmail"
 import Settings from "../pages/settings"
 import Main1 from "../pages/Main1"
 import UsersTable from "../pages/UsersTable"
+import Settings2 from "../pages/Settings2"
 
 const protectedRoutes = [
 	{
@@ -26,7 +27,7 @@ const protectedRoutes = [
 	},
 	{
 		path: "/settings",
-		element: <Settings />,
+		element: <Settings2 />,
 	},
 	{
 		path: "/allApplication",
