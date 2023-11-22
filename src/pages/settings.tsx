@@ -6,6 +6,7 @@ import * as Yup from "yup"
 import { useChangePasswordMutation } from "../store/features/user/usersApiSlice"
 import { Link } from "react-router-dom"
 import DashboardLayout from "../components/DashboardLayout"
+import CustomLoader from "../components/CustomLoader"
 import { useSelector } from "react-redux"
 import { RootState } from "../store/store"
 
@@ -47,7 +48,7 @@ const Settings = () => {
 			}}
 		>
 			<DashboardLayout>
-				<div className="flex px-2 divide-x-2 mt-8">
+				<div className="flex px-2 divide-x-2 mt-10">
 					<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
 						Account Settings
 					</h1>
@@ -120,7 +121,7 @@ const Settings = () => {
 				</div>
 				{/* <h1 className='text-2xl font-bold p-2 text-start ml-[54px]'>Account Settings</h1> */}
 
-				<div className="flex flex-col w-[80vw] mt-20 ml-10 p-2 rounded">
+				<div className="flex flex-col w-[80vw] mb-20 ml-10 p-2 rounded">
 					<div className="flex flex-col w-[60vw] m-auto p-2 rounded">
 						<div className=" h-[50%]" id="userInfo">
 							<h1 className="text-md p-2">User Settings</h1>
@@ -172,26 +173,37 @@ const Settings = () => {
 												style={{ backgroundColor: "white" }}
 											/>
 										</div>
-
+										{/* 
 										<Button
 											size="sm"
 											className="w-full rounded-md self-center p-2 m-2 text-green-200"
 											style={{ backgroundColor: "rgb(31 41 55 / 1" }}
 										/>
-										<h6 className="text-white hover:text-white">Upadat Info</h6>
+										<h6 className="text-white hover:text-white">Upadat Info</h6> */}
 										<Button
 											size="sm"
-											className="w-full rounded-md p-2 m-2 text-green-200 w-80"
+											className="w-full rounded-md p-2 m-2  w-80"
 											color="green"
+											style={{ backgroundColor: "teal" }}
 										>
-											<h6 className="text-black">Update Info</h6>
+											{/* <h6 className="text-black">Update Info</h6> */}
+
+											{isLoading ? (
+												<>
+													<CustomLoader />
+													Updating...
+												</>
+											) : (
+												"Update Info"
+											)}
 										</Button>
 									</form>
 								</div>
 							</div>
 						</div>
 
-						<br />
+						<hr />
+						<hr />
 
 						<div id="changePassword" className="h-[50%] bg-white rounded-xl">
 							<h1 className="text-md p-2">Change Password</h1>
@@ -240,22 +252,35 @@ const Settings = () => {
 												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
 												color="black"
 											/>
-											<Field
-												placeholder=".................."
-												id="newPassword"
-												sizing="sm"
-												type="newPassword"
-												name="newPassword"
-												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-												color=""
-											/>
 										</div>
 										<ErrorMessage
 											name="newPassword"
 											component="div"
 											className="text-red-500 text-xs italic"
 										/>
-
+										<div className="flex flex-col gap-2 whitespace-nowrapp w-80">
+											<Label
+												htmlFor="Confirm Password"
+												value="Confirm Password"
+												color="text-dark"
+												className="text-sm "
+											/>
+											<Field
+												placeholder=".................."
+												id="confirmPassword"
+												sizing="sm"
+												type="confirmPassword"
+												name="confirmPassword"
+												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+												color=""
+											/>
+										</div>
+										<ErrorMessage
+											name="confirmPassword"
+											component="div"
+											className="text-red-500 text-xs italic"
+										/>
+										{/* 
 										<Button
 											as="button"
 											type="submit"
@@ -265,16 +290,26 @@ const Settings = () => {
 										/>
 										<h6 className="text-white hover:text-white">
 											Change Password
-										</h6>
+										</h6> */}
 
 										<Button
 											as="button"
 											type="submit"
 											size="sm"
 											className="w-full rounded-md p-2 m-2 text-green-200 w-80"
+											style={{ backgroundColor: "teal" }}
 											color="green"
 										>
-											<h6 className="text-black">Change Password</h6>
+											{/* <h6 className="text-black">Change Password</h6> */}
+
+											{isLoading ? (
+												<>
+													<CustomLoader />
+													Updating...
+												</>
+											) : (
+												"Update Info"
+											)}
 										</Button>
 									</Form>
 								</div>

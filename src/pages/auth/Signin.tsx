@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { useSignInMutation } from "../../store/features/auth/authApiSlice"
 import { setCredentials } from "../../store/features/auth/authSlice"
+import CustomLoader from "../../components/CustomLoader"
 
 YupPassword(Yup)
 
@@ -127,7 +128,13 @@ const Signin = () => {
 										type="submit"
 										className="w-full text-black bg-primary-600  hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:text-white dark:hover:bg-primary-700 dark:focus:ring-primary-800"
 									>
-										Login
+										{isLoading ? (
+											<>
+												<CustomLoader />
+												Loging in...
+											</>
+										) : "Login "
+										}
 									</Button>
 
 									<div className="flex justify-between mt-2">
