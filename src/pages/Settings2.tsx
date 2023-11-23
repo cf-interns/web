@@ -1,18 +1,28 @@
-
-import DashboardLayout from "../components/DashboardLayout";
+import DashboardLayout from "../components/DashboardLayout"
 import avt from "../assets/avatar2.jpeg"
-import { Button } from "primereact/button";
-import { Form, Formik } from "formik";
-import { Label, TextInput } from "flowbite-react";
-import { useChangePasswordMutation } from "../store/features/user/usersApiSlice";
-import * as Yup from 'yup';
-import { InputText } from "primereact/inputtext";
-
+import { Button } from "primereact/button"
+import { Form, Formik } from "formik"
+import { Label } from "flowbite-react"
+import {
+	useChangePasswordMutation,
+	useDeleteUserMutation,
+	useUpdateUserInfoMutation,
+} from "../store/features/user/usersApiSlice"
+import * as Yup from "yup"
+import { InputText } from "primereact/inputtext"
+import { useDispatch } from "react-redux"
+import { logOut } from "../store/features/auth/authSlice"
+import { Navigate } from "react-router-dom"
 
 const Settings2 = () => {
-	const [changePassword, { isLoading }] = useChangePasswordMutation();
+  const dispatch = useDispatch()
+	const [changePassword, { isLoading }] = useChangePasswordMutation()
+	const [changeUserData] = useUpdateUserInfoMutation()
+	const [DeleteUser, { isSuccess }] = useDeleteUserMutation()
+	const user = localStorage.getItem("user")
+	const UserObj = JSON.parse(user)
+	// console.log(obj._id, '<<<=====USER');
 
-	
 	return (
 		<DashboardLayout>
 			<div className="flex flex-col gap-4 h-[90vh] w-fit ml-4">
@@ -34,8 +44,9 @@ const Settings2 = () => {
 								/>
 								<div>
 									<Button
-										label="Change Avatar"
+										label={isLoading ? "Submiting..." : "Save"}
 										size="small"
+										disabled={isLoading}
 										className="w-fit h-[40px] rounded p-2 bg-gray-500 text-white focus:ring-0 hover:bg-green-500"
 									/>
 									<p className="mt-2">JPG, GIF or PNG. 1MB max.</p>
@@ -45,19 +56,20 @@ const Settings2 = () => {
 								<div className="">
 									<Formik
 										initialValues={{
-											FirstName: "",
-											LastName: "",
-											Email: "",
+											firstName: "",
+											lastName: "",
+											email: "",
 										}}
 										validationSchema={Yup.object({
 											FirstName: Yup.string().required(
 												"First Name is required!"
 											),
 											LastName: Yup.string().required("Last Name is required!"),
+											Email: Yup.string().email().required("Email Required!"),
 										})}
 										onSubmit={async (values) => {
 											try {
-												const data = await changePassword(values).unwrap()
+												const data = await changeUserData(values).unwrap()
 												console.log(data, "USER PASSWORD++++++")
 												return data
 											} catch (error) {
@@ -74,12 +86,10 @@ const Settings2 = () => {
 													className="text-sm"
 												/>
 												<InputText
-													placeholder="John"
+													placeholder={UserObj.firstName}
 													type="text"
 													id="firstName"
 													name="firstName"
-													// sizing="sm"
-													// style={{ backgroundColor: "white" }}
 													className="bg-white w-[800px]"
 												/>
 											</div>
@@ -92,11 +102,10 @@ const Settings2 = () => {
 													className="text-sm"
 												/>
 												<InputText
-													placeholder="Doe"
+													placeholder={UserObj.lastName}
 													type="text"
 													name="lastName"
 													id="lastName"
-													// sizing="sm"
 													className="bg-white w-[800px]"
 												/>
 											</div>
@@ -109,11 +118,10 @@ const Settings2 = () => {
 													className="text-sm mr-8"
 												/>
 												<InputText
-													placeholder="Johndoe@mail.com"
+													placeholder={UserObj.email}
 													type="email"
 													name="Email"
 													id="Email"
-													// sizing="sm"
 													className="bg-white w-[800px]"
 												/>
 											</div>
@@ -230,7 +238,8 @@ const Settings2 = () => {
 											</div>
 											<Button
 												className="w-fit h-[40px] rounded p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
-												label="Save"
+												disabled={isLoading}
+												label={isLoading ? "Submiting" : "Save"}
 											/>
 										</Form>
 									</Formik>
@@ -255,7 +264,15 @@ const Settings2 = () => {
 					<div className="">
 						<Button
 							className="w-[200px] rounded p-2 bg-red-500 mt-2 text-white focus:ring-0"
-							label="Yes, Delete My Account"
+							label={isLoading ? "Deleting ..." : "Yes, Delete My Account"}
+							onClick={() => {
+								DeleteUser(UserObj._id)
+							dispatch(logOut());
+							<Navigate to="/" />
+								
+								
+							}}
+							disabled={isLoading}
 						/>
 					</div>
 				</div>
