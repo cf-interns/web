@@ -18,7 +18,7 @@ const Settings2 = () => {
   const dispatch = useDispatch()
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
 	const [changeUserData] = useUpdateUserInfoMutation()
-	const [DeleteUser, { isSuccess }] = useDeleteUserMutation()
+	const [DeleteUser] = useDeleteUserMutation()
 	const user = localStorage.getItem("user")
 	const UserObj = JSON.parse(user)
 	// console.log(obj._id, '<<<=====USER');

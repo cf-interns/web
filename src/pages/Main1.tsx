@@ -66,7 +66,7 @@ const data = [
 
 const Main1 = () => {
 	const { data: realData } = useGetAllNotificationsQuery({
-		appToken: "d64d38e1-9140-44b8-b99d-aba14d92ff7e",
+		appToken: "7f776c23-f318-4f55-a080-8c8cbedeab1b",
 	})
 	console.log('real', realData);
 	

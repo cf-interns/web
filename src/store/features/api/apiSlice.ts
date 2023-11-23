@@ -13,7 +13,7 @@ export interface User {
 	lastName: string
 	email: string
 	_id: string
-	hashedToken: string
+
 }
 
 export interface UserResponse {

@@ -15,7 +15,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: '/auth/sign_up',
                 method: 'POST',
                 body: {...credentials}
-            })
+            }),
+            invalidatesTags: ['User']
         }),
 
         resetPassword: builder.mutation({

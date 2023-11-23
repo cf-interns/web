@@ -13,6 +13,7 @@ const notificationSlice = createSlice({
 		setUpNotifications: (state, { payload: notification }) => {
 			// console.log("Update store", notification)
 			state = {
+				
 				...state,
 				notification,
 			}

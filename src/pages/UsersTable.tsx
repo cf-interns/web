@@ -6,64 +6,21 @@ import { Button } from "primereact/button"
 import { InputText } from "primereact/inputtext"
 import { useState } from "react"
 import { FilterMatchMode } from "primereact/api"
-import { Dialog } from "primereact/dialog"
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
+import { useDeleteUserMutation, useGetSpecificUserQuery, useGetUsersQuery } from "../store/features/user/usersApiSlice"
+import {  useNavigate } from "react-router-dom"
 
 const UsersTable = () => {
-  const [visible, setVisible] = useState(false)
+
 	// const [selectedNotif, setSelectedNotif] = useState(null)
-  interface Stat {
-		actions: ['EDIT', 'DELETE']
-	}
-	const user = [
-		{
-			fname: "John",
-			lname: "Doe",
-			Age: 2,
-			email: "johndoe@mail.com",
-			status: "ACTIVE",
-			actions: ["DELETE", "EDIT", ],
-		},
-		{
-			fname: "Jane",
-			lname: "Doe",
-			Age: 1,
-			email: "janeDoe@mail.com",
-			status: "INACTIVE",
-			actions: ["DELETE", "EDIT"],
-		},
-		{
-			fname: "Jane",
-			lname: "Doe",
-			Age: 1,
-			email: "janeDoe@mail.com",
-			status: "INACTIVE",
-			actions: ["DELETE", "EDIT"],
-		},
-		{
-			fname: "Jane",
-			lname: "Doe",
-			Age: 1,
-			email: "janeDoe@mail.com",
-			status: "ACTIVE",
-			actions: ["DELETE", "EDIT"],
-		},
-		{
-			fname: "Jane",
-			lname: "Doe",
-			Age: 1,
-			email: "janeDoe@mail.com",
-			status: "INACTIVE",
-			actions: ["DELETE", "EDIT"],
-		},
-		{
-			fname: "Jane",
-			lname: "Doe",
-			Age: 1,
-			email: "janeDoe@mail.com",
-			status: "ACTIVE",
-			actions: ["DELETE", "EDIT"],
-		},
-	]
+	const actions = ['DELETE','EDIT'];
+	const navigate = useNavigate()
+	
+
+	const {data: realUsers} = useGetUsersQuery();
+	console.log('users', realUsers)
+     const [deleteUser] = useDeleteUserMutation();
+     const {data:getUser} = useGetSpecificUserQuery();
   const getSeverity = (actions: string) => {
 		switch (actions) {
 			case "DELETE":
@@ -73,25 +30,7 @@ const UsersTable = () => {
 				return "success"
 		}
 	};
-  const statusBodyTemplate = (rowData: Stat) => {
-		return (
-			<div className="flex gap-4">
-				<Tag
-					value={rowData.actions[0]}
-					className="w-[60px] p-2 rounded-md mb-2 cursor-pointer"
-					severity={getSeverity(rowData.actions[0])}
-					onClick={() => {
-						setVisible(true)
-					}}
-				/>
-				<Tag
-					value={rowData.actions[1]}
-					className="w-[60px] p-2 rounded-md mb-2"
-					severity={getSeverity(rowData.actions[1])}
-				/>
-			</div>
-		)
-	};
+  
   const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 		fname: {
@@ -107,7 +46,6 @@ const UsersTable = () => {
       matchMode: FilterMatchMode.CONTAINS
     },
 
-		status: { value: null, matchMode: FilterMatchMode.EQUALS },
 	});
     const [globalFilterValue, setGlobalFilterValue] = useState("");
       const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,10 +83,26 @@ const UsersTable = () => {
 						className="font-bold text-lg bg-gray-200 rounded-xl p-2
 					  hover:text-white hover:bg-xendriixx focus:ring-0"
 						label=" USER"
-						// severity="info"
+						onClick={()=> {
+							navigate("/sign-up")
+							console.log('User');
+							
+						}}
 					/>
 				</div>
 			)
+		};
+		const confirm2 = (row_id: string) => {
+     return confirmDialog({
+				message: "Do you want to delete this User?",
+				header: "Delete Confirmation",
+				icon: "pi pi-info-circle mr-2",
+				acceptClassName: "p-button-danger mr-2",
+				rejectClassName: " mr-[10px]",
+				accept: () => {deleteUser(row_id)},
+				reject: () => {},
+				
+			})
 		}
 
   const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />
@@ -158,7 +112,7 @@ const UsersTable = () => {
 			<div className="flex flex-col items-center justify-items-center justify-center gap-4">
 				<h1 className="text-2xl text-gray-600 ">Users</h1>
 				<DataTable
-					value={user}
+					value={realUsers || undefined}
 					tableStyle={{ minWidth: "50rem", border: "1px solid lightgray" }}
 					className="w-[fit]"
 					showGridlines
@@ -171,13 +125,13 @@ const UsersTable = () => {
 					paginatorRight={paginatorRight}
 					filters={filters}
 					filterDisplay="menu" //===>>
-					globalFilterFields={["fname", "lname", "email", "status"]}
+					globalFilterFields={["firstName", "lastName", "email", ]}
 					header={renderHeader()}
 					emptyMessage="No customers found."
 				>
 					<Column
 						header="First Name"
-						field="fname"
+						field="firstName"
 						style={{
 							minWidth: "12rem",
 							padding: 10,
@@ -186,11 +140,11 @@ const UsersTable = () => {
 						sortable
 						rowReorderIcon
 						filter
-						filterPlaceholder="Search by firts Name"
+						filterPlaceholder="Search by first Name"
 					/>
 					<Column
 						header="Last Name"
-						field="lname"
+						field="lastName"
 						style={{
 							minWidth: "12rem",
 							padding: 10,
@@ -213,51 +167,44 @@ const UsersTable = () => {
 						filterPlaceholder="Search by Email"
 					/>
 					<Column
-						header="Age"
-						field="Age"
+						header="ID"
+						field="_id"
 						style={{
 							minWidth: "12rem",
 							padding: 10,
 							border: "1px solid lightgray",
 						}}
-						sortable
-						// filter
-						// filterPlaceholder="Search by Age"
+				
 					/>
-					<Column
-						header="Status"
-						field="status"
-						body={(row) => {
-							if (row.status === "ACTIVE") {
-								return (
-									<Tag
-										value={row.status}
-										className="w-[80px]"
-										severity="success"
-									/>
-								)
-							} else
-								return (
-									<Tag
-										value={row.status}
-										className="w-[80px]"
-										severity="info"
-									/>
-								)
-						}}
-						style={{
-							minWidth: "12rem",
-							padding: 10,
-							border: "1px solid lightgray",
-						}}
-						sortable
-						filter
-						filterPlaceholder="Search by Status"
-					/>
+				
 					<Column
 						header="Actions"
 						field="actions"
-						body={statusBodyTemplate}
+						body={(row) => {
+							console.log("Row", row._id)
+							return (
+								<div className="flex gap-4">
+									<Tag
+										value={actions[0]}
+										className="w-[60px] p-3 rounded-md mb-2 cursor-pointer"
+										severity={getSeverity(actions[0])}
+										onClick={() => {
+											confirm2(row._id)
+											// setVisible(true)
+										}}
+										// icon="pi pi-times"
+									/>
+									{/* <Button onClick={confirm2} label="Delete"></Button> */}
+
+									<Tag
+										value={actions[1]}
+										className="w-[60px] p-2 rounded-md mb-2"
+										severity={getSeverity(actions[1])}
+										
+									/>
+								</div>
+							)
+						}}
 						style={{
 							minWidth: "12rem",
 							padding: 10,
@@ -265,16 +212,8 @@ const UsersTable = () => {
 						}}
 					/>
 				</DataTable>
-				<Dialog
-					visible={visible}
-					style={{ width: "70vw" }}
-					onHide={() => setVisible(false)}
-					className="bg-gray-300"
-				>
-          <div>
-            <h1>Are You Sure???</h1>
-          </div>
-        </Dialog>
+				<ConfirmDialog />
+				
 			</div>
 		</DashboardLayout>
 	)

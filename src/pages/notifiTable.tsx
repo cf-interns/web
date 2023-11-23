@@ -33,81 +33,10 @@ function NotificationTable({
 
 	// console.log("test", realData)'
 	const [visible, setVisible] = useState(false)
-	const [selectedNotif, setSelectedNotif] = useState<Notification>()
+	const [selectedNotif, setSelectedNotif] = useState<Notification>();
+	console.log(selectedNotif, 'Notifs')
 	const [globalFilterValue, setGlobalFilterValue] = useState<string>("")
 
-	// const data = [
-	// 	{
-	// 		_id: 1,
-	// 		title: "Title 1",
-	// 		body: "Lorem Ipseum",
-	// 		status: "PENDING",
-	// 		type: "SMS",
-	// 	},
-	// 	{
-	// 		_id: 2,
-	// 		title: "Title 2",
-	// 		body: "Lorem Ipseum",
-	// 		status: "SUCCESS",
-	// 		type: "EMAIL",
-	// 	},
-	// 	{
-	// 		_id: 3,
-	// 		title: "Title 3",
-	// 		body: "Lorem Ipseum 3",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 4,
-	// 		title: "Title 4",
-	// 		body: "Lorem Ipseum 4",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 5,
-	// 		title: "Title 5",
-	// 		body: "Lorem Ipseum 5",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 6,
-	// 		title: "Title 6",
-	// 		body: "Lorem Ipseum 6",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 7,
-	// 		title: "Title 7",
-	// 		body: "Lorem Ipseum 7",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 8,
-	// 		title: "Title 8",
-	// 		body: "Lorem Ipseum 8",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 9,
-	// 		title: "Title 9",
-	// 		body: "Lorem Ipseum 9",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// 	{
-	// 		_id: 10,
-	// 		title: "Title 10",
-	// 		body: "Lorem Ipseum 10",
-	// 		status: "FAILED",
-	// 		type: "PUSH",
-	// 	},
-	// ]
 
 	const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />
 	const paginatorRight = <Button type="button" icon="pi pi-download" text />
@@ -166,14 +95,7 @@ function NotificationTable({
 			<div className="flex justify-between p-2 items-center">
 				<div className="">
 					<div className="flex items-center gap-2">
-						{/* <Button
-							type="button"
-							label="Serach By Type"
-							icon="pi pi-filter mr-2"
-							outlined
-							onClick={clearFilter}
-							className="font-bold text-lg bg-gray-300 rounded-2xl p-3 hover:text-black hover:bg-gray-200"
-						/> */}
+					
 						<Button
 							type="button"
 							icon="pi pi-filter-slash mr-2"
@@ -251,11 +173,8 @@ function NotificationTable({
 			style={{ backgroundColor: "whitesmoke" }}
 		>
 			<DataTable
-				// header={header}
 				value={realData?.notifications}
-				// value={data}
 				sortMode="multiple"
-				// tableStyle={{ minWidth: "50rem", padding: "10rem" }}
 				showGridlines
 				stripedRows
 				paginator
@@ -269,11 +188,9 @@ function NotificationTable({
 				dataKey="id"
 				filters={filters}
 				filterDisplay="menu"
-				// loading={}
 				globalFilterFields={["body", "status"]}
 				header={header2}
 				emptyMessage="No Notifications found."
-				// tableClassName="p-2 divide-y"
 				tableStyle={{ minWidth: "50rem" }}
 				size="large"
 				sortOrder={-1}
