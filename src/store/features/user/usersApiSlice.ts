@@ -4,7 +4,7 @@ import {
 } from "../../../interfaces/userData.interface"
 import { User, apiSlice } from "../api/apiSlice"
 
-type UserResponse = User[]
+type UserResponse = []
 
 type UserChangePasswordResponse = UserPassword
 // type ChangeUserInfoApiResponse = UpdateUserInfo
@@ -17,9 +17,10 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			providesTags: ['User']
 		}),
-		getSpecificUser: build.query<User, void>({
-			query: () => `/users/`,
+		getSpecificUser: build.query< User, void>({
+			query: (_id) => `/users/${_id}`,
 			keepUnusedDataFor: 1,
+			
 		}),
 		changePassword: build.mutation<UserPassword, UserChangePasswordResponse>({
 			query(body) {
@@ -29,7 +30,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 					body,
 				}
 			},
-			invalidatesTags: [{ type: "User", id: "Password" }],
+			invalidatesTags: ['User'],
 		}),
 		updateUserInfo: build.mutation<object, UpdateUserInfo>({
 			query(body) {
@@ -47,7 +48,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 					method: "DELETE",
 				}
 			},
-			invalidatesTags: ['Apps']
+			invalidatesTags: ['Apps', 'User']
 		}),
 	}),
 })

@@ -82,34 +82,7 @@ const NotificationData = (props: { prop: Notification }) => {
 							<label className="text-lg">App Name</label>
 							<p className="font-bold text-xl ">{prop?.author?.appName}</p>
 						</div>
-					{/* 	<div className="flex flex-col p-2">
-							<label className="text-lg">App Token</label>
-							<p className="font-bold text-xl text-black">
-								{prop?.author?.token}
-							</p>
-						</div>
-						<div className="flex flex-col p-2">
-							<label className="text-lg">App # ID</label>
-							<p className="font-bold text-xl text-black">
-								{prop?.author?._id}
-							</p>
-						</div>
-						<div className="flex flex-col p-2">
-							<label className="text-lg">App Status</label>
-							<p className="font-bold text-xl text-green-400">ACTIVE</p>
-						</div>
-						<div className="flex flex-col p-2">
-							<label className="text-lg">Created On</label>
-							<p className="font-bold text-xl text-black">
-								{prop?.author?.createdAt.toLocaleString()}
-							</p>
-						</div>
-						<div className="flex flex-col p-2">
-							<label className="text-lg">Decription</label>
-							<p className="font-bold text-xl text-black">
-								{prop?.author?.description}
-							</p>
-						</div> */}
+	
 					</div>
 				</div>
 			</div>
