@@ -2,25 +2,20 @@ import sent from "../assets/compose-mail-14297.png"
 import sms from "../assets/sms-8687.svg"
 import notif from "../assets/notification-bell-5743.svg"
 import email from "../assets/email-8704.png"
-import { RootState } from "../store/store"
 import { useSelector } from "react-redux";
-import { store } from "../store/store";
 import { selectCurrentNotification } from "../store/features/notifications/notificationsSlice"
 
 const Widgets = () => {
-	const notifs = store.getState().notification;
-	console.log(notifs);
+	// const notifs = store.getState().notification;
+	// console.log(notifs);
 
-	const data = useSelector(selectCurrentNotification);
-	console.log('Notifications ===>',data.notification);
+	const data = useSelector(selectCurrentNotification) || [];
+	console.log('Notifications ===>',data);
+	const SMS = data.filter((sms) => sms.notification_type === 'SMS');
+	const EMAILS = data.filter((email) => email.notification_type === 'EMAIL');
+	const PUSH = data.filter((push) => push.notification_type === 'PUSH')
 
-   /*  const SMS = notifs.notification.filter((sms, key) => sms.notification_type === 'SMS');
-	const EMAILS = notifs.notification.filter((email, key) => email.notification_type === 'EMAIL');
-	const PUSH = notifs.notification.filter((push,key) => push.notification_type === 'PUSH'); */
-	// const TOTALNOTIFS = 
-
-    const notifications = useSelector((store: RootState) => store.notification)
-		console.log("notifications", notifications)
+   
 	return (
 		<div
 			className="  flex items-center justify-center bg-gray-100 m-4 rounded"
@@ -35,7 +30,7 @@ const Widgets = () => {
 									<img src={email} />
 								</div>
 								<div className="flex flex-col justify-center">
-									<div className="text-md">4444</div>
+									<div className="text-md">{EMAILS ? EMAILS.length : '4444' }</div>
 									<div className="text-lg font-bold text-gray-800">Emails</div>
 								</div>
 							</div>
@@ -49,7 +44,7 @@ const Widgets = () => {
 									<img src={sms} />
 								</div>
 								<div className="flex flex-col justify-center">
-									<div className="text-md">4444</div>
+									<div className="text-md">{SMS ? SMS.length : '4444'}</div>
 									<div className="text-lg font-bold text-gray-800">SMS</div>
 								</div>
 							</div>
@@ -63,7 +58,7 @@ const Widgets = () => {
 									<img src={notif} />
 								</div>
 								<div className="flex flex-col justify-center">
-									<div className="text-md">4444</div>
+									<div className="text-md">{PUSH ? PUSH.length : '4444'}</div>
 									<div className="text-lg font-bold text-gray-800">Push</div>
 								</div>
 							</div>
@@ -77,7 +72,7 @@ const Widgets = () => {
 									<img src={sent} />
 								</div>
 								<div className="flex flex-col justify-center">
-									<div className="text-md">3456</div>
+									<div className="text-md">{ data ? data.length : '4444'}</div>
 									<div className="text-lg font-bold text-gray-800">Total</div>
 								</div>
 							</div>
