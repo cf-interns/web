@@ -70,13 +70,6 @@ const data = [
 ]
 
 
-// const { emailTotalQuantity } = useSelector((state) => state.email);
-// const { smsTotalQuantity } = useSelector((state) => state.sms);
-// const { notificationTotalQuantity } = useSelector((state) => state.notification);
-// const { TotalQuantity } = useSelector((state) => state.total);
-
-
-
 const Main1 = () => {
 	const {data: sms, isError, isFetching, isLoading, isSuccess} = useGetAllNotificationsBySmsQuery({
 		appToken: '',
