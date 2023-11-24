@@ -3,15 +3,15 @@ import { App } from "./application.interface"
 export interface Notification {
 	_id: string
 
-	title?: string
+	title: string
 
-	body?: string
+	body: string
 
-	icon_url?: string
+	icon_url: string
 
-	author?: App
+	author: App
+	recipient: string
 
-	recipient?: string
 
 	external_id: string
 
@@ -21,7 +21,7 @@ export interface Notification {
 
 	token: string
 
-	provider?: string
+	provider: string
 
 	request_data: string
 

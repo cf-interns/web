@@ -5,8 +5,9 @@ import { Label } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
 
 const SendEmail = () => {
-	const appId = "0d6cc5e8-48f2-47cd-a035-ee98b4f65cc4"
+	const appId = "7f776c23-f318-4f55-a080-8c8cbedeab1b"
 	const [sendEmail, { isLoading }] = useSendEmailMutation()
+	console.log(appId, "IDDD")
 
 	return (
 		<Formik
@@ -117,6 +118,7 @@ const SendEmail = () => {
 							<button
 								type="submit"
 								style={{ backgroundColor: "rgb(31 41 55 / 1)" }}
+								disabled={isLoading}
 								className="self-center text-white border-black rounded-md hover:bg-green-300 p-2 hover:text-white w-full bg-gray-300"
 							>
 								{isLoading ? "Submitting ..." : "Submit"}

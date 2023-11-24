@@ -1,24 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from "../../store";
-
+import { createSlice } from "@reduxjs/toolkit"
+import { RootState } from "../../store"
+import { Notification } from "../../../interfaces/notifications.interface"
 
 type NotificationsState = {
-
-    notification: Notification | null
-};
+	notification: Notification[]
+}
 
 const notificationSlice = createSlice({
-    name: 'notifications',
-    initialState: {notification: null} as NotificationsState,
-    reducers: {
-        setUpNotifications: (state, {payload: {notification}}: PayloadAction<{notification: Notification}>) => {
-            state.notification = notification;
-        },
-    } 
-});
+	name: "notifications",
+	initialState: { notification: [] } as NotificationsState,
+	reducers: {
+		setUpNotifications: (state, { payload: notification }) => {
+			// console.log("Update store", notification)
+			state = {
+				
+				...state,
+				notification,
+			}
 
-export const { setUpNotifications } = notificationSlice.actions;
-export const selectCurrentNotification = (state: RootState) => state.notification
+			return state
+		},
+	},
+})
+
+export const { setUpNotifications } = notificationSlice.actions
+export const selectCurrentNotification = (state: RootState) => state.notification.notification
 
 export default notificationSlice.reducer
