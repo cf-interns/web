@@ -57,6 +57,7 @@ const data = [
 	},
 ]
 
+
 const Main1 = () => {
 	const { data: realData } = useGetAllNotificationsQuery({
 		appToken: "2e66d10c-9137-4b89-ba03-f9a7cffb987a",
