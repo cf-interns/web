@@ -8,6 +8,7 @@ import ViewDetails from "../pages/ViewDetails"
 import Sms from "../pages/sms"
 import AppDetails from "../pages/AppDetails"
 import AppDetail from "../components/AppEmail"
+import Tool from "../pages/Tools"
 import SendPushNotification from "../pages/SendPushnotif"
 import SmsNotification from "../pages/Smsnotification"
 import SendEmail from "../pages/SendEmail"
@@ -37,10 +38,10 @@ const protectedRoutes = [
 		path: "/allApplication",
 		element: <AllApplication />,
 	},
-	/* {
-		path: "/send-email",
-		element: <Email />,
-	}, */
+	 {
+		path: "/tools",
+		element: <Tool />,
+	}, 
 	{
 		path: "/send-sms",
 		element: <SendSMS />,

@@ -65,7 +65,7 @@ const Settings2 = () => {
 												"First Name is required!"
 											),
 											LastName: Yup.string().required("Last Name is required!"),
-											Email: Yup.string().email().required("Email Required!"),
+											email: Yup.string().email().required("Email Required!"),
 										})}
 										onSubmit={async (values) => {
 											try {
@@ -120,12 +120,13 @@ const Settings2 = () => {
 												<InputText
 													placeholder={UserObj.email}
 													type="email"
-													name="Email"
-													id="Email"
+													name="email"
+													id="email"
 													className="bg-white w-[800px]"
 												/>
 											</div>
 											<Button
+											type="submit"
 												className="w-fit h-[40px] rounded p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
 												label="Save"
 											/>

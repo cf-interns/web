@@ -4,10 +4,10 @@ import { Dropdown, Card } from "flowbite-react"
 import { useParams } from "react-router-dom"
 import { useGetSpecificAppQuery,useDeleteAppMutation } from "../store/features/application/appApiSlice"
 import DashboardLayout from "../components/DashboardLayout";
-import {useNavigate} from "react-router-dom"
+import {useNavigate,Link} from "react-router-dom"
 
 const AppDetails = () => {
-
+    
 	const navigate  = useNavigate();
 	const { id } = useParams()
 	const { data: app, isLoading } = useGetSpecificAppQuery(id as string);
@@ -18,17 +18,17 @@ const AppDetails = () => {
 	return (
 	<div>
    <DashboardLayout>	       
-<div className="flex justify-center align-center m-10">
+<div className="flex justify-center align-center m-10 ">
 					<Card className="max-w-2xl " >
 						<div className="flex justify-end px-4 pt-">
-							<Dropdown inline label="">
+							<Dropdown inline label="Drop">
 								<Dropdown.Item>
-									<a
-										href="#"
+									<Link
+										to="/tools"
 										className="block px-4 py-2 bg-teal-600 text-sm text-white dark:text-gray-200 "
 									>
-										Edit app
-									</a>
+										Send Notification
+									</Link>
 								</Dropdown.Item>
 
 								<Dropdown.Item>
@@ -85,7 +85,7 @@ const AppDetails = () => {
 										<div className="flex gap-4">
 											<input type="text" name="token" id="confirm-password" placeholder="URERHKJQWEGASGSG1234324534324AD" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" ></input>
 											
-											<button type="submit" className="btn-btn">Regenerate</button>
+											<button type="submit" className="btn">Regenerate</button>
 										</div>
 									</div>
 								</div>
