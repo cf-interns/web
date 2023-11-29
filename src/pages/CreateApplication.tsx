@@ -9,7 +9,6 @@ import { ToastContainer, toast } from "react-toastify";
  import "react-toastify/dist/ReactToastify.css";
 import CustomLoader from "../components/CustomLoader"
 import { Link, useNavigate } from "react-router-dom"
-import { Divider } from "@chakra-ui/react"
 
 const CreateApplication = () => {
 	const [createApp, { isLoading, }] = useCreateAppMutation()

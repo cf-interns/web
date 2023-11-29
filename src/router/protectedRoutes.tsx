@@ -50,10 +50,10 @@ const protectedRoutes = [
 		path: "/send-push",
 		element: <SendPush />,
 	},
-	{
+	/* {
 		path: "/VIewDetails/:id",
 		element: <ViewDetails />,
-	},
+	}, */
 	{
 		path: "/sms",
 		element: <Sms />,
