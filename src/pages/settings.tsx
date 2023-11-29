@@ -1,16 +1,19 @@
-
 import thumbnail from "../assets/avatar.jpeg"
 import { ErrorMessage, Field, Form, Formik /* useField */ } from "formik"
 import * as Yup from "yup"
-import { Button, Avatar, Label, TextInput } from 'flowbite-react';
+import { Button, Avatar, Label, TextInput } from "flowbite-react"
 // import Link from 'next/link';
 import { useChangePasswordMutation } from "../store/features/user/usersApiSlice"
 import { Link } from "react-router-dom"
 import DashboardLayout from "../components/DashboardLayout"
+import CustomLoader from "../components/CustomLoader"
+import { useSelector } from "react-redux"
+import { RootState } from "../store/store"
 
 const Settings = () => {
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
-
+	const notifications = useSelector((store: RootState) => store.notification)
+	console.log("notifications", notifications)
 	const content = isLoading ? (
 		<h1>Submitting ...</h1>
 	) : (
@@ -19,21 +22,18 @@ const Settings = () => {
 				oldPassword: "",
 				newPassword: "",
 				confirmPassword: "",
-
 			}}
 			validationSchema={Yup.object({
-		
 				oldPassword: Yup.string()
 					.password()
 					.required("Previous Password is required!"),
 				newPassword: Yup.string()
 					.password()
 					.required("Please enter the new password"),
-			
-					confirmPassword:Yup.string()
+
+				confirmPassword: Yup.string()
 					.password()
-					.required("Please confirm the new password")
-				
+					.required("Please confirm the new password"),
 			})}
 			onSubmit={async (values) => {
 				try {
@@ -41,12 +41,12 @@ const Settings = () => {
 					console.log(data, "USER PASSWORD++++++")
 					return data
 				} catch (error) {
-					console.log(error);
+					console.log(error)
 				}
 			}}
 		>
 			<DashboardLayout>
-				<div className="flex px-2 divide-x-2 mt-8">
+				<div className="flex px-2 divide-x-2 mt-10">
 					<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
 						Account Settings
 					</h1>
@@ -117,11 +117,10 @@ const Settings = () => {
 						</ol>
 					</nav>
 				</div>
-	
+
 				<div className="flex  justify-start mt-10 flex-col  ">
-					
 					<div className="flex gap-20 justify-start m-10  ">
-                {/* <form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md pl-">
+						{/* <form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md pl-">
 				<h1 className=" mb-4 font-extrabold text-3xl text-center text-teal-900 dark:text-white">User Information</h1>
 					<div className="flex flex-wrap gap-2 justify-center">
      
@@ -199,86 +198,84 @@ Update User
 </button>
     </form> */}
 
-
-	<Form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md  ">
-   
-   <h1 className=" mb-4 font-extrabold text-3xl text-center text-teal-900 dark:text-white">Change password</h1>
-   <div className="flex flex-wrap gap-2 justify-center">
-     
-	 <Avatar rounded />
-   </div>
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="password2" value="Your password" />
-        </div>
-		<Field
-												placeholder="OLd Password"
-												id="oldPassword"
-												type="oldPassword"
-												name="oldPassword"
-												sizing="sm"
-												className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-80 p-2"
-												color="black"
-											/>
-      </div>
-      <div>
-        <div className="mb-2 block">
-          <Label htmlFor="repeat-password" value="Repeat password"  />
-        </div>
-		<Field
-												placeholder="New Password"
-												id="newPassword"
-												sizing="sm"
-												type="newPassword"
-												name="newPassword"
-												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2"
-												color="black"
-											/>
-														<ErrorMessage
-											name="newPassword"
-											component="div"
-											className="text-red-500 text-xs italic"
-										/>
-      </div>
-	  <div>
-        <div className="mb-2 block">
-          <Label htmlFor="repeat-password" value="confirm password"  />
-        </div>
-		<Field
-												placeholder="confirm Password"
-												id="confirmPassword"
-												sizing="sm"
-												type=""
-												name="confirmPassword"
-												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2"
-												color="gray"
-											/>
-														<ErrorMessage
-											name="confirmPassword"
-											component="div"
-											className="text-red-500 text-xs italic"
-										/>
-      </div>
-      <div className="flex items-center gap-2">
-    
-        <Label htmlFor="agree" className="flex">
-       
-          <Link to="#" className="text-cyan-600 hover:underline dark:text-cyan-500 ">
-          
-          </Link>
-        </Label>
-      </div>
-	  <button type="submit" onClick={() => console.log('Clicked!!')}  className="bg-teal-500 text-black  hover:bg-teal-700 text-white font-bold py-2 px-4 border-b-4 border-teal-900 hover:border-teal-900 rounded w-80 bg-red-900  dark:text-white ">
-Update password
-</button>
-
-    </Form>
-	</div>		
-	</div>
-	<div>
-		
-	</div>
-
+						<Form className="flex max-w-md flex-col gap-4 bg white bg-white rounded-xl dark:bg-gray-800 h-100 p-20 shadow-md  ">
+							<h1 className=" mb-4 font-extrabold text-3xl text-center text-teal-900 dark:text-white">
+								Change password
+							</h1>
+							<div className="flex flex-wrap gap-2 justify-center">
+								<Avatar rounded />
+							</div>
+							<div>
+								<div className="mb-2 block">
+									<Label htmlFor="password2" value="Your password" />
+								</div>
+								<Field
+									placeholder="OLd Password"
+									id="oldPassword"
+									type="oldPassword"
+									name="oldPassword"
+									sizing="sm"
+									className=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-80 p-2"
+									color="black"
+								/>
+							</div>
+							<div>
+								<div className="mb-2 block">
+									<Label htmlFor="repeat-password" value="Repeat password" />
+								</div>
+								<Field
+									placeholder="New Password"
+									id="newPassword"
+									sizing="sm"
+									type="newPassword"
+									name="newPassword"
+									className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2"
+									color="black"
+								/>
+								<ErrorMessage
+									name="newPassword"
+									component="div"
+									className="text-red-500 text-xs italic"
+								/>
+							</div>
+							<div>
+								<div className="mb-2 block">
+									<Label htmlFor="repeat-password" value="confirm password" />
+								</div>
+								<Field
+									placeholder="confirm Password"
+									id="confirmPassword"
+									sizing="sm"
+									type=""
+									name="confirmPassword"
+									className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-80 p-2"
+									color="gray"
+								/>
+								<ErrorMessage
+									name="confirmPassword"
+									component="div"
+									className="text-red-500 text-xs italic"
+								/>
+							</div>
+							<div className="flex items-center gap-2">
+								<Label htmlFor="agree" className="flex">
+									<Link
+										to="#"
+										className="text-cyan-600 hover:underline dark:text-cyan-500 "
+									></Link>
+								</Label>
+							</div>
+							<button
+								type="submit"
+								onClick={() => console.log("Clicked!!")}
+								className="bg-teal-500 text-black  hover:bg-teal-700 text-white font-bold py-2 px-4 border-b-4 border-teal-900 hover:border-teal-900 rounded w-80 bg-red-900  dark:text-white "
+							>
+								Update password
+							</button>
+						</Form>
+					</div>
+				</div>
+				<div></div>
 			</DashboardLayout>
 		</Formik>
 	)

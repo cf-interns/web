@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 
 YupPassword(Yup)
 import { useSignUpMutation } from "../../store/features/auth/authApiSlice";
+import CustomLoader from "../../components/CustomLoader"
 
 /* type InputProps = {
     label: string;
@@ -71,7 +72,7 @@ const Signup = () => {
 
 				try {
 					const data = await sigup(values).unwrap()
-					navigate("/")
+					navigate("/users")
 
 					return data
 				} catch (error) {
@@ -118,7 +119,7 @@ const Signup = () => {
 					<div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
 						<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
 							<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-								Create and account
+								Add a User
 							</h1>
 							<Form className="space-y-4 md:space-y-6">
 								<div>
@@ -231,7 +232,7 @@ const Signup = () => {
 									type="submit"
 									className="w-full text-black bg-primary-600  hover:bg-gray-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:text-white dark:hover:bg-primary-700 dark:focus:ring-primary-800"
 								>
-									Create an account
+									Add
 								</Button>
 								<p className="text-sm font-light text-gray-500 dark:text-gray-400">
 									Already have an account?{" "}
@@ -239,7 +240,15 @@ const Signup = () => {
 										href="#"
 										className="font-medium text-primary-600 hover:underline dark:text-primary-500"
 									>
-										Login here
+										{/* Login here */}
+
+										{isLoading ? (
+											<>
+												<CustomLoader />
+												Signing in...
+											</>
+										) : "Signin"
+										}
 									</a>
 								</p>
 							</Form>

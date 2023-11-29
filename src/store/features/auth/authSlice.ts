@@ -23,11 +23,12 @@ const authSlice = createSlice({
          
         },
 
-        logOut: () => {
+        logOut: (state) => {
 
       
                 storage.removeItem('persist:root');
-            //    state.user = null;
+                localStorage.removeItem('user');
+                state.user = null;
             //    state.app = 
 
             /* 

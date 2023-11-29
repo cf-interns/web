@@ -1,120 +1,231 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+	margin: 0;
+	box-sizing: border-box;
 }
 
 .container {
-    display: flex;
-   justify-content: center;
-   align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 50%;
+	border-radius: 15px;
+	box-shadow: -15px 16px 7px -8px rgba(0, 0, 0, 0.1),
+		0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+	padding: 20px;
 
+	padding: 40px !important;
 }
-.wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 50%;
-    border-radius: 15px;
-    box-shadow: -15px 16px 7px -8px rgba(0,0,0,0.1),0px 10px 15px -3px rgba(0,0,0,0.1);
-    padding: 20px;
-  
-    padding: 40px !important;
+.text-a {
+	font-family: "Courier New", Courier, monospace;
+	color: teal;
+	margin-bottom: 10px;
+	font-size: 1.89rem;
 }
-.text-a{
-    font-family: 'Courier New', Courier, monospace;
-     color: teal; 
-    margin-bottom: 10px;
-    font-size: 1.89rem;
+.field-form {
+	border: none;
+	cursor: pointer;
+	padding: 10px 40px 0px 20px;
+	background-color: rgb(208, 208, 208);
+	color: teal;
+	margin-top: 20px !important;
+	margin-bottom: 20px !important;
+	background-color: rgba(76, 162, 162, 0.47) !important;
+	width: 400px;
+	border-radius: 10px !important;
 }
-.field-form{
-    border: none;
-    cursor: pointer;
-    padding:10px 40px 0px 20px;
-    background-color: rgb(208, 208, 208);
-    margin-top: 20px !important;
-    margin-bottom: 20px !important;
-    background-color: rgba(73, 73, 73, 0.47) !important;
-    width: 400px;
-    border-radius: 10px !important;
+.label {
+	font-size: 1rem;
 }
-.label{
-    font-size: 1rem;
+.ErrorMessage {
+	color: red !important;
 }
-ErrorMessage{
-    color: red !important;
-}
-.Textinput{
-    border-radius: 15px !important;
-}
-.btn{
-    background-color:teal !important;
-    color: white;
-    font-size: 1rem;
-    font-weight: 400!important;
-    padding: 10px;
-    border: none;
-    width: 100%;
-    border-radius: 5px;
-    transition: 0.5s;
-    border: 1px solid teal;
+.wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 50%;
+	border-radius: 15px;
+	box-shadow: -15px 16px 7px -8px rgba(0, 0, 0, 0.1),
+		0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+	padding: 20px;
 
+	padding: 40px !important;
 }
-.btn:hover{
-    color: teal;
-    background-color: white !important;
-    transition: 0.5s;
-    border: 1px solid teal;
+.text-a {
+	font-family: "Courier New", Courier, monospace;
+	color: teal;
+	margin-bottom: 10px;
+	font-size: 1.89rem;
 }
-.wrapper-a{
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    padding-left: 40px;
-    padding-right: 40px;
-    height: 580px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    text-align:justify;
+.field-form {
+	border: none;
+	cursor: pointer;
+	padding: 10px 40px 0px 20px;
+	background-color: rgb(208, 208, 208);
+	margin-top: 20px !important;
+	margin-bottom: 20px !important;
+	background-color: rgba(73, 73, 73, 0.47) !important;
+	width: 400px;
+	border-radius: 10px !important;
 }
-.card{
-    background-color: teal;
-    margin: 5px;
+.label {
+	font-size: 1rem;
 }
-.main-container{
-    border-radius: 15px;
-    box-shadow: -15px 16px 7px -8px #0000001a,0px 10px 15px -3px rgba(0,0,0,0.1);
-    padding: 20px;
-    padding: 40px !important;
-    
+ErrorMessage {
+	color: red !important;
 }
+.Textinput {
+	border-radius: 15px !important;
+}
+.btn {
+	background-color: teal !important;
+	color: white;
+	font-size: 1rem;
+	font-weight: 400 !important;
+	padding: 10px;
+	border: none;
+	width: 100%;
+	border-radius: 5px;
+	transition: 0.5s;
+	border: 1px solid teal;
 
-.checkbox{
-    border: none !important;
-    color: rgba(0, 128, 128, 0.309) !important;
-    background-color: teal !important;
-    border-radius: 15px !important;
-}
-.btn-btn{
-    background-color: teal !important;
-    color: white!important;
-    padding: 10px!important;
-    border-radius: 10px !important;
-    transition: 0.7s;
-}
-.btn-btn:hover{
-    background-color: white !important;
-    color: teal!important;
-    padding: 10px!important;
-    border-radius: 10px !important;
-    transition: 0.5s;
-}
+	.btn {
+		background-color: teal !important;
+		color: white;
+		font-size: 1rem;
+		font-weight: 400 !important;
+		padding: 10px;
+		border: none;
+		width: 100%;
+		border-radius: 5px;
+		transition: 0.5s;
+		border: 1px solid teal;
+	}
+	.btn:hover {
+		color: teal;
+		background-color: white !important;
+		transition: 0.5s;
+		border: 1px solid teal;
+	}
+	.wrapper-a {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		padding-left: 40px;
+		padding-right: 40px;
+		height: 580px;
+		overflow-y: auto;
+		overflow-x: hidden;
+		text-align: justify;
+	}
+	.card {
+		background-color: teal;
+		margin: 5px;
+	}
+	.main-container {
+		border-radius: 15px;
+		box-shadow: -15px 16px 7px -8px #0000001a,
+			0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+		padding: 20px;
+		padding: 40px !important;
+	}
+	input {
+		border: none !important;
+		color: black !important;
+		background-color: #0080804a;
+		border-radius: 15px !important;
+	}
+	.checkbox {
+		border: none !important;
+		color: rgba(0, 128, 128, 0.309) !important;
+		background-color: teal !important;
+		border-radius: 15px !important;
+	}
+	.btn-btn {
+		background-color: teal !important;
+		color: white !important;
+		padding: 10px !important;
+		border-radius: 10px !important;
+		transition: 0.7s;
+	}
+	.btn-btn:hover {
+		background-color: white !important;
+		color: teal !important;
+		padding: 10px !important;
+		border-radius: 10px !important;
+		transition: 0.5s;
+	}
+	.header {
+		color: orangered;
+		font-weight: 500;
+		font-size: 2rem;
+	}
+	.main-container {
+		background-color: white;
+		opacity: 0.8;
+	}
+	.btn:hover {
+		color: teal;
+		background-color: white !important;
+		transition: 0.5s;
+		border: 1px solid teal;
+	}
+	.wrapper-a {
+		width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		padding-left: 40px;
+		padding-right: 40px;
+		height: 580px;
+		overflow-y: auto;
+		overflow-x: hidden;
+		text-align: justify;
+	}
+	.card {
+		background-color: teal;
+		margin: 5px;
+	}
+	.main-container {
+		border-radius: 15px;
+		box-shadow: -15px 16px 7px -8px #0000001a,
+			0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+		padding: 20px;
+		padding: 40px !important;
+	}
 
-.main-container{
-    background-color: white;
-    opacity: 0.8;  
-}
-input{
-    border-radius: 8px !important;
+	.checkbox {
+		border: none !important;
+		color: rgba(0, 128, 128, 0.309) !important;
+		background-color: teal !important;
+		border-radius: 15px !important;
+	}
+	.btn-btn {
+		background-color: teal !important;
+		color: white !important;
+		padding: 10px !important;
+		border-radius: 10px !important;
+		transition: 0.7s;
+	}
+	.btn-btn:hover {
+		background-color: white !important;
+		color: teal !important;
+		padding: 10px !important;
+		border-radius: 10px !important;
+		transition: 0.5s;
+	}
+
+	.main-container {
+		background-color: white;
+		opacity: 0.8;
+	}
+	input {
+		border-radius: 8px !important;
+	}
 }

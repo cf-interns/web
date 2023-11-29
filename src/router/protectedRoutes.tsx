@@ -2,7 +2,6 @@ import "../App.css"
 import Trail from "../pages/auth/trail"
 import CreateApplication from "../pages/CreateApplication"
 import AllApplication from "../pages/allApplication"
-import Email from "../pages/email"
 import SendSMS from "../pages/sendSMS"
 import SendPush from "../pages/SendPush"
 import ViewDetails from "../pages/ViewDetails"
@@ -12,10 +11,16 @@ import AppDetail from "../components/AppEmail"
 import SendPushNotification from "../pages/SendPushnotif"
 import SmsNotification from "../pages/Smsnotification"
 import SendEmail from "../pages/SendEmail"
-import Settings from "../pages/settings"
 import Main1 from "../pages/Main1"
+import UsersTable from "../pages/UsersTable"
+import Settings2 from "../pages/Settings2"
+import Signup from "../pages/auth/Signup"
 
 const protectedRoutes = [
+	{
+		path: "/sign-up",
+		element: <Signup />,
+	},
 	{
 		path: "/dashboard",
 		element: <Main1 />,
@@ -26,16 +31,16 @@ const protectedRoutes = [
 	},
 	{
 		path: "/settings",
-		element: <Settings />,
+		element: <Settings2 />,
 	},
 	{
 		path: "/allApplication",
 		element: <AllApplication />,
 	},
-	{
+	/* {
 		path: "/send-email",
 		element: <Email />,
-	},
+	}, */
 	{
 		path: "/send-sms",
 		element: <SendSMS />,
@@ -71,6 +76,10 @@ const protectedRoutes = [
 	{
 		path: "/trail",
 		element: <Trail />,
+	},
+	{
+		path: "/users",
+		element: <UsersTable />,
 	},
 ]
 
