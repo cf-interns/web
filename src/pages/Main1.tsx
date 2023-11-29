@@ -1,12 +1,4 @@
-import {
-	LineChart,
-	Line,
-	XAxis,
-	YAxis,
-	CartesianGrid,
-	Tooltip,
-	Legend /* ResponsiveContainer */,
-} from "recharts"
+import { Tooltip } from 'flowbite-react';
 import DashboardLayout from "../components/DashboardLayout"
 
 import NotificationTable from "./notifiTable"
@@ -17,7 +9,8 @@ import Widgets from "../components/Widgets"
 import { useGetAllNotificationsQuery } from "../store/features/notifications/notificationsApiSlice"
 import { useDispatch } from "react-redux"
 import { setUpNotifications } from "../store/features/notifications/notificationsSlice"
-import 'primereact/resources/primereact.min.css'; //core css
+import "primereact/resources/primereact.min.css" //core ;
+import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from "recharts"
 
 const data = [
 	{
@@ -66,12 +59,12 @@ const data = [
 
 const Main1 = () => {
 	const { data: realData } = useGetAllNotificationsQuery({
-		appToken: "7f776c23-f318-4f55-a080-8c8cbedeab1b",
+		appToken: "2e66d10c-9137-4b89-ba03-f9a7cffb987a",
 	})
-	console.log('real', realData);
-	
+	console.log("real", realData)
+
 	const dispatch = useDispatch()
-	dispatch(setUpNotifications(realData?.notifications));
+	dispatch(setUpNotifications(realData?.notifications))
 
 	return (
 		<DashboardLayout>
@@ -80,7 +73,7 @@ const Main1 = () => {
 					Dashboard
 				</h1>
 
-				<Widgets  />
+				<Widgets />
 
 				<div className="flex lg:flex-col m-4 gap-[30px] mb-4">
 					<div className="bg-white shadow-md cursor-pointed rounded-[4px] p-4">
@@ -99,7 +92,7 @@ const Main1 = () => {
 								<CartesianGrid strokeDasharray="3 3" />
 								<XAxis dataKey="name" />
 								<YAxis />
-								<Tooltip />
+								<Tooltip content={undefined} />
 								<Legend />
 								<Line
 									type="monotone"
@@ -108,7 +101,7 @@ const Main1 = () => {
 									activeDot={{ r: 8 }}
 								/>
 								<Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-							</LineChart>
+							</LineChart> 
 						</div>
 					</div>
 					<div className="mb-5">
