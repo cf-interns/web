@@ -53,7 +53,7 @@ const AppDetails = () => {
 						<div className="flex flex-col items-center pb-10 m-4">
 
 							<h5 className="text-2xl text-right font-meduim mb-8 text-teal-700 dark:text-white ">Application Details</h5>
-							<div className="grid grid-flow-row-dense grid-cols-3 gap-4 grid-rows-3 m-4...">
+							<div className="grid grid-flow-row-dense grid-cols-3 gap-4 grid-rows-3 m-8">
 
 								<div className="m-4 p-0">
 									<h1 className="text-zinc-600">Application name</h1>

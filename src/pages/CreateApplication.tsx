@@ -8,11 +8,14 @@ import DashboardLayout from "../components/DashboardLayout"
 import { ToastContainer, toast } from "react-toastify";
  import "react-toastify/dist/ReactToastify.css";
 import CustomLoader from "../components/CustomLoader"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { Divider } from "@chakra-ui/react"
 
 const CreateApplication = () => {
 	const [createApp, { isLoading, }] = useCreateAppMutation()
 	const notifySucess = () => toast.success("App Created Successfully");
+	const navigate = useNavigate()
+	
 
 	return (
 		<Formik
@@ -32,9 +35,9 @@ const CreateApplication = () => {
 				try {
 					const data = await createApp(values).unwrap()
 					notifySucess()
+					navigate("/allApplication")
 
 					return data
-
 					//Navigate Somewhre
 				} catch (error) {
 					return error
