@@ -24,7 +24,9 @@ const Widgets = () => {
 			<div className="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
 				<div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 					<div className="w-full lg:w-1/5">
-						<div className="widget w-full p-4 rounded-lg bg-white border-l-4 border-purple-400">
+						<div className="widget w-full p-4 rounded-lg bg-white border-l-4 border-blue-900" style={{
+							borderColor: '--tw-bg-'
+						}}>
 							<div className="flex items-center">
 								<div className="icon w-14 p-3.5 bg-purple-400 text-white rounded-full mr-3">
 									<img src={email} />

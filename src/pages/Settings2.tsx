@@ -15,13 +15,12 @@ import { logOut } from "../store/features/auth/authSlice"
 import { Navigate } from "react-router-dom"
 
 const Settings2 = () => {
-  const dispatch = useDispatch()
-	const [changePassword, { isLoading }] = useChangePasswordMutation()
+	const dispatch = useDispatch();
 	const [changeUserData] = useUpdateUserInfoMutation()
+	const [changePassword, { isLoading }] = useChangePasswordMutation();
 	const [DeleteUser] = useDeleteUserMutation()
 	const user = localStorage.getItem("user")
-	const UserObj = JSON.parse(user)
-	// console.log(obj._id, '<<<=====USER');
+	const UserObj = JSON.parse(user ? user : '')
 
 	return (
 		<DashboardLayout>
@@ -35,22 +34,20 @@ const Settings2 = () => {
 
 						<div id="form" className="flex flex-col gap-4">
 							<div className="flex gap-4 items-center">
-								<img
-									src={avt}
-									alt="Avatar"
-									width="30%"
-									height="40%"
-									className="rounded"
-								/>
 								<div>
 									<Button
-										label={isLoading ? "Submiting..." : "Save"}
+										label={isLoading ? "Submiting..." : "Upload"}
 										size="small"
 										disabled={isLoading}
 										className="w-fit h-[40px] rounded p-2 bg-gray-500 text-white focus:ring-0 hover:bg-green-500"
 									/>
-									<p className="mt-2">JPG, GIF or PNG. 1MB max.</p>
 								</div>
+								<img
+									src={avt}
+									alt="Avatar"
+
+									className="rounded-full w-60 h-60"
+								/>
 							</div>
 							<div>
 								<div className="">
@@ -61,11 +58,11 @@ const Settings2 = () => {
 											email: "",
 										}}
 										validationSchema={Yup.object({
-											FirstName: Yup.string().required(
+											firstName: Yup.string().required(
 												"First Name is required!"
 											),
-											LastName: Yup.string().required("Last Name is required!"),
-											Email: Yup.string().email().required("Email Required!"),
+											lastName: Yup.string().required("Last Name is required!"),
+											email: Yup.string().email().required("Email Required!"),
 										})}
 										onSubmit={async (values) => {
 											try {
@@ -120,12 +117,13 @@ const Settings2 = () => {
 												<InputText
 													placeholder={UserObj.email}
 													type="email"
-													name="Email"
-													id="Email"
+													name="email"
+													id="email"
 													className="bg-white w-[800px]"
 												/>
 											</div>
 											<Button
+												type="submit"
 												className="w-fit h-[40px] rounded p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
 												label="Save"
 											/>
@@ -240,6 +238,7 @@ const Settings2 = () => {
 												className="w-fit h-[40px] rounded p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
 												disabled={isLoading}
 												label={isLoading ? "Submiting" : "Save"}
+												type="submit"
 											/>
 										</Form>
 									</Formik>
@@ -267,10 +266,8 @@ const Settings2 = () => {
 							label={isLoading ? "Deleting ..." : "Yes, Delete My Account"}
 							onClick={() => {
 								DeleteUser(UserObj._id)
-							dispatch(logOut());
-							<Navigate to="/" />
-								
-								
+								dispatch(logOut())
+								;<Navigate to="/" />
 							}}
 							disabled={isLoading}
 						/>
