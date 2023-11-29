@@ -9,14 +9,50 @@ import SidebarV2 from "./SidebarV2" */
 import { useUpdateAppStatusMutation } from "../store/features/application/appApiSlice"
 /* import {FiArrowRight,} from 'react-icons/fi'; */
 import "../createapp.css"
-import { Button, Card } from "flowbite-react"
+// import { ,  } from "flowbite-react"
 import { Link } from "react-router-dom"
 import DashboardLayout from "../components/DashboardLayout"
 import CustomLoader from "../components/CustomLoader"
+import { Card } from "primereact/card"
+import { Button } from "primereact/button"
 
 // import { format } from "date-fns";
 
 const AllApplication = () => {
+	const header = <img alt="Card" src="/src/card5.jpg" className="h-[10rem]" />
+	const footer = (_id: string, status: string) => {
+		return (
+			<div className="flex items-center justify-between">
+				<Link to={`/ViewDetails/${_id}`}>
+					<Button className="p-2 gap-2 text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit   rounded-lg">
+						<p className="mr-1">View Details</p>
+						<FiArrowRight />
+					</Button>
+				</Link>
+				<div
+					className="cursor-pointer justify-center flex p-2 gap-2 text-white bg-teal-900 w-fit   rounded-lg"
+					onClick={() => {
+						updateAppStatus({
+							_id: _id,
+							status: status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
+						})
+						console.log(updateAppStatus)
+					}}
+				>
+					{isLoading ? (
+						<>
+							<CustomLoader />
+							Activating...
+						</>
+					) : status === "ACTIVE" ? (
+						"Deactivate"
+					) : (
+						"Activate"
+					)}
+				</div>
+			</div>
+		)
+	}
 	//1- Get all apps
 	//2- Render using .map()
 
@@ -118,6 +154,62 @@ const AllApplication = () => {
 						</nav>
 					</div>
 
+					<div className="mt-5 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-5 pb-5 ">
+						{apps.map((app, i) => {
+							return (
+								<div className="">
+									<Card
+										footer={footer(app._id, app.status)}
+										header={header}
+										className="w-10rem ml-4"
+										key={i}
+									>
+										<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-black">
+											<p>{app.appName}</p>
+										</h5>
+										<div className=" flex items-center justify-between font-normal text-gray-900 dark:text-black">
+											<p className="mt-4">Status: {app.status}</p>
+											<p className="mt-4">Created: {app.createdAt.toString()}</p>
+										</div>
+
+										{/* <div
+										className="cursor-pointer justify-center flex p-2 gap-2 text-white bg-teal-900 w-fit   rounded-lg"
+										onClick={() => {
+											updateAppStatus({
+												_id: app?._id,
+												status: app.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
+											})
+											console.log(updateAppStatus)
+										}}
+									>
+										{isLoading ? (
+											<>
+												<CustomLoader />
+												Activating...
+											</>
+										) : app.status === "ACTIVE" ? (
+											"Deactivate"
+										) : (
+											"Activate"
+										)}
+									</div> */}
+										<h5 className="text-xl font-light tracking-tight mt-5text-gray-900 dark:text-black">
+											<p>{app.description}</p>
+										</h5>
+
+										{/* <Link to={`/ViewDetails/${app._id}`}>
+										<Button>
+											<p className="mr-1">View Details</p>
+											<FiArrowRight />
+										</Button>
+									</Link> */}
+									</Card>
+								</div>
+							)
+						})}
+					</div>
+
+					{/* 
 					<div className="mt-5 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-5 pb-5">
 						{apps.map((app, i) => {
 							return (
@@ -146,7 +238,7 @@ const AllApplication = () => {
 												Activating...
 											</>
 										) : app.status === "ACTIVE" ? (
-											"Desactivate"
+											"Deactivate"
 										) : (
 											"Activate"
 										)}
@@ -165,7 +257,7 @@ const AllApplication = () => {
 								</Card>
 							)
 						})}
-					</div>
+					</div> */}
 				</div>
 			</DashboardLayout>
 		)
