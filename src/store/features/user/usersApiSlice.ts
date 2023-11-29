@@ -17,7 +17,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			providesTags: ['User']
 		}),
-		getSpecificUser: build.query< User, User>({
+		getSpecificUser: build.query< User, void>({
 			query: (_id) => `/users/${_id}`,
 			keepUnusedDataFor: 1,
 			
@@ -40,8 +40,6 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 					body,
 				}
 			},
-			invalidatesTags: ['User'],
-
 		}),
 		deleteUser: build.mutation<void, string>({
 			query(id) {
