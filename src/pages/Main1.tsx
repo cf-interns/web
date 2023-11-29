@@ -113,4 +113,4 @@ const Main1 = () => {
 	)
 }
 
-export default Main1
+export default Main1 

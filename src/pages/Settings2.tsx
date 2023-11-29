@@ -80,9 +80,28 @@ const Settings2 = () => {
 							<div className="flex gap-4 items-center"></div>
 							<div>
 								<div className="">
-									<form
-										className="flex flex-col gap-2 w-[60vw]"
-										onSubmit={formik.handleSubmit}
+									<Formik
+										initialValues={{
+											firstName: "",
+											lastName: "",
+											email: "",
+										}}
+										validationSchema={Yup.object({
+											FirstName: Yup.string().required(
+												"First Name is required!"
+											),
+											LastName: Yup.string().required("Last Name is required!"),
+											Email: Yup.string().email().required("Email Required!"),
+										})}
+										onSubmit={async (values) => {
+											try {
+												const data = await changeUserData(values).unwrap()
+												console.log(data, "USER PASSWORD++++++")
+												return data
+											} catch (error) {
+												console.log(error)
+											}
+										}}
 									>
 										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
 											<Label
@@ -122,30 +141,27 @@ const Settings2 = () => {
 											/>
 										</div>
 
-										<div className="flex flex-col gap-2 w-80">
-											<Label
-												htmlFor="Email"
-												value="Email"
-												color="text-dark"
-												className="text-sm mr-8"
+											<div className="flex flex-col gap-2 w-80">
+												<Label
+													htmlFor="Email"
+													value="Email"
+													color="text-dark"
+													className="text-sm mr-8"
+												/>
+												<InputText
+													placeholder={UserObj.email}
+													type="email"
+													name="Email"
+													id="Email"
+													className="bg-white w-[800px]"
+												/>
+											</div>
+											<Button
+												className="w-fit h-[40px] rounded p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
+												label="Save"
 											/>
-											<input
-												placeholder={UserObj.email}
-												type="email"
-												name="email"
-												id="email"
-												value={formik.values.email}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												className="bg-white w-[800px]"
-											/>
-										</div>
-										<Button
-											type="submit"
-											className="w-[74%] h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
-											label="Save"
-										/>
-									</form>
+										</Form>
+									</Formik>
 								</div>
 							</div>
 						</div>

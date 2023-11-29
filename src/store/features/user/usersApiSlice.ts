@@ -40,7 +40,8 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 					body,
 				}
 			},
-			invalidatesTags: ['User']
+			invalidatesTags: ['User'],
+
 		}),
 		deleteUser: build.mutation<void, string>({
 			query(id) {
@@ -54,10 +55,4 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 	}),
 })
 
-export const {
-	useGetUsersQuery,
-	useGetSpecificUserQuery,
-	useChangePasswordMutation,
-	useUpdateUserInfoMutation,
-    useDeleteUserMutation,
-} = usersApiSlice
+export const { useGetUsersQuery, useGetSpecificUserQuery, useChangePasswordMutation, useDeleteUserMutation, useUpdateUserInfoMutation } = usersApiSlice
