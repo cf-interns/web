@@ -1,9 +1,10 @@
-import sent from "../assets/compose-mail-14297.png"
-import sms from "../assets/sms-8687.svg"
-import notif from "../assets/notification-bell-5743.svg"
-import email from "../assets/email-8704.png"
+
 import { useSelector } from "react-redux";
 import { selectCurrentNotification } from "../store/features/notifications/notificationsSlice"
+import { HiOutlineMail} from "react-icons/hi"
+import {HiOutlineBellAlert} from 'react-icons/hi2'
+import { FaCommentSms } from "react-icons/fa6";
+import { MdOutlineNotificationAdd } from "react-icons/md"
 
 const Widgets = () => {
 	// const notifs = store.getState().notification;
@@ -18,21 +19,21 @@ const Widgets = () => {
    
 	return (
 		<div
-			className="  flex items-center justify-center bg-gray-100 m-4 rounded"
+			className="bg-gray-100 m-4 rounded-lg"
 			id="Widgets"
 		>
-			<div className="max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
-				<div className="flex flex-col lg:flex-row w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
+			<div className="mx-auto w-3/4">
+				<div className="flex justify-between py-5 w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 					<div className="w-full lg:w-1/5">
-						<div className="widget w-full p-4 rounded-lg bg-white border-l-4 border-blue-900" style={{
-							borderColor: '--tw-bg-'
-						}}>
+						<div className=" w-full border-gray-400 shadow-lg p-4 rounded-lg bg-white border-l-4">
 							<div className="flex items-center">
-								<div className="icon w-14 p-3.5 bg-purple-400 text-white rounded-full mr-3">
-									<img src={email} />
+								<div className="icon w-fit p-3.5 bg-gray-700 text-white rounded-full mr-3">
+									<HiOutlineMail size={40} />
 								</div>
 								<div className="flex flex-col justify-center">
-									<div className="text-md">{EMAILS ? EMAILS.length : '4444' }</div>
+									<div className="text-md">
+										{EMAILS ? EMAILS.length : "4444"}
+									</div>
 									<div className="text-lg font-bold text-gray-800">Emails</div>
 								</div>
 							</div>
@@ -40,13 +41,13 @@ const Widgets = () => {
 					</div>
 
 					<div className="w-full lg:w-1/5">
-						<div className="widget w-full p-4 rounded-lg bg-white border-l-4 border-blue-400">
+						<div className=" w-full p-4 rounded-lg shadow-lg bg-white border-l-4 border-gray-400">
 							<div className="flex items-center">
-								<div className="icon w-14 p-3.5 bg-blue-400 text-white rounded-full mr-3">
-									<img src={sms} />
+								<div className="icon w-fit p-3.5 bg-gray-700 text-white rounded-full mr-3">
+									<FaCommentSms size={40} />
 								</div>
 								<div className="flex flex-col justify-center">
-									<div className="text-md">{SMS ? SMS.length : '4444'}</div>
+									<div className="text-md">{SMS ? SMS.length : "4444"}</div>
 									<div className="text-lg font-bold text-gray-800">SMS</div>
 								</div>
 							</div>
@@ -54,13 +55,13 @@ const Widgets = () => {
 					</div>
 
 					<div className="w-full lg:w-1/5">
-						<div className="widget w-full p-4 rounded-lg bg-white border-l-4 border-yellow-400">
+						<div className=" w-full p-4 rounded-lg shadow-lg bg-white border-l-4 border-gray-400">
 							<div className="flex items-center">
-								<div className="icon w-14 p-3.5 bg-yellow-400 text-white rounded-full mr-3">
-									<img src={notif} />
+								<div className="icon w-fit p-3.5 bg-gray-700 text-white rounded-full mr-3">
+									<HiOutlineBellAlert size={40} />
 								</div>
 								<div className="flex flex-col justify-center">
-									<div className="text-md">{PUSH ? PUSH.length : '4444'}</div>
+									<div className="text-md">{PUSH ? PUSH.length : "4444"}</div>
 									<div className="text-lg font-bold text-gray-800">Push</div>
 								</div>
 							</div>
@@ -68,13 +69,13 @@ const Widgets = () => {
 					</div>
 
 					<div className="w-full lg:w-1/5">
-						<div className="widget w-full p-4 rounded-lg bg-white border-l-4 border-red-400">
+						<div className=" w-full p-4 rounded-lg bg-white shadow-lg border-l-4 border-gray-400">
 							<div className="flex items-center">
-								<div className="icon w-14 p-3.5 bg-red-400 text-white rounded-full mr-3">
-									<img src={sent} />
+								<div className="icon w-fit p-3.5 bg-gray-700 text-white rounded-full mr-3">
+									<MdOutlineNotificationAdd size={40} />
 								</div>
 								<div className="flex flex-col justify-center">
-									<div className="text-md">{ data ? data.length : '4444'}</div>
+									<div className="text-md">{data ? data.length : "4444"}</div>
 									<div className="text-lg font-bold text-gray-800">Total</div>
 								</div>
 							</div>

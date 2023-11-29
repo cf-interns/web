@@ -1,4 +1,4 @@
-import { Table, Tooltip } from 'flowbite-react';
+import { Tooltip } from 'flowbite-react';
 import DashboardLayout from "../components/DashboardLayout"
 
 import NotificationTable from "./notifiTable"
@@ -59,7 +59,7 @@ const data = [
 
 const Main1 = () => {
 	const { data: realData } = useGetAllNotificationsQuery({
-		appToken: "7f776c23-f318-4f55-a080-8c8cbedeab1b",
+		appToken: "2e66d10c-9137-4b89-ba03-f9a7cffb987a",
 	})
 	console.log("real", realData)
 
@@ -92,7 +92,7 @@ const Main1 = () => {
 								<CartesianGrid strokeDasharray="3 3" />
 								<XAxis dataKey="name" />
 								<YAxis />
-								<Tooltip />
+								<Tooltip content={undefined} />
 								<Legend />
 								<Line
 									type="monotone"
@@ -101,7 +101,7 @@ const Main1 = () => {
 									activeDot={{ r: 8 }}
 								/>
 								<Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-							</LineChart> */}
+							</LineChart> 
 						</div>
 					</div>
 					<div className="mb-5">
