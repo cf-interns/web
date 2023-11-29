@@ -1,6 +1,7 @@
 import DashboardLayout from "../components/DashboardLayout"
 import avt from "../assets/avatar2.jpeg"
 import { Button } from "primereact/button"
+import { Toast } from 'primereact/toast';
 import { Form, Formik } from "formik"
 import { Label } from "flowbite-react"
 import {
@@ -13,6 +14,9 @@ import { InputText } from "primereact/inputtext"
 import { useDispatch } from "react-redux"
 import { logOut } from "../store/features/auth/authSlice"
 import { Navigate } from "react-router-dom"
+// import {  ToastContainer, toast } from "react-toastify"
+// import CustomLoader from "../components/CustomLoader"
+import { useRef } from "react"
 
 const Settings2 = () => {
   const dispatch = useDispatch()
@@ -21,6 +25,16 @@ const Settings2 = () => {
 	const [DeleteUser] = useDeleteUserMutation()
 	const user = localStorage.getItem("user")
 	const UserObj = JSON.parse(user)
+
+	// const toastSuccess = () => toast.success('This is Toast Notification for Success');
+	// const notifySucess = () => toast.success("App Created Successfully");
+
+    const toast = useRef(null);
+
+    const show = () => {
+        toast.current.show({ severity: 'success', detail: 'Info successfully updatted.' });
+    };
+
 	// console.log(obj._id, '<<<=====USER');
 
 	return (
@@ -70,6 +84,7 @@ const Settings2 = () => {
 										onSubmit={async (values) => {
 											try {
 												const data = await changeUserData(values).unwrap()
+												// notifySucess()
 												console.log(data, "USER PASSWORD++++++")
 												return data
 											} catch (error) {
@@ -125,9 +140,12 @@ const Settings2 = () => {
 													className="bg-white w-[800px]"
 												/>
 											</div>
+											<Toast ref={toast} />
 											<Button
 												className="w-fit h-[40px] rounded p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
 												label="Save"
+												// onClick={showSuccess} 
+												onClick={show}
 											/>
 										</Form>
 									</Formik>
@@ -177,6 +195,7 @@ const Settings2 = () => {
 										onSubmit={async (values) => {
 											try {
 												const data = await changePassword(values).unwrap()
+												// notifySucess()
 												console.log(data, "USER PASSWORD++++++")
 												return data
 											} catch (error) {
@@ -236,10 +255,14 @@ const Settings2 = () => {
 													className="bg-white w-[800px]"
 												/>
 											</div>
+											<Toast ref={toast} />
 											<Button
+											onClick={show}
 												className="w-fit h-[40px] rounded p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
 												disabled={isLoading}
-												label={isLoading ? "Submiting" : "Save"}
+												label={isLoading ? "Submitting..."
+												 : "Save"
+												}
 											/>
 										</Form>
 									</Formik>
@@ -262,6 +285,7 @@ const Settings2 = () => {
 					</div>
 
 					<div className="">
+						
 						<Button
 							className="w-[200px] rounded p-2 bg-red-500 mt-2 text-white focus:ring-0"
 							label={isLoading ? "Deleting ..." : "Yes, Delete My Account"}
@@ -275,6 +299,7 @@ const Settings2 = () => {
 							disabled={isLoading}
 						/>
 					</div>
+					{/* <ToastContainer/> */}
 				</div>
 			</div>
 		</DashboardLayout>
