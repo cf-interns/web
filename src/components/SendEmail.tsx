@@ -6,7 +6,7 @@ import { NavbarDash } from "./Dashboard";
 import SidebarV2 from "./SidebarV2";
 
  const Email = () => {
-    const appId = '0d6cc5e8-48f2-47cd-a035-ee98b4f65cc4';
+    const appId = "2e66d10c-9137-4b89-ba03-f9a7cffb987a"
     const [sendEmail, {isLoading}] = useSendEmailMutation()
  
 

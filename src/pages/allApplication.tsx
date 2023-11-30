@@ -23,7 +23,7 @@ const AllApplication = () => {
 	const footer = (_id: string, status: string) => {
 		return (
 			<div className="flex items-center justify-between">
-				<Link to={`/ViewDetails/${_id}`}>
+				<Link to={`/appDetail/${_id}`}>
 					<Button className="p-2 gap-2 text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit   rounded-lg">
 						<p className="mr-1">View Details</p>
 						<FiArrowRight />
@@ -248,7 +248,7 @@ const AllApplication = () => {
 										<p>Status: {app.status}</p>
 										<p>Created: {app.createdAt.toString()}</p>
 									</div>
-									<Link to={`/ViewDetails/${app._id}`}>
+									<Link to={`/appDetail/${app._id}`}>
 										<Button>
 											<p className="mr-1">View Details</p>
 											<FiArrowRight />

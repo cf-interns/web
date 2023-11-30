@@ -3,10 +3,11 @@ import React from "react"
 import SidebarV2 from "./SidebarV2"
 import { NavbarDash } from "./Dashboard"
 import { Link } from "react-router-dom"
+import DashboardLayout from "./DashboardLayout"
 
 const Email = () => {
 	return (
-		<DashboardLayout>
+		<DashboardLayout >
 					<div className="flex px-2 divide-x-2 mt-8">
 						<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
 							Send Email
@@ -112,7 +113,7 @@ const Email = () => {
 							</label>
 							<textarea
 								id="comment"
-								rows="4"
+								rows={4}
 								className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-white-800 focus:ring-0 dark:text-black dark:placeholder-gray-400"
 								placeholder="Write a comment..."
 								required
@@ -283,9 +284,7 @@ const Email = () => {
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
+			</DashboardLayout>
 	)
 }
 
