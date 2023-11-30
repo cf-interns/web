@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@esbuild/linux-x64": "^0.19.8",
     "@reduxjs/toolkit": "^1.9.6",
     "@tanstack/react-table": "^8.10.7",
     "@types/react-redux": "^7.1.26",

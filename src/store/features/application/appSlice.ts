@@ -7,15 +7,15 @@ import { RootState } from "../../store";
 
 type AppState = {
     
-    app: App | null
+    app: App[] | undefined
 }
 
 const appSlice = createSlice({
 
     name: 'app',
-    initialState: {app: null} as AppState,
+    initialState: {app: undefined} as AppState,
     reducers: {
-        setUpApplications: (state, {payload: {app}}: PayloadAction<{app: App}>) => {
+        setUpApplications: (state, {payload: {app}}: PayloadAction<{app: App[] | undefined}>) => {
              state.app = app;
         },
     }
