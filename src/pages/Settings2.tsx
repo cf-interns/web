@@ -85,7 +85,8 @@ const Settings2 = () => {
 											try {
 												const data = await changeUserData(values).unwrap()
 												// notifySucess()
-												console.log(data, "USER PASSWORD++++++")
+												console.log(data, "USER PASSWORD++++++");
+												
 												return data
 											} catch (error) {
 												console.log(error)
