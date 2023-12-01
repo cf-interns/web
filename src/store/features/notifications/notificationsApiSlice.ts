@@ -30,32 +30,15 @@ export const notificationApiSlice = apiSlice.injectEndpoints({
 			// invalidatesTags: (_id) => [{type: 'Notifications', _id}]
 			// getTotalSMS:
 		}),
-		getAllNotificationsBySms: build.query<NotificationApiResponse,queryParams>({
-			query(args) {
-				const { appToken, filters } =  args
+	
+		getAllNotifsInDb: build.query<Notification[], void>({
+			query(){
 				return {
-					url: `notification/all-notifications:id/${appToken}`,
-					params: filters
-				}
-			}
-		}),
-		getAllNotificationsByEmail: build.query<NotificationApiResponse,queryParams>({
-			query(args) {
-				const { appToken, filters } =  args
-				return {
-					url: `notification/all-notifications:id/${appToken}${filters}`,
-				}
-			}
-		}),
-		getAllNotificationsByPush: build.query<NotificationApiResponse,queryParams>({
-			query(args) {
-				const { appToken, filters } =  args
-				return {
-					url: `notification/all-notifications:id/${appToken}${filters}`,
+					url: 'notifications/all-notifications'
 				}
 			}
 		})
 	}),
 })
 
-export const { useGetAllNotificationsQuery } = notificationApiSlice
+export const { useGetAllNotificationsQuery, useGetAllNotifsInDbQuery } = notificationApiSlice

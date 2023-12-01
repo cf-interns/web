@@ -16,7 +16,6 @@ import { FilterMatchMode, FilterOperator } from "primereact/api"
 import { InputText } from "primereact/inputtext"
 import { Button } from "primereact/button"
 import { Tag } from "primereact/tag"
-import { NotificationApiResponse } from "../store/features/notifications/notificationsApiSlice"
 import { useState } from "react"
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
 import { Dialog } from "primereact/dialog"
@@ -27,7 +26,7 @@ import NotificationData from "../components/NotificationData"
 function NotificationTable({
 	realData,
 }: {
-	realData: NotificationApiResponse | undefined
+	realData: Notification[] | undefined
 }) {
 	// console.log(updateStoreNotifications, "Store2")
 
@@ -173,7 +172,7 @@ function NotificationTable({
 			style={{ backgroundColor: "whitesmoke" }}
 		>
 			<DataTable
-				value={realData?.notifications}
+				value={realData}
 				sortMode="multiple"
 				showGridlines
 				stripedRows
