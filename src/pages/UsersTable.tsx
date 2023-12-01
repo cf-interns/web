@@ -7,21 +7,24 @@ import { InputText } from "primereact/inputtext"
 import { useState } from "react"
 import { FilterMatchMode } from "primereact/api"
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
-import { useDeleteUserMutation, useGetSpecificUserQuery, useGetUsersQuery } from "../store/features/user/usersApiSlice"
-import {  useNavigate } from "react-router-dom"
+import {
+	useDeleteUserMutation,
+	useGetUsersQuery,
+} from "../store/features/user/usersApiSlice"
+import { useNavigate } from "react-router-dom"
+import { Dialog } from "primereact/dialog"
+import EditUser from "./EditUser"
+import { User } from "../store/features/api/apiSlice"
 
 const UsersTable = () => {
-
 	// const [selectedNotif, setSelectedNotif] = useState(null)
-	const actions = ['DELETE','EDIT'];
+	const actions = ["DELETE", "EDIT"]
 	const navigate = useNavigate()
-	
 
-	const {data: realUsers} = useGetUsersQuery();
-	console.log('users', realUsers)
-     const [deleteUser] = useDeleteUserMutation();
-     const {data:getUser} = useGetSpecificUserQuery();
-  const getSeverity = (actions: string) => {
+	const { data: realUsers } = useGetUsersQuery()
+	console.log("users", realUsers)
+	const [deleteUser] = useDeleteUserMutation()
+	const getSeverity = (actions: string) => {
 		switch (actions) {
 			case "DELETE":
 				return "danger"
@@ -29,9 +32,9 @@ const UsersTable = () => {
 			case "EDIT": //Adjust Api to return SUCCESS in caps
 				return "success"
 		}
-	};
-  
-  const [filters, setFilters] = useState({
+	}
+
+	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 		fname: {
 			value: null,
@@ -41,71 +44,72 @@ const UsersTable = () => {
 			value: null,
 			matchMode: FilterMatchMode.STARTS_WITH || FilterMatchMode.CONTAINS,
 		},
-    email: {
-      value: null,
-      matchMode: FilterMatchMode.CONTAINS
-    },
+		email: {
+			value: null,
+			matchMode: FilterMatchMode.CONTAINS,
+		},
+	})
+	const [globalFilterValue, setGlobalFilterValue] = useState("")
+	const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value
+		const _filters = { ...filters }
 
-	});
-    const [globalFilterValue, setGlobalFilterValue] = useState("");
-      const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-				const value = e.target.value
-				const _filters = { ...filters }
-
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-				_filters["global"].value = value
+		_filters["global"].value = value
 
-				setFilters(_filters)
-				setGlobalFilterValue(value)
-			}
+		setFilters(_filters)
+		setGlobalFilterValue(value)
+	}
 
-    const renderHeader = () => {
-			return (
-				<div className="flex justify-between">
-					<div className="flex items-center bg-gray-300 gap-1 p-1 w-fit rounded-2xl">
-						<div className="w-fit ml-2">
-							<label htmlFor="searchRow">
-								<i className="pi pi-search" />
-							</label>
-						</div>
-						<InputText
-							value={globalFilterValue}
-							onChange={onGlobalFilterChange}
-							placeholder="Keyword Search"
-							id="searchRow"
-							className="border-none bg-transparent focus:ring-transparent"
-						/>
+	const renderHeader = () => {
+		return (
+			<div className="flex justify-between">
+				<div className="flex items-center bg-gray-300 gap-1 p-1 w-fit rounded-2xl">
+					<div className="w-fit ml-2">
+						<label htmlFor="searchRow">
+							<i className="pi pi-search" />
+						</label>
 					</div>
-
-					<Button
-						icon="pi pi-plus"
-						className="font-bold text-lg bg-gray-200 rounded-xl p-2
-					  hover:text-white hover:bg-xendriixx focus:ring-0"
-						label=" USER"
-						onClick={()=> {
-							navigate("/sign-up")
-							console.log('User');
-							
-						}}
+					<InputText
+						value={globalFilterValue}
+						onChange={onGlobalFilterChange}
+						placeholder="Keyword Search"
+						id="searchRow"
+						className="border-none bg-transparent focus:ring-transparent"
 					/>
 				</div>
-			)
-		};
-		const confirm2 = (row_id: string) => {
-     return confirmDialog({
-				message: "Do you want to delete this User?",
-				header: "Delete Confirmation",
-				icon: "pi pi-info-circle mr-2",
-				acceptClassName: "p-button-danger mr-2",
-				rejectClassName: " mr-[10px]",
-				accept: () => {deleteUser(row_id)},
-				reject: () => {},
-				
-			})
-		}
 
-  const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />
+				<Button
+					icon="pi pi-plus"
+					className="font-bold text-lg bg-gray-200 rounded-xl p-2
+					  hover:text-white hover:bg-xendriixx focus:ring-0"
+					label=" USER"
+					onClick={() => {
+						navigate("/sign-up")
+						console.log("User")
+					}}
+				/>
+			</div>
+		)
+	}
+	const confirm2 = (row_id: string) => {
+		return confirmDialog({
+			message: "Do you want to delete this User?",
+			header: "Delete Confirmation",
+			icon: "pi pi-info-circle mr-2",
+			acceptClassName: "p-button-danger mr-2",
+			rejectClassName: " mr-[10px]",
+			accept: () => {
+				deleteUser(row_id)
+			},
+			reject: () => {},
+		})
+	}
+	const [visible, setVisible] = useState(false)
+	const [seletedUser, setSeletedUser] = useState<User>()
+
+	const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />
 	const paginatorRight = <Button type="button" icon="pi pi-download" text />
 	return (
 		<DashboardLayout>
@@ -125,7 +129,7 @@ const UsersTable = () => {
 					paginatorRight={paginatorRight}
 					filters={filters}
 					filterDisplay="menu" //===>>
-					globalFilterFields={["firstName", "lastName", "email", ]}
+					globalFilterFields={["firstName", "lastName", "email"]}
 					header={renderHeader()}
 					emptyMessage="No customers found."
 				>
@@ -174,9 +178,8 @@ const UsersTable = () => {
 							padding: 10,
 							border: "1px solid lightgray",
 						}}
-				
 					/>
-				
+
 					<Column
 						header="Actions"
 						field="actions"
@@ -198,9 +201,12 @@ const UsersTable = () => {
 
 									<Tag
 										value={actions[1]}
-										className="w-[60px] p-2 rounded-md mb-2"
+										className="w-[60px] p-3 rounded-md mb-2 cursor-pointer"
 										severity={getSeverity(actions[1])}
-										
+										onClick={() => {
+											setVisible(true)
+											setSeletedUser(row)
+										}}
 									/>
 								</div>
 							)
@@ -213,7 +219,13 @@ const UsersTable = () => {
 					/>
 				</DataTable>
 				<ConfirmDialog />
-				
+				<Dialog
+					visible={visible}
+					style={{ width: "70vw" }}
+					onHide={() => setVisible(false)}
+				>
+					<EditUser prop={seletedUser} />
+				</Dialog>
 			</div>
 		</DashboardLayout>
 	)

@@ -15,6 +15,8 @@ import DashboardLayout from "../components/DashboardLayout"
 import CustomLoader from "../components/CustomLoader"
 import { Card } from "primereact/card"
 import { Button } from "primereact/button"
+import { useDispatch } from "react-redux"
+import { setUpApplications } from "../store/features/application/appSlice"
 
 // import { format } from "date-fns";
 
@@ -62,7 +64,12 @@ const AllApplication = () => {
 		isSuccess,
 		isError,
 		error,
-	} = useGetAllAppsQuery()
+	} = useGetAllAppsQuery();
+
+	const dispatch = useDispatch();
+	dispatch(setUpApplications({app: apps}));
+	
+	
 
 	// const { id } = useParams();
 

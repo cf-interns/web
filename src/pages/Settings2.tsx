@@ -12,8 +12,9 @@ import {
 import * as Yup from "yup"
 import { useDispatch } from "react-redux"
 import { logOut } from "../store/features/auth/authSlice"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
 
 const Settings2 = () => {
 	const dispatch = useDispatch()
@@ -21,8 +22,9 @@ const Settings2 = () => {
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
 	const [DeleteUser] = useDeleteUserMutation()
 	const user = localStorage.getItem("user")
-	const UserObj = JSON.parse(user ? user : "")
-	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
+	const UserObj = JSON.parse(user ? user : '') 
+	const loggedUser = useGetSpecificUserQuery(UserObj?._id);
+	const navigate = useNavigate()
 
 	// const user = useSelector((store: any) => store.user);
 	const formik = useFormik({
@@ -45,7 +47,28 @@ const Settings2 = () => {
 				console.log(error)
 			}
 		},
-	})
+	});
+	const confirm2 = () => {
+		return confirmDialog({
+			message: "Note this Action is irreversible. Do you want to proceed?",
+			header: "Delete Confirmation",
+			icon: "pi pi-info-circle mr-2",
+			acceptClassName: "p-button-danger mr-2",
+			rejectClassName: " mr-[10px]",
+			accept: () => {
+				// console.log(UserObj._id, 'IDD');
+				
+				DeleteUser(UserObj._id)
+				dispatch(logOut()); 
+				navigate('/')
+				console.log("Deleted!")
+			},
+			reject: () => {
+				console.log('Preserved!');
+				
+			},
+		})
+	}
 
 	useEffect(() => {
 		const { data } = loggedUser
@@ -56,8 +79,8 @@ const Settings2 = () => {
 
 	return (
 		<DashboardLayout>
-			<div className="flex flex-col gap-4 h-[90vh] w-fit ml-4">
-				<div className="flex gap-8 mt-4 h-[40vh] ">
+			<div className="flex flex-col gap-8 h-[90vh] w-fit ml-4 p-4">
+				<div className="flex gap-8 mt-4 h-[40vh] mb-8">
 					<div className="flex flex-col gap-10">
 						<div>
 							<img src={avt} alt="Avatar" className="rounded-full w-60 h-60" />
@@ -99,7 +122,7 @@ const Settings2 = () => {
 												value={formik.values.firstName}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
-												className="bg-white w-[800px]"
+												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
 										</div>
 
@@ -118,7 +141,7 @@ const Settings2 = () => {
 												value={formik.values.lastName}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
-												className="bg-white w-[800px]"
+												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
 										</div>
 
@@ -137,12 +160,12 @@ const Settings2 = () => {
 												value={formik.values.email}
 												onChange={formik.handleChange}
 												onBlur={formik.handleBlur}
-												className="bg-white w-[800px]"
+												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
 										</div>
 										<Button
 											type="submit"
-											className="w-[74%] h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
+											className="w-full h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
 											label="Save"
 										/>
 									</form>
@@ -152,7 +175,7 @@ const Settings2 = () => {
 					</div>
 				</div>
 
-				<hr className="border-gray-400 border-2xl" />
+				<hr className="border-gray-400 border-2xl " />
 				<div className="flex flex-col mt-4">
 					<div className="flex justify-between" id="Change Password">
 						<div className="p-2 w-[25vw]">
@@ -214,7 +237,7 @@ const Settings2 = () => {
 													name="oldPassword"
 													// sizing="sm"
 													// style={{ backgroundColor: "white" }}
-													className="bg-white w-[800px]"
+													className="bg-white w-[60vw] rounded-lg shadow-md"
 												/>
 											</div>
 
@@ -231,7 +254,7 @@ const Settings2 = () => {
 													id="newPassword"
 													name="newPassword"
 													// sizing="sm"
-													className="bg-white w-[800px]"
+													className="bg-white w-[60vw] rounded-lg shadow-md"
 												/>
 											</div>
 
@@ -248,11 +271,11 @@ const Settings2 = () => {
 													name="confirmPassword"
 													id="confirmPassword"
 													// sizing="sm"
-													className="bg-white w-[800px]"
+													className="bg-white w-[60vw] rounded-lg shadow-md"
 												/>
 											</div>
 											<Button
-												className="w-[74%] h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
+												className="w-full h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
 												disabled={isLoading}
 												label={isLoading ? "Submiting" : "Save"}
 												type="submit"
@@ -282,13 +305,13 @@ const Settings2 = () => {
 							className="w-[74%] rounded-lg p-2 bg-red-500 mt-2 text-white focus:ring-0"
 							label={isLoading ? "Deleting ..." : "Yes, Delete My Account"}
 							onClick={() => {
-								DeleteUser(UserObj._id)
-								dispatch(logOut())
-								;<Navigate to="/" />
+								confirm2()
+							
 							}}
 							disabled={isLoading}
 						/>
 					</div>
+					<ConfirmDialog />
 				</div>
 			</div>
 		</DashboardLayout>
