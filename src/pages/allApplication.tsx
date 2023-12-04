@@ -17,6 +17,9 @@ import { Card } from "primereact/card"
 import { Button } from "primereact/button"
 import { useDispatch } from "react-redux"
 import { setUpApplications } from "../store/features/application/appSlice"
+import { Dialog } from "primereact/dialog"
+import CreateApplication from "./CreateApplication"
+import { useState } from "react"
 
 // import { format } from "date-fns";
 
@@ -73,7 +76,9 @@ const AllApplication = () => {
 
 	// const { id } = useParams();
 
-	const [updateAppStatus] = useUpdateAppStatusMutation()
+	const [updateAppStatus] = useUpdateAppStatusMutation();
+	const [visible, setVisible] = useState(false)
+
 
 	// app({status: 'ACTIVE'})
 
@@ -89,76 +94,94 @@ const AllApplication = () => {
 		result = (
 			<DashboardLayout>
 				<div className="border w-full">
-					<div className="flex px-2 divide-x-2 mt-8  w-full gap-2">
-						<h1 className="text-[#5a5c69] text-[28px] leading-[34px] px-4 font-normal cursor-pointer ml-6">
-							All Applications
-						</h1>
+					<div className=" px-2 divide-x-2 mt-8  w-full gap-2">
+						<div className="flex justify-items-end items-center ">
+							<nav
+								className="flex px-4 w-full items-center gap-4"
+								aria-label="Breadcrumb"
+							>
+								<h1 className="text-[#5a5c69] text-2xl px-4 font-normal cursor-pointer ml-6">
+									All Applications
+								</h1>
+								<ol className="inline-flex items-center space-x-1 md:space-x-3">
+									<li className="inline-flex items-center">
+										<Link
+											to="/dashboard"
+											className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-teal-600 dark:text-gray-400"
+										>
+											<svg
+												className="w-3 h-3 mr-2.5"
+												aria-hidden="true"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="currentColor"
+												viewBox="0 0 20 20"
+											>
+												<path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+											</svg>
+											Home
+										</Link>
+									</li>
+									<li>
+										<div className="flex items-center">
+											<svg
+												className="w-3 h-3 text-gray-400 mx-1"
+												aria-hidden="true"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 6 10"
+											>
+												<path
+													stroke="currentColor"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="m1 9 4-4-4-4"
+												/>
+											</svg>
+											<span className="ml-1 text-sm font-medium text-gray-700 md:ml-2 dark:text-gray-400 ">
+												components
+											</span>
+										</div>
+									</li>
+									<li aria-current="page">
+										<div className="flex items-center">
+											<svg
+												className="w-3 h-3 text-gray-400 mx-1"
+												aria-hidden="true"
+												xmlns="http://www.w3.org/2000/svg"
+												fill="none"
+												viewBox="0 0 6 10"
+											>
+												<path
+													stroke="currentColor"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="m1 9 4-4-4-4"
+												/>
+											</svg>
+											<span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
+												All Application
+											</span>
+										</div>
+									</li>
+								</ol>
+							</nav>
 
-						<nav className="flex px-4 w-full" aria-label="Breadcrumb">
-							<ol className="inline-flex items-center space-x-1 md:space-x-3">
-								<li className="inline-flex items-center">
-									<Link
-										to="/dashboard"
-										className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-teal-600 dark:text-gray-400"
-									>
-										<svg
-											className="w-3 h-3 mr-2.5"
-											aria-hidden="true"
-											xmlns="http://www.w3.org/2000/svg"
-											fill="currentColor"
-											viewBox="0 0 20 20"
-										>
-											<path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-										</svg>
-										Home
-									</Link>
-								</li>
-								<li>
-									<div className="flex items-center">
-										<svg
-											className="w-3 h-3 text-gray-400 mx-1"
-											aria-hidden="true"
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 6 10"
-										>
-											<path
-												stroke="currentColor"
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="2"
-												d="m1 9 4-4-4-4"
-											/>
-										</svg>
-										<span className="ml-1 text-sm font-medium text-gray-700 md:ml-2 dark:text-gray-400 ">
-											components
-										</span>
-									</div>
-								</li>
-								<li aria-current="page">
-									<div className="flex items-center">
-										<svg
-											className="w-3 h-3 text-gray-400 mx-1"
-											aria-hidden="true"
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 6 10"
-										>
-											<path
-												stroke="currentColor"
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="2"
-												d="m1 9 4-4-4-4"
-											/>
-										</svg>
-										<span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
-											All Application
-										</span>
-									</div>
-								</li>
-							</ol>
-						</nav>
+							<div>
+								<button className="w-fit bg-gray-500 rounded-lg text-white px-2 py-1 text-md hover:bg-gray-800" onClick={() => setVisible(true)}> 
+									Create App
+								</button>
+								<Dialog
+									visible={visible}
+									style={{ width: "auto" }}
+									onHide={() => setVisible(false)}
+									className="bg-gray-300"
+								>
+									<CreateApplication/>
+								</Dialog>
+							</div>
+						</div>
 					</div>
 
 					<div className="mt-5 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-5 pb-5 ">
@@ -176,7 +199,9 @@ const AllApplication = () => {
 										</h5>
 										<div className=" flex items-center justify-between font-normal text-gray-900 dark:text-black">
 											<p className="mt-4">Status: {app.status}</p>
-											<p className="mt-4">Created: {app.createdAt.toString()}</p>
+											<p className="mt-4">
+												Created: {app.createdAt.toString()}
+											</p>
 										</div>
 
 										{/* <div
