@@ -1,26 +1,30 @@
-import { Tooltip } from 'flowbite-react';
+import { Tooltip } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
 
-import NotificationTable from "./notifiTable"
+import NotificationTable from "../components/notifiTable"
 
 import "primereact/resources/themes/lara-light-indigo/theme.css"
 import "primereact/resources/primereact.min.css"
 import Widgets from "../components/Widgets"
-import { useGetAllNotificationsQuery, useGetAllNotifsInDbQuery } from "../store/features/notifications/notificationsApiSlice"
+import {
+	// useGetAllNotificationsQuery,
+	useGetAllNotifsInDbQuery,
+} from "../store/features/notifications/notificationsApiSlice"
 import { useDispatch } from "react-redux"
 import { setUpNotifications } from "../store/features/notifications/notificationsSlice"
 import "primereact/resources/primereact.min.css" //core ;
 import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from "recharts"
-
-
-
+import BreadCrumbs from "../components/BreadCrumbs"
 
 const Main1 = () => {
-	const { data: realData } = useGetAllNotificationsQuery({
-		appToken: "c16e5cd1-c107-45f0-b439-d85cfb56cfaa",
-	});
-	const {data: realData2} = useGetAllNotifsInDbQuery()
+	/* const { data: realData } = useGetAllNotificationsQuery({
+		appToken: "2a3ee4bd-ea61-4d0e-9b96-d4a73e1cde22",
+	})
+	console.log(realData, 'DATA'); */
 	
+	const { data: realData2 } = useGetAllNotifsInDbQuery()
+	console.log(realData2, "DATA 2")
+
 
 	const dispatch = useDispatch()
 	dispatch(setUpNotifications(realData2))
@@ -28,9 +32,12 @@ const Main1 = () => {
 	return (
 		<DashboardLayout>
 			<div className="flex flex-col gap-4 mb-8">
-				<h1 className="text-[#5a5c69] text-3xl font-bold p-2 ml-2 font-normal cursor-pointer">
-					Dashboard
-				</h1>
+				<div className="p-2 m-4 flex items-center">
+					<BreadCrumbs />
+					<h1 className="text-[#5a5c69] text-3xl font-bold p-2 ml-2 font-normal cursor-pointer">
+						Dashboard
+					</h1>
+				</div>
 
 				<Widgets />
 
@@ -60,7 +67,7 @@ const Main1 = () => {
 									activeDot={{ r: 8 }}
 								/>
 								<Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-							</LineChart> 
+							</LineChart>
 						</div>
 					</div>
 					<div className="mb-5">
@@ -72,4 +79,4 @@ const Main1 = () => {
 	)
 }
 
-export default Main1 
+export default Main1

@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify"
 
 import { useSelector } from "react-redux"
 import { RootState } from "../store/store"
+// import BreadCrumbs from "../components/BreadCrumbs"
 
 export interface AppData {
 	name: string
@@ -92,6 +93,10 @@ const SendSMS = () => {
 
 	return (
 		<DashboardLayout>
+			{/* <div className="flex items-center p-2">
+				<BreadCrumbs />
+				<h1 className="text-2xl">SMS</h1>
+			</div> */}
 			<div className="flex justify-center w-[55vw] m-auto">
 				<div className="w-[70vw] h-auto">
 					<form

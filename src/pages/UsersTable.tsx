@@ -15,9 +15,10 @@ import { useNavigate } from "react-router-dom"
 import { Dialog } from "primereact/dialog"
 import EditUser from "./EditUser"
 import { User } from "../store/features/api/apiSlice"
+import BreadCrumbs from "../components/BreadCrumbs"
 
 const UsersTable = () => {
-	// const [selectedNotif, setSelectedNotif] = useState(null)
+	
 	const actions = ["DELETE", "EDIT"]
 	const navigate = useNavigate()
 
@@ -113,12 +114,16 @@ const UsersTable = () => {
 	const paginatorRight = <Button type="button" icon="pi pi-download" text />
 	return (
 		<DashboardLayout>
-			<div className="flex flex-col items-center justify-items-center justify-center gap-4">
-				<h1 className="text-2xl text-gray-600 ">Users</h1>
+			<div className="flex flex-col justify-items-center justify-center gap-4">
+				<div className="flex items-center p-2">
+					<BreadCrumbs />
+
+					<h1 className="text-3xl text-gray-600 py-2">Users</h1>
+				</div>
 				<DataTable
 					value={realUsers || undefined}
 					tableStyle={{ minWidth: "50rem", border: "1px solid lightgray" }}
-					className="w-[fit]"
+					className="w-[fit] p-2"
 					showGridlines
 					rows={5}
 					paginator

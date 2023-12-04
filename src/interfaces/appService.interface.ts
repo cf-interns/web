@@ -15,7 +15,7 @@ export interface SMS {
 export interface Email {
     app: App;
     id: string;
-    to: string;
+    to: string[];
     subject: string;
     text: string;
     from: string;

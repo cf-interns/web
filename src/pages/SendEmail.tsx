@@ -64,7 +64,7 @@ const SendEmail = () => {
 						id: selectedApplication?.token,
 						text: values?.text,
 						subject: values?.subject,
-						to: email2.toString(),
+						to: email2,
 						from: "no-reply@payunit.com",
 					}
 					const data = await sendEmail(inputs).unwrap()

@@ -26,19 +26,21 @@ export const notificationApiSlice = apiSlice.injectEndpoints({
 					url: `notifications/all-notifications/${appToken}`,
 				}
 			},
-			providesTags: ["Notifications"],
+			// providesTags: ["Notifications"],
 			// invalidatesTags: (_id) => [{type: 'Notifications', _id}]
 			// getTotalSMS:
 		}),
-	
+
 		getAllNotifsInDb: build.query<Notification[], void>({
-			query(){
+			query() {
 				return {
-					url: 'notifications/all-notifications'
+					url: "notifications/all-notifications",
 				}
-			}
-		})
+			},
+			providesTags: ["Notifications"],
+		}),
 	}),
 })
 
-export const { useGetAllNotificationsQuery, useGetAllNotifsInDbQuery } = notificationApiSlice
+export const { useGetAllNotificationsQuery, useGetAllNotifsInDbQuery } =
+	notificationApiSlice

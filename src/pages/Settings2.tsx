@@ -1,7 +1,7 @@
 import DashboardLayout from "../components/DashboardLayout"
 import avt from "../assets/avatar2.jpeg"
 import { Button } from "primereact/button"
-import { Form, Formik, Field, useFormik } from "formik"
+import { useFormik } from "formik"
 import { Label } from "flowbite-react"
 import {
 	useChangePasswordMutation,
@@ -14,6 +14,9 @@ import * as Yup from "yup"
 // import { logOut } from "../store/features/auth/authSlice"
 // import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
+import { ToastContainer, toast } from "react-toastify"
+import BreadCrumbs from "../components/BreadCrumbs"
+
 // import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
 
 const Settings2 = () => {
@@ -22,11 +25,11 @@ const Settings2 = () => {
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
 	// const [DeleteUser] = useDeleteUserMutation()
 	const user = localStorage.getItem("user")
-	const UserObj = JSON.parse(user ? user : '') 
-	const loggedUser = useGetSpecificUserQuery(UserObj?._id);
-	// const navigate = useNavigate()
+	const UserObj = JSON.parse(user ? user : "")
+	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
+	const notifySucess = () => toast.success("User Info Updated")
+	const notifyError = () => toast.error("User Info Not Updated")
 
-	// const user = useSelector((store: any) => store.user);
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
@@ -35,19 +38,60 @@ const Settings2 = () => {
 		},
 		validationSchema: Yup.object({
 			firstName: Yup.string().required("First Name is required!"),
-			lastName: Yup.string().required("Last Name is required!"),
+			lastName: Yup.string().required("Last Name is required!").strict(true),
 			email: Yup.string().email().required("Email Required!"),
 		}),
 		onSubmit: async (values) => {
 			try {
 				const data = await changeUserData(values).unwrap()
+				notifySucess()
+				return data
+			} catch (error) {
+				notifyError()
+				console.log(error)
+			}
+		},
+	})
+
+	const formik2 = useFormik({
+		initialValues: {
+			oldPassword: "",
+			newPassword: "",
+			confirmPassword: "",
+		},
+		validationSchema: Yup.object({
+			// oldPassword: Yup.string()
+			// 	.password()
+			// 	.required("Previous Password is required!"),
+			newPassword: Yup.string()
+				.password()
+				.required("Please enter the new password")
+				.max(25)
+				.min(9)
+				.minUppercase(1, "Must contain atleast 1 uppercase letter")
+				.minLowercase(1, "Must contain atleast 1 lowercase letter")
+				.minNumbers(1, "Must cantain atleast 1 number")
+				.minSymbols(1, "Must contain atleast 1 symbol"),
+			confirmPassword: Yup.string()
+				.password()
+				.required("Please enter the new password")
+				.max(25)
+				.min(9)
+				.minUppercase(1, "Must contain atleast 1 uppercase letter")
+				.minLowercase(1, "Must contain atleast 1 lowercase letter")
+				.minNumbers(1, "Must cantain atleast 1 number")
+				.minSymbols(1, "Must contain atleast 1 symbol"),
+		}),
+		onSubmit: async (values) => {
+			try {
+				const data = await changePassword(values).unwrap()
 				console.log(data, "USER PASSWORD++++++")
 				return data
 			} catch (error) {
 				console.log(error)
 			}
 		},
-	});
+	})
 
 	/* const confirm2 = () => {
 		return confirmDialog({
@@ -81,6 +125,10 @@ const Settings2 = () => {
 	return (
 		<DashboardLayout>
 			<div className="flex flex-col gap-8 h-[90vh] w-fit ml-4 p-4">
+				<div className="flex items-center p-2">
+					<BreadCrumbs />
+					<h1 className="text-2xl">Settings</h1>
+				</div>
 				<div className="flex gap-8 mt-4 h-[40vh] mb-8">
 					<div className="flex flex-col gap-10">
 						<div>
@@ -170,6 +218,7 @@ const Settings2 = () => {
 											label="Save"
 										/>
 									</form>
+									<ToastContainer />
 								</div>
 							</div>
 						</div>
@@ -187,109 +236,94 @@ const Settings2 = () => {
 						<div id="form" className="flex flex-col gap-4">
 							<div>
 								<div className="">
-									<Formik
-										initialValues={{
-											oldPassword: "",
-											newPassword: "",
-											confirmPassword: "",
-										}}
-										validationSchema={Yup.object({
-											oldPassword: Yup.string()
-												.password()
-												.required("Previous Password is required!"),
-											newPassword: Yup.string()
-												.password()
-												.required("Please enter the new password")
-												.max(25)
-												.min(9)
-												.minUppercase(
-													1,
-													"Must contain atleast 1 uppercase letter"
-												)
-												.minLowercase(
-													1,
-													"Must contain atleast 1 lowercase letter"
-												)
-												.minNumbers(1, "Must cantain atleast 1 number")
-												.minSymbols(1, "Must contain atleast 1 symbol"),
-										})}
-										onSubmit={async (values) => {
-											try {
-												const data = await changePassword(values).unwrap()
-												console.log(data, "USER PASSWORD++++++")
-												return data
-											} catch (error) {
-												console.log(error)
-											}
-										}}
+									<form
+										className="flex flex-col gap-2 w-[60vw]"
+										onSubmit={formik2.handleSubmit}
 									>
-										<Form className="flex flex-col gap-2 w-[60vw]">
-											<div className="flex flex-col gap-2 whitespace-nowrap w-80">
-												<Label
-													htmlFor="Current Password"
-													value="Current Password"
-													color="text-dark"
-													className="text-sm"
-												/>
-												<Field
-													placeholder="Enter Current Password"
-													type="password"
-													id="oldPassword"
-													name="oldPassword"
-													// sizing="sm"
-													// style={{ backgroundColor: "white" }}
-													className="bg-white w-[60vw] rounded-lg shadow-md"
-												/>
-											</div>
-
-											<div className="flex flex-col gap-2 whitespace-nowrap w-80">
-												<Label
-													htmlFor="New Password"
-													value="New Password"
-													color="text-dark"
-													className="text-sm"
-												/>
-												<Field
-													placeholder="New Password"
-													type="password"
-													id="newPassword"
-													name="newPassword"
-													// sizing="sm"
-													className="bg-white w-[60vw] rounded-lg shadow-md"
-												/>
-											</div>
-
-											<div className="flex flex-col gap-2 w-80">
-												<Label
-													htmlFor="confirmPassword"
-													value="Confirm Password"
-													color="text-dark"
-													className="text-sm mr-8"
-												/>
-												<Field
-													placeholder="Confirm Password"
-													type="password"
-													name="confirmPassword"
-													id="confirmPassword"
-													// sizing="sm"
-													className="bg-white w-[60vw] rounded-lg shadow-md"
-												/>
-											</div>
-											<Button
-												className="w-full h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
-												disabled={isLoading}
-												label={isLoading ? "Submiting" : "Save"}
-												type="submit"
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+											<Label
+												htmlFor="Current Password"
+												value="Current Password"
+												color="text-dark"
+												className="text-sm"
 											/>
-										</Form>
-									</Formik>
+											<input
+												placeholder="Enter Current Password"
+												type="password"
+												id="oldPassword"
+												name="oldPassword"
+												value={formik2.values.oldPassword}
+												onChange={formik2.handleChange}
+												onBlur={formik2.handleBlur}
+												// sizing="sm"
+												// style={{ backgroundColor: "white" }}
+												className="bg-white w-[60vw] rounded-lg shadow-md"
+											/>
+											{formik2?.errors?.oldPassword && (
+												<div>{formik2?.errors?.oldPassword}</div>
+											)}
+										</div>
+
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+											<Label
+												htmlFor="New Password"
+												value="New Password"
+												color="text-dark"
+												className="text-sm"
+											/>
+											<input
+												placeholder="New Password"
+												type="password"
+												id="newPassword"
+												name="newPassword"
+												value={formik2.values.newPassword}
+												onChange={formik2.handleChange}
+												onBlur={formik2.handleBlur}
+												// sizing="sm"
+												className="bg-white w-[60vw] rounded-lg shadow-md"
+											/>
+											{formik2?.errors?.newPassword && (
+												<div>{formik2?.errors?.newPassword}</div>
+											)}
+										</div>
+
+										<div className="flex flex-col gap-2 w-80">
+											<Label
+												htmlFor="confirmPassword"
+												value="Confirm Password"
+												color="text-dark"
+												className="text-sm mr-8"
+											/>
+											<input
+												placeholder="Confirm Password"
+												type="password"
+												name="confirmPassword"
+												id="confirmPassword"
+												value={formik2.values.confirmPassword}
+												onChange={formik2.handleChange}
+												onBlur={formik2.handleBlur}
+												// sizing="sm"
+												className="bg-white w-[60vw] rounded-lg shadow-md"
+											/>
+											{formik2?.errors?.confirmPassword && (
+												<div>{formik2?.errors?.confirmPassword}</div>
+											)}
+										</div>
+										<Button
+											className="w-full h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
+											disabled={isLoading}
+											label={isLoading ? "Submiting" : "Save"}
+											type="submit"
+											onClick={() => console.log("YO! 2")}
+										/>
+									</form>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-			{/* 	<hr className="border-gray-400 border-2xl" />
+				{/* 	<hr className="border-gray-400 border-2xl" />
 
 				<div className="flex gap-8" id="Delete Account">
 					<div className="p-2 w-[25vw]">

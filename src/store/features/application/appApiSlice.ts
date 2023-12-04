@@ -18,7 +18,6 @@ export const appApiSlice = apiSlice.injectEndpoints({
 				}
 			},
 			invalidatesTags: ["Notifications"],
-			
 		}),
 		sendPush: build.mutation<PushResponse, Partial<Push>>({
 			query({ id, notification, token }) {
