@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 export const  NavbarDash = () => {
   const dispatch = useDispatch();
   const user2 = localStorage.getItem('user');
-  const realUser = JSON.parse(user2 || '')
+  const realUser = JSON.parse(user2 || '{}')
 
   
 

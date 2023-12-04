@@ -1,136 +1,178 @@
-import { ErrorMessage, Field, Form, Formik } from "formik"
+import {  useFormik } from "formik"
 import { useSendPushMutation } from "../store/features/application/appApiSlice"
 import * as Yup from "yup"
 import { Label } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
+import { useSelector } from "react-redux"
+import { RootState } from "../store/store"
+import { AppData } from "./sendSMS"
+import { Dropdown } from "primereact/dropdown";
+import { ToastContainer, toast } from "react-toastify"
+import { useState } from "react"
+
 
 const SendPush = () => {
-	const appId = "3b6cc465-62bf-403e-a22e-24fc6727daaf"
-	const [sendPush, { isLoading }] = useSendPushMutation()
-	const content = isLoading ? (
-		<h1>Submitting ...</h1>
-	) : (
-		<Formik
-			initialValues={{
-				id: appId,
-				notification: {
-					body: "",
-					title: "",
-					// icon: ''
-				},
-				token: "",
-			}}
-			validationSchema={Yup.object({
-				notification: Yup.object().required(),
-				token: Yup.string().required("Please recipient's token"),
-			})}
-			onSubmit={async (values) => {
-				console.log(values, "<<<====token?")
+	const [selectedApplication, setSelectedApplication] = useState<AppData>()
+	const notifySucess = () => toast.success("Email Sent!")
+	const notifyError = () => toast.error("Email Not Sent!")
 
-				try {
-					const data = await sendPush(values)
-					console.log(data, "<<<====token?")
+	const [sendPush, ] = useSendPushMutation();
+	const app = useSelector((store: RootState) => store.app.app)
+	const useFullData = app?.map((app) => {
+		return {
+			name: app.appName,
+			token: app.token,
+		}
+	})
+	const formik = useFormik({
+		initialValues: {
+			token: '',
+			notification: {
+				body: "",
+				title: "",
+				// icon: ''
+			},
+			userToken: "",
+		},
+		validationSchema: Yup.object({
+			notification: Yup.object().required(),
+			userToken: Yup.string().required("Please recipient's token"),
+			token: Yup.string().required("Please choose an application"),
+		}),
+		onSubmit: async (values) => {
+			console.log(values, "<<<====token?")
 
-					return data
-				} catch (error) {
-					console.log(error)
+			try {
+				const inputs = {
+					id: selectedApplication?.token,
+					notification: {
+						body: values?.notification.body,
+						title: values?.notification.title,
+					},
+					userToken: values?.userToken,
 				}
-			}}
-		>
-			<DashboardLayout>
-				<div className="flex justify-center w-[90vw] ">
-					<div className="w-[70vw] h-auto">
-						<Form
-							className="bg-white rounded px-8 pt-6 pb-8 mb-4 my-32 "
-							style={{ boxShadow: "71px 38px 50px 22px rgba(0,0,0,0.1)" }}
-						>
-							<div className="mb-4">
-								<Label
-									color="text-dark"
-									htmlFor="text"
-									value="Message"
-									className="text-xl text-center p-1"
-								/>
-								<Field
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-									id="notification.body"
-									type="text"
-									placeholder="Enter Push Message"
-									name="notification.body"
-									sizing="lg"
-								/>
-								<ErrorMessage name="notification.body">
-									{(msg) => (
-										<div className="text-red-800 text-xs italic text-center">
-											{msg}
-										</div>
-									)}
-								</ErrorMessage>
-							</div>
-							<div className="mb-4">
-								<Label
-									color="text-dark"
-									htmlFor="subject"
-									value="Title"
-									className="text-xl text-center p-1"
-								/>
-								<Field
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-[12vh]"
-									id="notification.title"
-									as="textarea"
-									type="text"
-									placeholder="Enter Push Title"
-									name="notification.title"
-									sizing="lg"
-								/>
-								<ErrorMessage name="notification.title">
-									{(msg) => (
-										<div className="text-red-800 text-xs italic text-center">
-											{msg}
-										</div>
-									)}
-								</ErrorMessage>
-							</div>
-							<div className="mb-4">
-								<Label
-									color="text-dark"
-									htmlFor="token"
-									value="Recipient's token"
-									className="text-xl text-center p-1"
-								/>
-								<Field
-									className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-[12vh]"
-									id="token"
-									as="textarea"
-									type="text"
-									placeholder="Enter User token"
-									name="token"
-									sizing="lg"
-								/>
-								<ErrorMessage name="token">
-									{(msg) => (
-										<div className="text-red-800 text-xs italic text-center">
-											{msg}
-										</div>
-									)}
-								</ErrorMessage>
-							</div>
+				const data = await sendPush(inputs)
+				console.log(data, "<<<====token?")
+				notifySucess()
+				return data
+			} catch (error) {
+				notifyError()
+				console.log(error)
+			}
+		},
+	})
+	const onApplicationChange = (selectedApp: AppData) => {
+		setSelectedApplication(selectedApp)
+		formik.setFieldValue("token", selectedApp?.token)
+	}
+	return (
+		<DashboardLayout>
+			<div className="flex justify-center w-[90vw] ">
+				<div className="w-[70vw] h-auto">
+					<form
+						onSubmit={formik.handleSubmit}
+						className="bg-white rounded px-8 pt-6 pb-8 mb-4 my-32 "
+						style={{ boxShadow: "71px 38px 50px 22px rgba(0,0,0,0.1)" }}
+					>
+						<div className="mb-4">
+							<Label
+								color="text-dark"
+								htmlFor="text"
+								value="Message"
+								className="text-xl text-center p-1"
+							/>
+							<Dropdown
+								value={selectedApplication}
+								onChange={(e) => onApplicationChange(e.value)}
+								options={useFullData}
+								optionLabel="name"
+								placeholder="Select An App"
+								name="token"
+								id="token"
+								className="w-full md:w-14rem"
+							/>
+							{formik?.errors?.token && (
+								<div className="text-red-800 text-xs italic text-center">
+									{formik?.errors?.token}
+								</div>
+							)}
+						</div>
+						<div className="mb-4">
+							<Label
+								color="text-dark"
+								htmlFor="text"
+								value="Message"
+								className="text-xl text-center p-1"
+							/>
+							<input
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+								id="notification.body"
+								type="text"
+								placeholder="Enter Push Message"
+								name="notification.body"
+							/>
+							{formik?.errors?.notification?.body && (
+								<div className="text-red-800 text-xs italic text-center">
+									{formik?.errors?.notification.body}
+								</div>
+							)}
+						</div>
+						<div className="mb-4">
+							<Label
+								color="text-dark"
+								htmlFor="subject"
+								value="Title"
+								className="text-xl text-center p-1"
+							/>
+							<input
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-[12vh]"
+								id="notification.title"
+								type="text"
+								placeholder="Enter Push Title"
+								name="notification.title"
+							/>
+							{formik?.errors?.notification?.title && (
+								<div className="text-red-800 text-xs italic text-center">
+									{formik?.errors?.notification.title}
+								</div>
+							)}
+						</div>
+						<div className="mb-4">
+							<Label
+								color="text-dark"
+								htmlFor="token"
+								value="Recipient's token"
+								className="text-xl text-center p-1"
+							/>
+							<input
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-[12vh]"
+								id="userToken"
+								type="text"
+								placeholder="Enter User token"
+								name="userToken"
+							/>
+							{formik?.errors?.userToken && (
+								<div className="text-red-800 text-xs italic text-center">
+									{formik?.errors?.userToken}
+								</div>
+							)}
+						</div>
 
-							<button
-								type="submit"
-								style={{ backgroundColor: "rgb(31 41 55 / 1)" }}
-								className="self-center text-white border-black rounded-md hover:bg-green-300 p-2 hover:text-white w-full bg-gray-300"
-							>
-								Submit
-							</button>
-						</Form>
-					</div>
+						<button
+							type="submit"
+							style={{ backgroundColor: "rgb(31 41 55 / 1)" }}
+							className="self-center text-white border-black rounded-md hover:bg-green-300 p-2 hover:text-white w-full bg-gray-300"
+						>
+							Submit
+						</button>
+					</form>
+					<ToastContainer />
 				</div>
-			</DashboardLayout>    
-		</Formik>
+			</div>
+		</DashboardLayout>
 	)
 
-	return content
+	
 }
 
 export default SendPush

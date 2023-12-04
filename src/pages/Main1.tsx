@@ -6,66 +6,24 @@ import NotificationTable from "./notifiTable"
 import "primereact/resources/themes/lara-light-indigo/theme.css"
 import "primereact/resources/primereact.min.css"
 import Widgets from "../components/Widgets"
-import { useGetAllNotificationsQuery } from "../store/features/notifications/notificationsApiSlice"
+import { useGetAllNotificationsQuery, useGetAllNotifsInDbQuery } from "../store/features/notifications/notificationsApiSlice"
 import { useDispatch } from "react-redux"
 import { setUpNotifications } from "../store/features/notifications/notificationsSlice"
 import "primereact/resources/primereact.min.css" //core ;
 import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from "recharts"
 
-const data = [
-	{
-		name: "Page A",
-		uv: 4000,
-		pv: 2400,
-		amt: 2400,
-	},
-	{
-		name: "Page B",
-		uv: 3000,
-		pv: 1398,
-		amt: 2210,
-	},
-	{
-		name: "Page C",
-		uv: 2000,
-		pv: 9800,
-		amt: 2290,
-	},
-	{
-		name: "Page D",
-		uv: 2780,
-		pv: 3908,
-		amt: 2000,
-	},
-	{
-		name: "Page E",
-		uv: 1890,
-		pv: 4800,
-		amt: 2181,
-	},
-	{
-		name: "Page F",
-		uv: 2390,
-		pv: 3800,
-		amt: 2500,
-	},
-	{
-		name: "Page G",
-		uv: 3490,
-		pv: 4300,
-		amt: 2100,
-	},
-]
+
 
 
 const Main1 = () => {
 	const { data: realData } = useGetAllNotificationsQuery({
-		appToken: "2e66d10c-9137-4b89-ba03-f9a7cffb987a",
-	})
-	console.log("real", realData)
+		appToken: "c16e5cd1-c107-45f0-b439-d85cfb56cfaa",
+	});
+	const {data: realData2} = useGetAllNotifsInDbQuery()
+	
 
 	const dispatch = useDispatch()
-	dispatch(setUpNotifications(realData?.notifications))
+	dispatch(setUpNotifications(realData2))
 
 	return (
 		<DashboardLayout>
@@ -82,7 +40,7 @@ const Main1 = () => {
 							<LineChart
 								width={600}
 								height={450}
-								data={data}
+								data={realData2}
 								margin={{
 									top: 5,
 									right: 30,
@@ -106,7 +64,7 @@ const Main1 = () => {
 						</div>
 					</div>
 					<div className="mb-5">
-						<NotificationTable realData={realData} />
+						<NotificationTable realData={realData2} />
 					</div>
 				</div>
 			</div>

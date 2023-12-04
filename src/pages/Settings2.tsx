@@ -5,26 +5,26 @@ import { Form, Formik, Field, useFormik } from "formik"
 import { Label } from "flowbite-react"
 import {
 	useChangePasswordMutation,
-	useDeleteUserMutation,
+	// useDeleteUserMutation,
 	useGetSpecificUserQuery,
 	useUpdateUserInfoMutation,
 } from "../store/features/user/usersApiSlice"
 import * as Yup from "yup"
-import { useDispatch } from "react-redux"
-import { logOut } from "../store/features/auth/authSlice"
-import { useNavigate } from "react-router-dom"
+// import { useDispatch } from "react-redux"
+// import { logOut } from "../store/features/auth/authSlice"
+// import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
-import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
+// import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
 
 const Settings2 = () => {
-	const dispatch = useDispatch()
+	// const dispatch = useDispatch()
 	const [changeUserData] = useUpdateUserInfoMutation()
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
-	const [DeleteUser] = useDeleteUserMutation()
+	// const [DeleteUser] = useDeleteUserMutation()
 	const user = localStorage.getItem("user")
 	const UserObj = JSON.parse(user ? user : '') 
 	const loggedUser = useGetSpecificUserQuery(UserObj?._id);
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 
 	// const user = useSelector((store: any) => store.user);
 	const formik = useFormik({
@@ -48,7 +48,8 @@ const Settings2 = () => {
 			}
 		},
 	});
-	const confirm2 = () => {
+
+	/* const confirm2 = () => {
 		return confirmDialog({
 			message: "Note this Action is irreversible. Do you want to proceed?",
 			header: "Delete Confirmation",
@@ -68,7 +69,7 @@ const Settings2 = () => {
 				
 			},
 		})
-	}
+	} */
 
 	useEffect(() => {
 		const { data } = loggedUser
@@ -288,7 +289,7 @@ const Settings2 = () => {
 					</div>
 				</div>
 
-				<hr className="border-gray-400 border-2xl" />
+			{/* 	<hr className="border-gray-400 border-2xl" />
 
 				<div className="flex gap-8" id="Delete Account">
 					<div className="p-2 w-[25vw]">
@@ -312,7 +313,7 @@ const Settings2 = () => {
 						/>
 					</div>
 					<ConfirmDialog />
-				</div>
+				</div> */}
 			</div>
 		</DashboardLayout>
 	)

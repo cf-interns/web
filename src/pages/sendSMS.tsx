@@ -4,14 +4,13 @@ import * as Yup from "yup"
 import { Label } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
 import { Dropdown } from "primereact/dropdown"
-import { useState } from "react";
+import { useState } from "react"
 import { ToastContainer, toast } from "react-toastify"
-
 
 import { useSelector } from "react-redux"
 import { RootState } from "../store/store"
 
-interface AppData {
+export interface AppData {
 	name: string
 	token: string
 }
@@ -20,6 +19,8 @@ const SendSMS = () => {
 	const [sendSMS, { isLoading /* isSuccess */ }] = useSendSMSMutation()
 
 	const notifySucess = () => toast.success("SMS Sent!")
+	const notifyError = () => toast.error("SMS Not Sent!")
+	const notifyErrorNumbers = () => toast.error("Please enter a number!")
 
 	/* 
 	1- Get Apps
@@ -28,6 +29,14 @@ const SendSMS = () => {
 	
 	*/
 	const [selectedApplication, setSelectedApplication] = useState<AppData>()
+
+	const [numbers, setNumbers] = useState<string[]>([])
+	const onAddNumber = () => {
+		const actualNumbers = [...numbers]
+		actualNumbers.push(formik.values.mobiles)
+		setNumbers(actualNumbers)
+		formik.setFieldValue("mobiles", "")
+	}
 
 	const formik = useFormik({
 		initialValues: {
@@ -38,22 +47,31 @@ const SendSMS = () => {
 
 		validationSchema: Yup.object({
 			message: Yup.string().required("Please enter your message"),
-			mobiles: Yup.number().required("Please Enter Phone number"),
 			token: Yup.string().required("Please choose an application"),
 		}),
 		onSubmit: async (values) => {
 			try {
-				const inputs = {
-					message: values?.message,
-					mobiles: values?.mobiles,
-					id: selectedApplication?.token,
-				}
+				if (numbers.length > 0 || values.mobiles) {
+					
+					let mobileValues = numbers
 
-				const data = await sendSMS(inputs).unwrap();
+					if (numbers.length === 0) mobileValues = [values.mobiles]
+					else mobileValues = numbers
+					
+					const inputs = {
+						message: values?.message,
+						mobiles: mobileValues.toString(),
+						id: selectedApplication?.token,
+					}
+
+					const data = await sendSMS(inputs).unwrap()
 					notifySucess()
+					setNumbers([])
 
-				return data
+					return data
+				} else notifyErrorNumbers()
 			} catch (error) {
+				notifyError()
 				console.log(error)
 			}
 		},
@@ -130,7 +148,16 @@ const SendSMS = () => {
 								</div>
 							)}
 						</div>
-
+						<div className="flex gap-5">
+							{numbers.map((num) => (
+								<div
+									className="rounded-full bg-gray-300 w-fit p-2 px-4 shadow-lg mb-2 none group "
+									id="numberTip"
+								>
+									{num}
+								</div>
+							))}
+						</div>
 						<div className="mb-4">
 							<Label
 								color="text-dark"
@@ -138,21 +165,27 @@ const SendSMS = () => {
 								value="Mobile Number(s)"
 								className="text-xl text-center p-1"
 							/>
-							<input
-								className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-[12vh]"
-								id="mobiles"
-								type="text-area"
-								placeholder="Enter mobile number"
-								name="mobiles"
-								value={formik.values.mobiles}
-								onChange={formik.handleChange}
-								onBlur={formik.handleBlur}
-							/>
+							<div className="flex gap-4 pt-2">
+								<input
+									className="shadow appearance-none border rounded-lg w-fit  text-grey-darker text-xl leading-tight focus:outline-none focus:shadow-outline h-fit"
+									id="mobiles"
+									placeholder="Enter mobile number"
+									name="mobiles"
+									value={formik.values.mobiles}
+									onChange={formik.handleChange}
+									onBlur={formik.handleBlur}
+								/>
+								<button
+									className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
+									type="button"
+									onClick={onAddNumber}
+								>
+									Add
+								</button>
+							</div>
 
-							{formik?.errors?.mobiles && (
-								<div className="text-red-700 font-bold">
-									{formik?.errors?.mobiles}
-								</div>
+							{numbers.length === 0 && (
+								<div className="text-red-700 font-bold">{}</div>
 							)}
 						</div>
 
