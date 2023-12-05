@@ -127,7 +127,7 @@ const Settings2 = () => {
 			<div className="flex flex-col gap-8 h-[90vh] w-fit ml-4 p-4">
 				<div className="flex items-center p-2">
 					<BreadCrumbs />
-					<h1 className="text-2xl">Settings</h1>
+					<h1 className="text-2xl ">Settings</h1>
 				</div>
 				<div className="flex gap-8 mt-4 h-[40vh] mb-8">
 					<div className="flex flex-col gap-10">

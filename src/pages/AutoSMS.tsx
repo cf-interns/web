@@ -1,83 +1,89 @@
-import { useFormik } from "formik"
-import { useSendEmailMutation } from "../store/features/application/appApiSlice"
-import * as Yup from "yup"
-import { Label } from "flowbite-react"
-import DashboardLayout from "../components/DashboardLayout"
-import { useState } from "react"
-import { useSelector } from "react-redux"
-import { RootState } from "../store/store"
-import { Dropdown } from "primereact/dropdown"
-import { AppData } from "./sendSMS";
 import { ToastContainer, toast } from "react-toastify"
+import { useSendAutomaticSMSMutation } from "../store/features/application/appApiSlice"
+import * as Yup from 'yup';
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { AppData } from "./sendSMS";
+import DashboardLayout from "../components/DashboardLayout";
+import { Label } from "flowbite-react";
+import { Dropdown } from "primereact/dropdown";
+import { useFormik } from "formik";
+import { useState } from "react";
 
+const AutoSMS = () => {
+	const [sendAutoSMS, { isLoading }] = useSendAutomaticSMSMutation()
+	const notifySucess = () => toast.success("SMS Sent!")
+	const notifyError = () => toast.error("SMS Not Sent!")
+	const notifyErrorNumbers = () => toast.error("Please enter a number!")
 
-const SendEmail = () => {
-	const [sendEmail, { isLoading }] = useSendEmailMutation()
 	const [selectedApplication, setSelectedApplication] = useState<AppData>()
-	const notifySucess = () => toast.success("Email Sent!")
-	const notifyError = () => toast.error("Email Not Sent!")
-	const notifyErrorEmails = () => toast.error("Please enter a valid email address!")
 
+	const [numbers, setNumbers] = useState<string[]>([])
+	const onAddNumber = () => {
+		const actualNumbers = [...numbers]
+		actualNumbers.push(formik.values.mobiles)
+		setNumbers(actualNumbers)
+		formik.setFieldValue("mobiles", "")
+	};
 
+  const formateDate = (date: string | Date) => new Date(date).toISOString()
 
-	const app = useSelector((store: RootState) => store.app.app);
-	const [emails, setEmails] = useState<string[]>([]);
-	const onEmailAdd = () => {
-		const actualEmails = [...emails]
-		actualEmails.push(formik.values.to);
-		setEmails(actualEmails)
-		formik.setFieldValue("to", "")
-	}
-
-	const useFullData = app?.map((app) => {
-		return {
-			name: app.appName,
-			token: app.token,
-		}
-	})
 	const formik = useFormik({
 		initialValues: {
 			token: "",
-			text: "",
-			subject: "",
-			to: "",
-			from: "no-reply@payunit.com",
+			message: "",
+			mobiles: "",
+            time: ""
 		},
+
 		validationSchema: Yup.object({
-			text: Yup.string().required("Message is required"),
-
-			subject: Yup.string().required("Please enter the email subjcet"),
-
-			
+			message: Yup.string().required("Please enter your message"),
 			token: Yup.string().required("Please choose an application"),
+      time: Yup.date().required().min(
+        Yup.ref('time'),
+        ({min}) => `Date needs to be after ${formateDate(min)}!!`
+      )
 		}),
 		onSubmit: async (values) => {
+      console.log(values, 'VALS');
+      
 			try {
-				if (emails.length > 0 || values.to) {
+				if (numbers.length > 0 || values.mobiles) {
+					let mobileValues = numbers
 
-					let email2 = emails
-
-					if(emails.length === 0) email2 = [values.to]
-					else email2 = emails;
+					if (numbers.length === 0) mobileValues = [values.mobiles]
+					else mobileValues = numbers
 
 					const inputs = {
+						message: values?.message,
+						mobiles: mobileValues.toString(),
 						id: selectedApplication?.token,
-						text: values?.text,
-						subject: values?.subject,
-						to: email2,
-						from: "no-reply@payunit.com",
-					}
-					const data = await sendEmail(inputs).unwrap()
+            time: values?.time
+					};
+          console.log(inputs, 'RealVALS');
+          
+
+					const data = await sendAutoSMS(inputs).unwrap()
 					notifySucess()
+					setNumbers([])
+
 					return data
-				} else notifyErrorEmails()
-				
+				} else notifyErrorNumbers()
 			} catch (error) {
 				notifyError()
 				console.log(error)
 			}
 		},
 	})
+
+	const app2 = useSelector((store: RootState) => store.app.app)
+	const useFullData = app2?.map((app) => {
+		return {
+			name: app.appName,
+			token: app.token,
+		}
+	})
+
 	const onApplicationChange = (selectedApp: AppData) => {
 		setSelectedApplication(selectedApp)
 		formik.setFieldValue("token", selectedApp?.token)
@@ -95,7 +101,7 @@ const SendEmail = () => {
 						<div className="mb-4">
 							<Label
 								color="text-dark"
-								htmlFor="text"
+								htmlFor="App"
 								value="Message"
 								className="text-xl text-center p-1"
 							/>
@@ -125,46 +131,24 @@ const SendEmail = () => {
 							/>
 							<input
 								className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-								id="text"
-								type="text"
+								id="message"
+								type="message"
 								placeholder="Enter Message"
-								name="text"
-								value={formik.values.text}
+								name="message"
+								value={formik.values.message}
 								onChange={formik.handleChange}
 								onBlur={formik.handleBlur}
 							/>
 
-							{formik?.errors?.text && (
+							{formik?.errors?.message && (
 								<div className="text-red-800 text-xs italic text-center">
-									{formik?.errors?.text}
+									{formik?.errors?.message}
 								</div>
 							)}
 						</div>
-						<div className="mb-4">
-							<Label
-								color="text-dark"
-								htmlFor="subject"
-								value="Subject"
-								className="text-xl text-center p-1"
-							/>
-							<input
-								className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-fit"
-								id="subject"
-								type="text"
-								placeholder="Enter email subject"
-								name="subject"
-								value={formik.values.subject}
-								onChange={formik.handleChange}
-								onBlur={formik.handleBlur}
-							/>
-							{formik?.errors?.subject && (
-								<div className="text-red-800 text-xs italic text-center">
-									{formik?.errors?.subject}
-								</div>
-							)}
-						</div>
+					
 						<div className="flex gap-5">
-							{emails.map((num) => (
+							{numbers.map((num) => (
 								<div
 									className="rounded-full bg-gray-300 w-fit p-2 px-4 shadow-lg mb-2 none group "
 									id="numberTip"
@@ -183,17 +167,18 @@ const SendEmail = () => {
 							<div className="flex gap-4 pt-2">
 								<input
 									className="shadow appearance-none border rounded-lg w-fit  text-grey-darker text-xl leading-tight focus:outline-none focus:shadow-outline h-fit"
-									id="to"
+									id="mobiles"
 									type="text"
-									placeholder="Enter email adress"
-									name="to"
-									value={formik.values.to}
+									placeholder="Enter phone number"
+									name="mobiles"
+									value={formik.values.mobiles}
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
 								/>
-								<button className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
-								onClick={onEmailAdd}
-								type="button"
+								<button
+									className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
+									onClick={onAddNumber}
+									type="button"
 								>
 									Add
 								</button>
@@ -203,6 +188,29 @@ const SendEmail = () => {
 									{formik?.errors?.to}
 								</div>
 							)} */}
+						</div>
+						<div className="mb-4">
+							<Label
+								color="text-dark"
+								htmlFor="Date & Time"
+								value="Date & Time"
+								className="text-xl text-center p-1"
+							/>
+							<input
+								className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-fit"
+								id="time"
+								type="datetime-local"
+								placeholder="Enter email subject"
+								name="time"
+								value={formik.values.time}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+							/>
+							{formik?.errors?.time && (
+								<div className="text-red-800 text-xs italic text-center">
+									{formik?.errors?.time}
+								</div>
+							)}
 						</div>
 
 						<button
@@ -221,4 +229,4 @@ const SendEmail = () => {
 	)
 }
 
-export default SendEmail
+export default AutoSMS

@@ -25,9 +25,8 @@ import NotificationData from "./NotificationData"
 
 function NotificationTable({
 	realData,
-}: {
-	realData: Notification[] | undefined
-}) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+}: any) {
 	// console.log(updateStoreNotifications, "Store2")
 
 	// console.log("test", realData)'

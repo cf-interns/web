@@ -14,6 +14,8 @@ import Main1 from "../pages/Main1"
 import UsersTable from "../pages/UsersTable"
 import Settings2 from "../pages/Settings2"
 import Signup from "../pages/auth/Signup"
+import AutoNotifications from "../pages/AutoNotifications"
+import AutoSMS from "../pages/AutoSMS"
 
 const protectedRoutes = [
 	{
@@ -89,6 +91,16 @@ const protectedRoutes = [
 	{
 		path: "/users",
 		element: <UsersTable />,
+		icon: <i className="pi-users " style={{ fontSize: "1.5rem" }}></i>,
+	},
+	{
+		path: "/auto-emails",
+		element: <AutoNotifications />,
+		icon: <i className="pi-users " style={{ fontSize: "1.5rem" }}></i>,
+	},
+	{
+		path: "/auto-sms",
+		element: <AutoSMS />,
 		icon: <i className="pi-users " style={{ fontSize: "1.5rem" }}></i>,
 	},
 ]
