@@ -1,37 +1,53 @@
 import { Label } from "flowbite-react"
 import { useFormik } from "formik"
-import { useUpdateUserInfoMutation } from "../store/features/user/usersApiSlice"
 import * as Yup from "yup"
+import { useSignUpMutation } from "../store/features/auth/authApiSlice"
+import { ToastContainer, toast } from "react-toastify"
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const EditUser = (props: { prop: any }) => {
-	const { prop } = props
-	const [changeUserData] = useUpdateUserInfoMutation()
-	console.log(prop, "PROP")
+ const PopupInfo = ({setCreateUser}: {setCreateUser}) => {
+	const [createUser] = useSignUpMutation()
+	// const notifyPassorfail = () =>
+	// 	formik ?  toast.passed("passed") || formik : toast.failed("Failed")
+ 
+
+	const notifySuccess = () => toast.success('User Added!');
+	const notifyError = () => toast.error("User Not Added!")
 
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
 			lastName: "",
 			email: "",
+			password: "",
 		},
 		validationSchema: Yup.object({
 			firstName: Yup.string().required("First Name is required!"),
 			lastName: Yup.string().required("Last Name is required!"),
 			email: Yup.string().email().required("Email Required!"),
+			password: Yup.string().required("Password Required!"),
 		}),
 		onSubmit: async (values) => {
 			try {
-				const data = await changeUserData(values).unwrap()
-				console.log(data, "USER PASSWORD++++++")
+				const data = await createUser(values).unwrap()
+				console.log(data, "USER DIALOGUE POPUPINFO++++++");
+				notifySuccess();
+				setCreateUser(false);
+				
 				return data
 			} catch (error) {
-				console.log(error)
+				console.log(error);
+				notifyError();
+				setCreateUser(false)
+
 			}
-		},
+		}
 	})
 	return (
-		<form className="p-8 flex flex-col gap-2" onSubmit={formik.handleSubmit}>
+		<div>
+		<form
+			className="p-8 flex flex-col gap-2 border-radius text-lg"
+			onSubmit={formik.handleSubmit}
+		>
 			<div className="flex flex-col gap-2 whitespace-nowrap p-4 ">
 				<Label
 					htmlFor="firstName"
@@ -40,7 +56,7 @@ const EditUser = (props: { prop: any }) => {
 					className="text-lg"
 				/>
 				<input
-					placeholder={prop.firstName}
+					placeholder="Enter FirstName"
 					type="text"
 					id="firstName"
 					name="firstName"
@@ -50,6 +66,7 @@ const EditUser = (props: { prop: any }) => {
 					className="bg-white w-auto rounded-lg shadow-lg"
 				/>
 			</div>
+			{formik?.errors?.firstName && <div>{formik?.errors?.firstName}</div>}
 
 			<div className="flex flex-col gap-2 whitespace-nowrap p-4">
 				<Label
@@ -59,7 +76,7 @@ const EditUser = (props: { prop: any }) => {
 					className="text-lg"
 				/>
 				<input
-					placeholder={prop.lastName}
+					placeholder="Enter LastName"
 					type="text"
 					name="lastName"
 					id="lastName"
@@ -69,6 +86,7 @@ const EditUser = (props: { prop: any }) => {
 					className="bg-white w-full rounded-lg shadow-lg"
 				/>
 			</div>
+			{formik?.errors?.lastName && <div>{formik?.errors?.lastName}</div>}
 
 			<div className="flex flex-col gap-2 whitespace-nowrap p-4 ">
 				<Label
@@ -78,7 +96,7 @@ const EditUser = (props: { prop: any }) => {
 					className="text-lg mr-8"
 				/>
 				<input
-					placeholder={prop.email}
+					placeholder="Enter Email"
 					type="email"
 					name="email"
 					id="email"
@@ -88,15 +106,39 @@ const EditUser = (props: { prop: any }) => {
 					className="bg-white w-full rounded-lg shadow-lg"
 				/>
 			</div>
+			{formik?.errors?.email && <div>{formik?.errors?.email}</div>}
+
+			<div className="flex flex-col gap-2 whitespace-nowrap p-4 ">
+				<Label
+					htmlFor="Password"
+					value="Password"
+					color="text-dark"
+					className="text-lg mr-8"
+				/>
+				<input
+					placeholder="Password"
+					type="password"
+					name="password"
+					id="password"
+					value={formik.values.password}
+					onChange={formik.handleChange}
+					onBlur={formik.handleBlur}
+					className="bg-white w-full rounded-lg shadow-lg"
+				/>
+			</div>
+			{formik?.errors?.password && <div>{formik?.errors?.password}</div>}
 
 			<button
 				type="submit"
 				className="w-auto h-[40px] rounded-lg shadow-lg bg-gray-500 mt-4 text-white text-lg font-bold hover:bg-green-500 focus:ring-0"
 			>
-				Save
+				Add
 			</button>
 		</form>
+		<ToastContainer />
+		</div>
+		
 	)
 }
 
-export default EditUser
+export default PopupInfo

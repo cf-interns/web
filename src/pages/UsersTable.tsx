@@ -15,9 +15,13 @@ import { useNavigate } from "react-router-dom"
 import { Dialog } from "primereact/dialog"
 import EditUser from "./EditUser"
 import { User } from "../store/features/api/apiSlice"
+import PopupInfo from "../components/PopupInfo"
+import { ToastContainer } from "react-toastify"
 
 const UsersTable = () => {
-	// const [selectedNotif, setSelectedNotif] = useState(null)
+	// const [selectedNotif, setSelectedNotif] = useState(null);
+	const [createUser, setCreateUser] = useState(false)
+	// const [noPassed, setuserPassed]
 	const actions = ["DELETE", "EDIT"]
 	const navigate = useNavigate()
 
@@ -86,10 +90,19 @@ const UsersTable = () => {
 					  hover:text-white hover:bg-xendriixx focus:ring-0"
 					label=" USER"
 					onClick={() => {
-						navigate("/sign-up")
-						console.log("User")
+						// navigate("/sign-up")
+						setCreateUser(true) 
+						
 					}}
+					
 				/>
+				<Dialog
+					visible={createUser}
+					style={{ width: "30vw" }}
+					onHide={() => setCreateUser(false)}
+				>
+					<PopupInfo setCreateUser={setCreateUser} />
+				</Dialog>
 			</div>
 		)
 	}
@@ -226,9 +239,21 @@ const UsersTable = () => {
 				>
 					<EditUser prop={seletedUser} />
 				</Dialog>
+				<ToastContainer />
 			</div>
 		</DashboardLayout>
 	)
 }
 
 export default UsersTable
+	// onSubmit={async (values)  => {
+	// 			try {
+	// 				const data = await createApp(values).unwrap()
+	// 				notifySucess()
+	// 				navigate("/allApplication")
+
+	// 				return data
+	// 				//Navigate Somewhre
+	// 			} catch (error) {
+	// 				return error
+	// 			}
