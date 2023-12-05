@@ -18,6 +18,7 @@ import { Button } from "primereact/button"
 import { useDispatch } from "react-redux"
 import { setUpApplications } from "../store/features/application/appSlice"
 import { Dialog } from "primereact/dialog"
+import AppDetails from "./AppDetails"
 import CreateApplication from "./CreateApplication"
 import { useState } from "react"
 import BreadCrumbs from "../components/BreadCrumbs"
@@ -28,10 +29,30 @@ const AllApplication = () => {
 	const header = <img alt="Card" src="/src/card5.jpg" className="h-[10rem]" />
 	const footer = (_id: string, status: string) => {
 		return (
-			<div className="flex items-center justify-between">
-				<Link to={`/appDetail/${_id}`}>
-					<Button className="flex p-2 gap-2 text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded">
-						<span>View Details</span>
+			<div className="flex items-center justify-between gap-2">
+
+{/* 
+	
+						<Link to={`/appDetail/${_id}`}> */}
+							<Button className="flex p-1  text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded" onClick={() => setVisibleDetails(true)}>
+								<span>View Details</span>
+								<FiArrowRight />
+							</Button>
+							<Dialog
+									visible={visibleDetails}
+									style={{ width: "auto" }}
+									onHide={() => setVisibleDetails(false)}
+									className="bg-gray-300"
+								>
+									<AppDetails id= {_id} />
+								</Dialog>
+						
+			
+
+
+				<Link to={`/tools`}>
+					<Button className="flex p-1 text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded">
+						<span>send Notification</span>
 						<FiArrowRight />
 					</Button>
 				</Link>
@@ -71,14 +92,16 @@ const AllApplication = () => {
 	} = useGetAllAppsQuery();
 
 	const dispatch = useDispatch();
-	dispatch(setUpApplications({app: apps}));
-	
-	
+	dispatch(setUpApplications({ app: apps }));
+
+
 
 	// const { id } = useParams();
 
 	const [updateAppStatus] = useUpdateAppStatusMutation();
 	const [visible, setVisible] = useState(false)
+	const [visibleDetails, setVisibleDetails] = useState(false)
+
 
 
 	// app({status: 'ACTIVE'})
@@ -97,16 +120,16 @@ const AllApplication = () => {
 				<div className="border w-full">
 					<div className=" px-2 divide-x-2 mt-8  w-full gap-2">
 						<div className="flex justify-between items-center ">
-							
-							
-								<div className="flex items-center">
-									<BreadCrumbs />
 
-									<h1 className="text-[#5a5c69] text-2xl px-4 font-normal cursor-pointer ml-6">
-										All Applications
-									</h1>
-								</div>
-						
+
+							<div className="flex items-center">
+								<BreadCrumbs />
+
+								<h1 className="text-[#5a5c69] text-2xl px-4 font-normal cursor-pointer ml-6">
+									All Applications
+								</h1>
+							</div>
+
 
 							<div>
 								<button

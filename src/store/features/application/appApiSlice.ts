@@ -77,7 +77,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
 			providesTags: ["Apps"],
 		}),
 
-		deleteApp: build.mutation<{ success: boolean; _id: number }, number>({
+		deleteApp: build.mutation<{ success: boolean; _id: any }, number>({
 			query(_id) {
 				return {
 					url: `/applications/${_id}`,
