@@ -101,18 +101,21 @@ const CreateApplication = ({ setVisible }: any) => {
 				<button className="btn" type="submit">
 					{/* {isLoading ? "Submitting ..." : "Submit"} */}
 
-					{isLoading ? (
-						<>
-							<CustomLoader />
-							Activating...
-						</>
-					) : (
-						"submit"
-					)}
-				</button>
-			</form>
-			<ToastContainer />
-		</>
+								{isLoading ? (
+											<>
+												<CustomLoader />
+												Activating...
+											</>
+										) : "submit"
+										}
+							</button>
+						</Form>
+						<ToastContainer />
+						
+					</div>
+				</div>
+			</DashboardLayout>
+		</Formik>
 	)
 }
 
