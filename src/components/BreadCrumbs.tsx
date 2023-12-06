@@ -27,7 +27,7 @@ console.log(breadcrumbs, 'Crumbs');
 						</i>
 					</span>
 				</Link>
-			))}
+			))}0
 		</nav>
 	)
 }
