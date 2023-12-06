@@ -1,32 +1,24 @@
 import DashboardLayout from "../components/DashboardLayout"
 import avt from "../assets/avatar2.jpeg"
 import { Button } from "primereact/button"
-import { Form, Formik, Field, useFormik } from "formik"
+import { useFormik } from "formik"
 import { Label } from "flowbite-react"
 import {
 	useChangePasswordMutation,
-	// useDeleteUserMutation,
 	useGetSpecificUserQuery,
 	useUpdateUserInfoMutation,
 } from "../store/features/user/usersApiSlice"
 import * as Yup from "yup"
-// import { useDispatch } from "react-redux"
-// import { logOut } from "../store/features/auth/authSlice"
-// import { useNavigate } from "react-router-dom"
-import { useEffect } from "react"
-// import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
-
+import { useEffect} from "react"
+import { ToastContainer, toast } from "react-toastify"
 const Settings2 = () => {
-	// const dispatch = useDispatch()
 	const [changeUserData] = useUpdateUserInfoMutation()
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
-	// const [DeleteUser] = useDeleteUserMutation()
+	const notifySucess = () => toast.success("Password Updated Successfully")
+	const notifyError = () => toast.error("Password Update Notsuccessful")
 	const user = localStorage.getItem("user")
-	const UserObj = JSON.parse(user ? user : '') 
-	const loggedUser = useGetSpecificUserQuery(UserObj?._id);
-	// const navigate = useNavigate()
-
-	// const user = useSelector((store: any) => store.user);
+	const UserObj = JSON.parse(user ? user : "")
+	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
@@ -41,35 +33,48 @@ const Settings2 = () => {
 		onSubmit: async (values) => {
 			try {
 				const data = await changeUserData(values).unwrap()
+				notifySucess()
 				console.log(data, "USER PASSWORD++++++")
 				return data
 			} catch (error) {
+				notifyError()
 				console.log(error)
 			}
 		},
-	});
+	})
 
-	/* const confirm2 = () => {
-		return confirmDialog({
-			message: "Note this Action is irreversible. Do you want to proceed?",
-			header: "Delete Confirmation",
-			icon: "pi pi-info-circle mr-2",
-			acceptClassName: "p-button-danger mr-2",
-			rejectClassName: " mr-[10px]",
-			accept: () => {
-				// console.log(UserObj._id, 'IDD');
-				
-				DeleteUser(UserObj._id)
-				dispatch(logOut()); 
-				navigate('/')
-				console.log("Deleted!")
-			},
-			reject: () => {
-				console.log('Preserved!');
-				
-			},
-		})
-	} */
+	const formik2 = useFormik({
+		initialValues: {
+			oldPassword: "",
+			newPassword: "",
+			confirmPassword: "",
+		},
+		validationSchema: Yup.object({
+			oldPassword: Yup.string()
+				.password()
+				.required("Previous Password is required!"),
+			newPassword: Yup.string()
+				.password()
+				.required("Please enter the new password")
+				.max(25)
+				.min(9)
+				.minUppercase(1, "Must contain atleast 1 uppercase letter")
+				.minLowercase(1, "Must contain atleast 1 lowercase letter")
+				.minNumbers(1, "Must cantain atleast 1 number")
+				.minSymbols(1, "Must contain atleast 1 symbol"),
+		}),
+		onSubmit: async (values) => {
+			try {
+				const data = await changePassword(values).unwrap()
+				notifySucess()
+				console.log(data, "USER PASSWORD++++++")
+				return data
+			} catch (error) {
+				notifyError()
+				console.log(error)
+			}
+		},
+	})
 
 	useEffect(() => {
 		const { data } = loggedUser
@@ -125,6 +130,7 @@ const Settings2 = () => {
 												onBlur={formik.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
+											{formik.errors.firstName &&  <div className="text-red-700 italic">{ formik.errors.firstName }</div>}
 										</div>
 
 										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
@@ -144,6 +150,7 @@ const Settings2 = () => {
 												onBlur={formik.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
+											{formik.errors.lastName &&  <div className="text-red-700 italic">{ formik.errors.lastName }</div>}
 										</div>
 
 										<div className="flex flex-col gap-2 w-80">
@@ -163,6 +170,7 @@ const Settings2 = () => {
 												onBlur={formik.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
+											{formik.errors.email &&  <div className="text-red-700 italic">{ formik.errors.email }</div>}
 										</div>
 										<Button
 											type="submit"
@@ -187,133 +195,82 @@ const Settings2 = () => {
 						<div id="form" className="flex flex-col gap-4">
 							<div>
 								<div className="">
-									<Formik
-										initialValues={{
-											oldPassword: "",
-											newPassword: "",
-											confirmPassword: "",
-										}}
-										validationSchema={Yup.object({
-											oldPassword: Yup.string()
-												.password()
-												.required("Previous Password is required!"),
-											newPassword: Yup.string()
-												.password()
-												.required("Please enter the new password")
-												.max(25)
-												.min(9)
-												.minUppercase(
-													1,
-													"Must contain atleast 1 uppercase letter"
-												)
-												.minLowercase(
-													1,
-													"Must contain atleast 1 lowercase letter"
-												)
-												.minNumbers(1, "Must cantain atleast 1 number")
-												.minSymbols(1, "Must contain atleast 1 symbol"),
-										})}
-										onSubmit={async (values) => {
-											try {
-												const data = await changePassword(values).unwrap()
-												console.log(data, "USER PASSWORD++++++")
-												return data
-											} catch (error) {
-												console.log(error)
-											}
-										}}
+									<form
+										className="flex flex-col gap-2 w-[60vw]"
+										onSubmit={formik2.handleSubmit}
 									>
-										<Form className="flex flex-col gap-2 w-[60vw]">
-											<div className="flex flex-col gap-2 whitespace-nowrap w-80">
-												<Label
-													htmlFor="Current Password"
-													value="Current Password"
-													color="text-dark"
-													className="text-sm"
-												/>
-												<Field
-													placeholder="Enter Current Password"
-													type="password"
-													id="oldPassword"
-													name="oldPassword"
-													// sizing="sm"
-													// style={{ backgroundColor: "white" }}
-													className="bg-white w-[60vw] rounded-lg shadow-md"
-												/>
-											</div>
-
-											<div className="flex flex-col gap-2 whitespace-nowrap w-80">
-												<Label
-													htmlFor="New Password"
-													value="New Password"
-													color="text-dark"
-													className="text-sm"
-												/>
-												<Field
-													placeholder="New Password"
-													type="password"
-													id="newPassword"
-													name="newPassword"
-													// sizing="sm"
-													className="bg-white w-[60vw] rounded-lg shadow-md"
-												/>
-											</div>
-
-											<div className="flex flex-col gap-2 w-80">
-												<Label
-													htmlFor="confirmPassword"
-													value="Confirm Password"
-													color="text-dark"
-													className="text-sm mr-8"
-												/>
-												<Field
-													placeholder="Confirm Password"
-													type="password"
-													name="confirmPassword"
-													id="confirmPassword"
-													// sizing="sm"
-													className="bg-white w-[60vw] rounded-lg shadow-md"
-												/>
-											</div>
-											<Button
-												className="w-full h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
-												disabled={isLoading}
-												label={isLoading ? "Submiting" : "Save"}
-												type="submit"
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+											<Label
+												htmlFor="Current Password"
+												value="Current Password"
+												color="text-dark"
+												className="text-sm"
 											/>
-										</Form>
-									</Formik>
+											<input
+												placeholder="Enter Current Password"
+												type="password"
+												id="oldPassword"
+												name="oldPassword"
+												value={formik2.values.oldPassword}
+												onChange={formik2.handleChange}
+												onBlur={formik2.handleBlur}
+												className="bg-white w-[60vw] rounded-lg shadow-md"
+											/>
+											{formik2.errors.oldPassword &&  <div className="text-red-700 italic">{ formik2.errors.oldPassword }</div>}
+										</div>
+
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+											<Label
+												htmlFor="New Password"
+												value="New Password"
+												color="text-dark"
+												className="text-sm"
+											/>
+											<input
+												placeholder="New Password"
+												type="password"
+												id="newPassword"
+												name="newPassword"
+												value={formik2.values.newPassword}
+												onChange={formik2.handleChange}
+												onBlur={formik2.handleBlur}
+												className="bg-white w-[60vw] rounded-lg shadow-md"
+											/>
+											{formik2.errors.newPassword &&  <div className="text-red-700 italic">{ formik2.errors.newPassword }</div>}
+										</div>
+
+										<div className="flex flex-col gap-2 w-80">
+											<Label
+												htmlFor="confirmPassword"
+												value="Confirm Password"
+												color="text-dark"
+												className="text-sm mr-8"
+											/>
+											<input
+												placeholder="Confirm Password"
+												type="password"
+												name="confirmPassword"
+												id="confirmPassword"
+												value={formik2.values.confirmPassword}
+												onChange={formik2.handleChange}
+												onBlur={formik2.handleBlur}
+												className="bg-white w-[60vw] rounded-lg shadow-md"
+											/>
+											{formik2.errors.confirmPassword &&  <div className="text-red-700 italic">{ formik2.errors.confirmPassword }</div>}
+										</div>
+										<Button
+											className="w-full h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
+											disabled={isLoading}
+											label={isLoading ? "Submiting" : "Save"}
+											type="submit"
+										/>
+									</form>
+									<ToastContainer/>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-			{/* 	<hr className="border-gray-400 border-2xl" />
-
-				<div className="flex gap-8" id="Delete Account">
-					<div className="p-2 w-[25vw]">
-						<h1 className="text-2xl text-gray-500">Delete Account</h1>
-						<p className="text-clip overf">
-							No longer want to use our service? You can delete your account
-							here. This action is not reversible. All information related to
-							this account will be deleted permanently.
-						</p>
-					</div>
-
-					<div className="">
-						<Button
-							className="w-[74%] rounded-lg p-2 bg-red-500 mt-2 text-white focus:ring-0"
-							label={isLoading ? "Deleting ..." : "Yes, Delete My Account"}
-							onClick={() => {
-								confirm2()
-							
-							}}
-							disabled={isLoading}
-						/>
-					</div>
-					<ConfirmDialog />
-				</div> */}
 			</div>
 		</DashboardLayout>
 	)
