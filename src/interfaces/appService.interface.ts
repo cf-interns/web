@@ -7,7 +7,9 @@ export interface SMS {
     id: string;
     message: string;
     status: string;
-    mobiles: string
+    mobiles: string;
+    time?: string
+    // appToken?: string
     
 }
 
@@ -15,10 +17,11 @@ export interface SMS {
 export interface Email {
     app: App;
     id: string;
-    to: string;
+    to: string[];
     subject: string;
     text: string;
     from: string;
+    time?: string
 }
 
 export interface Push {

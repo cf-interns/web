@@ -9,8 +9,17 @@ import {
 	useUpdateUserInfoMutation,
 } from "../store/features/user/usersApiSlice"
 import * as Yup from "yup"
-import { useEffect} from "react"
+// import { useEffect} from "react"
 import { ToastContainer, toast } from "react-toastify"
+// import { useDispatch } from "react-redux"
+// import { logOut } from "../store/features/auth/authSlice"
+// import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+// import { ToastContainer, toast } from "react-toastify"
+import BreadCrumbs from "../components/BreadCrumbs"
+
+// import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
+
 const Settings2 = () => {
 	const [changeUserData] = useUpdateUserInfoMutation()
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
@@ -19,6 +28,7 @@ const Settings2 = () => {
 	const user = localStorage.getItem("user")
 	const UserObj = JSON.parse(user ? user : "")
 	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
+
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
@@ -27,7 +37,7 @@ const Settings2 = () => {
 		},
 		validationSchema: Yup.object({
 			firstName: Yup.string().required("First Name is required!"),
-			lastName: Yup.string().required("Last Name is required!"),
+			lastName: Yup.string().required("Last Name is required!").strict(true),
 			email: Yup.string().email().required("Email Required!"),
 		}),
 		onSubmit: async (values) => {
@@ -62,6 +72,15 @@ const Settings2 = () => {
 				.minLowercase(1, "Must contain atleast 1 lowercase letter")
 				.minNumbers(1, "Must cantain atleast 1 number")
 				.minSymbols(1, "Must contain atleast 1 symbol"),
+				confirmPassword: Yup.string()
+				.password()
+				.required("Please enter the new password")
+				.max(25)
+				.min(9)
+				.minUppercase(1, "Must contain atleast 1 uppercase letter")
+				.minLowercase(1, "Must contain atleast 1 lowercase letter")
+				.minNumbers(1, "Must cantain atleast 1 number")
+				.minSymbols(1, "Must contain atleast 1 symbol"),
 		}),
 		onSubmit: async (values) => {
 			try {
@@ -86,6 +105,10 @@ const Settings2 = () => {
 	return (
 		<DashboardLayout>
 			<div className="flex flex-col gap-8 h-[90vh] w-fit ml-4 p-4">
+				<div className="flex items-center p-2">
+					<BreadCrumbs />
+					<h1 className="text-2xl ">Settings</h1>
+				</div>
 				<div className="flex gap-8 mt-4 h-[40vh] mb-8">
 					<div className="flex flex-col gap-10">
 						<div>
@@ -178,6 +201,7 @@ const Settings2 = () => {
 											label="Save"
 										/>
 									</form>
+									<ToastContainer />
 								</div>
 							</div>
 						</div>
@@ -217,6 +241,7 @@ const Settings2 = () => {
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
 											{formik2.errors.oldPassword &&  <div className="text-red-700 italic">{ formik2.errors.oldPassword }</div>}
+									
 										</div>
 
 										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
@@ -266,11 +291,39 @@ const Settings2 = () => {
 										/>
 									</form>
 									<ToastContainer/>
+											{/* onClick={() => console.log("YO! 2")} */}
+										
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				{/* 	<hr className="border-gray-400 border-2xl" />
+
+				<div className="flex gap-8" id="Delete Account">
+					<div className="p-2 w-[25vw]">
+						<h1 className="text-2xl text-gray-500">Delete Account</h1>
+						<p className="text-clip overf">
+							No longer want to use our service? You can delete your account
+							here. This action is not reversible. All information related to
+							this account will be deleted permanently.
+						</p>
+					</div>
+
+					<div className="">
+						<Button
+							className="w-[74%] rounded-lg p-2 bg-red-500 mt-2 text-white focus:ring-0"
+							label={isLoading ? "Deleting ..." : "Yes, Delete My Account"}
+							onClick={() => {
+								confirm2()
+							
+							}}
+							disabled={isLoading}
+						/>
+					</div>
+					<ConfirmDialog />
+				</div> */}
 			</div>
 		</DashboardLayout>
 	)

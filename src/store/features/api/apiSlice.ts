@@ -71,4 +71,7 @@ export const apiSlice = createApi({
 	tagTypes: ["Apps", "User", "Notifications"],
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	endpoints: (_builder) => ({}),
+	refetchOnReconnect: true,
+	keepUnusedDataFor: 60
+	
 })

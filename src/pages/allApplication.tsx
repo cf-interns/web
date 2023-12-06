@@ -18,8 +18,10 @@ import { Button } from "primereact/button"
 import { useDispatch } from "react-redux"
 import { setUpApplications } from "../store/features/application/appSlice"
 import { Dialog } from "primereact/dialog"
+import AppDetails from "./AppDetails"
 import CreateApplication from "./CreateApplication"
 import { useState } from "react"
+import BreadCrumbs from "../components/BreadCrumbs"
 
 // import { format } from "date-fns";
 
@@ -27,15 +29,35 @@ const AllApplication = () => {
 	const header = <img alt="Card" src="/src/card5.jpg" className="h-[10rem]" />
 	const footer = (_id: string, status: string) => {
 		return (
-			<div className="flex items-center justify-between">
-				<Link to={`/appDetail/${_id}`}>
-					<Button className="p-2 gap-2 text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit   rounded-lg">
-						<p className="mr-1">View Details</p>
+			<div className="flex items-center justify-between gap-2">
+
+{/* 
+	
+						<Link to={`/appDetail/${_id}`}> */}
+							<Button className="flex p-1  text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded" onClick={() => setVisibleDetails(true)}>
+								<span>View Details</span>
+								<FiArrowRight />
+							</Button>
+							<Dialog
+									visible={visibleDetails}
+									style={{ width: "auto" }}
+									onHide={() => setVisibleDetails(false)}
+									className="bg-gray-300"
+								>
+									<AppDetails id= {_id} />
+								</Dialog>
+						
+			
+
+
+				<Link to={`/tools`}>
+					<Button className="flex p-1 text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded">
+						<span>send Notification</span>
 						<FiArrowRight />
 					</Button>
 				</Link>
-				<div
-					className="cursor-pointer justify-center flex p-2 gap-2 text-white bg-teal-900 w-fit   rounded-lg"
+				<Button
+					className="cursor-pointer justify-center flex p-2 gap-2 text-white bg-teal-900 rounded"
 					onClick={() => {
 						updateAppStatus({
 							_id: _id,
@@ -54,7 +76,7 @@ const AllApplication = () => {
 					) : (
 						"Activate"
 					)}
-				</div>
+				</Button>
 			</div>
 		)
 	}
@@ -70,14 +92,16 @@ const AllApplication = () => {
 	} = useGetAllAppsQuery();
 
 	const dispatch = useDispatch();
-	dispatch(setUpApplications({app: apps}));
-	
-	
+	dispatch(setUpApplications({ app: apps }));
+
+
 
 	// const { id } = useParams();
 
 	const [updateAppStatus] = useUpdateAppStatusMutation();
 	const [visible, setVisible] = useState(false)
+	const [visibleDetails, setVisibleDetails] = useState(false)
+
 
 
 	// app({status: 'ACTIVE'})
@@ -95,81 +119,23 @@ const AllApplication = () => {
 			<DashboardLayout>
 				<div className="border w-full">
 					<div className=" px-2 divide-x-2 mt-8  w-full gap-2">
-						<div className="flex justify-items-end items-center ">
-							<nav
-								className="flex px-4 w-full items-center gap-4"
-								aria-label="Breadcrumb"
-							>
+						<div className="flex justify-between items-center ">
+
+
+							<div className="flex items-center">
+								<BreadCrumbs />
+
 								<h1 className="text-[#5a5c69] text-2xl px-4 font-normal cursor-pointer ml-6">
 									All Applications
 								</h1>
-								<ol className="inline-flex items-center space-x-1 md:space-x-3">
-									<li className="inline-flex items-center">
-										<Link
-											to="/dashboard"
-											className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-teal-600 dark:text-gray-400"
-										>
-											<svg
-												className="w-3 h-3 mr-2.5"
-												aria-hidden="true"
-												xmlns="http://www.w3.org/2000/svg"
-												fill="currentColor"
-												viewBox="0 0 20 20"
-											>
-												<path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-											</svg>
-											Home
-										</Link>
-									</li>
-									<li>
-										<div className="flex items-center">
-											<svg
-												className="w-3 h-3 text-gray-400 mx-1"
-												aria-hidden="true"
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 6 10"
-											>
-												<path
-													stroke="currentColor"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													stroke-width="2"
-													d="m1 9 4-4-4-4"
-												/>
-											</svg>
-											<span className="ml-1 text-sm font-medium text-gray-700 md:ml-2 dark:text-gray-400 ">
-												components
-											</span>
-										</div>
-									</li>
-									<li aria-current="page">
-										<div className="flex items-center">
-											<svg
-												className="w-3 h-3 text-gray-400 mx-1"
-												aria-hidden="true"
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 6 10"
-											>
-												<path
-													stroke="currentColor"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-													stroke-width="2"
-													d="m1 9 4-4-4-4"
-												/>
-											</svg>
-											<span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
-												All Application
-											</span>
-										</div>
-									</li>
-								</ol>
-							</nav>
+							</div>
+
 
 							<div>
-								<button className="w-fit bg-gray-500 rounded-lg text-white px-2 py-1 text-md hover:bg-gray-800" onClick={() => setVisible(true)}> 
+								<button
+									className=" bg-gray-800 text-white w-50 text-md w-52 rounded py-4"
+									onClick={() => setVisible(true)}
+								>
 									Create App
 								</button>
 								<Dialog
@@ -178,7 +144,7 @@ const AllApplication = () => {
 									onHide={() => setVisible(false)}
 									className="bg-gray-300"
 								>
-									<CreateApplication/>
+									<CreateApplication setVisible={setVisible} />
 								</Dialog>
 							</div>
 						</div>
@@ -197,7 +163,7 @@ const AllApplication = () => {
 										<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-black">
 											<p>{app.appName}</p>
 										</h5>
-										<div className=" flex items-center justify-between font-normal text-gray-900 dark:text-black">
+										<div className=" flex items-center justify-between font-normal text-gray-900 mb-5 dark:text-black">
 											<p className="mt-4">Status: {app.status}</p>
 											<p className="mt-4">
 												Created: {app.createdAt.toString()}
@@ -225,7 +191,7 @@ const AllApplication = () => {
 											"Activate"
 										)}
 									</div> */}
-										<h5 className="text-xl font-light tracking-tight mt-5text-gray-900 dark:text-black">
+										<h5 className="text-xl font-light tracking-tight mt-5 text-gray-600">
 											<p>{app.description}</p>
 										</h5>
 

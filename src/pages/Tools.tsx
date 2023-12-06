@@ -9,12 +9,12 @@ const Tool = () => {
 
             <div className="m-12">
               
-                <div className='md:container md:mx-auto bg-gray-600 rounded p-20 border-b-4 border-gray-900 border-l-4 border-gray-900 '>
+                <div className='md:container md:mx-auto bg-white rounded p-20 shadow-xl'>
                   <h1 className="flex justify-center text-4xl font-bold text-white dark:text-white bg-gray-800 rounded p-4 m-8">Send Notification</h1>
                     <div className='flex justify-center flex-row gap-8 item-start ' >
 
                         <Card
-                            className="max-w-sm shadow-xl border-double border-4 border-gray-500 "
+                            className="max-w-sm shadow-xl border-double border-4 border-gray-500 h-[45vh] hover:bg-gray-600 duration-500 "
 
                         >
                             <img
@@ -28,7 +28,7 @@ const Tool = () => {
                                 Push notification
                             </h5>
                             <p className="font-normal text-gray-700 dark:text-gray-400">
-                                Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+                                Send message using push notification
                             </p>
                             <Link to="/send-push" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 Send push
@@ -38,7 +38,7 @@ const Tool = () => {
                             </Link>
                         </Card>
                         <Card
-                            className="max-w-sm shadow-xl border-double border-4 border-gray-500 "
+                            className="max-w-sm shadow-xl border-double border-4 border-gray-500 h-[45vh] hover:bg-gray-600 duration-500 "
 
                         >
                             <img
@@ -52,7 +52,7 @@ const Tool = () => {
                                SMS Notification
                             </h5>
                             <p className="font-normal text-gray-700 dark:text-gray-400">
-                                Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+                               Send message using sms notification 
                             </p>
                             <Link to="/send-sms" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 Send SMS
@@ -62,7 +62,7 @@ const Tool = () => {
                             </Link>
                         </Card>
                         <Card
-                            className="max-w-sm shadow-xl border-double border-4 border-gray-500 "
+                            className="max-w-sm shadow-xl border-double border-4 border-gray-500 h-[45vh] hover:bg-gray-600 duration-500"
 
                         >
                             <img
@@ -76,7 +76,7 @@ const Tool = () => {
                                Email Notification
                             </h5>
                             <p className="font-normal text-gray-700 dark:text-gray-400">
-                                Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+                               Send message using email notification
                             </p>
                             <Link to="/sendemail" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                 Send Email

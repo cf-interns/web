@@ -9,24 +9,25 @@ import { RiUserSettingsLine } from "react-icons/ri"
 import avt2 from "../assets/react.svg"
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import { BsMenuButtonWide } from "react-icons/bs"
-import { IoCreateOutline } from "react-icons/io5"
+/* import { BsMenuButtonWide } from "react-icons/bs"
+import { IoCreateOutline } from "react-icons/io5" */
 import { TbUsersGroup } from "react-icons/tb"
 import {GiHamburgerMenu} from 'react-icons/gi';
 import { Tooltip } from "flowbite-react"
 
 export default function SidebarV2() {
-	const [showAppMenu, setShowAppMenu] = useState(false)
-	const [collapse, setCollapse] = useState(true)
+	// const [showAppMenu, setShowAppMenu] = useState(false)
+	const [collapse, setCollapse] = useState(true);
+	const [active, setActive] = useState(false);
 
 	return (
 		<Sidebar
 			aria-label="SidebarV2"
-			style={{ boxShadow: "none"}}
+			style={{ boxShadow: "none" }}
 			collapsed={collapse}
 			className="bg-gray-50 dark:bg-gray-800"
 		>
-			<Sidebar.Items >
+			<Sidebar.Items>
 				<Sidebar.ItemGroup className="h-full flex-col ">
 					<div className="mb-9 text-2xl text-white flex justify-between">
 						{!collapse && (
@@ -36,17 +37,20 @@ export default function SidebarV2() {
 									className="mr-3 h-fit w-fit sm:h-9"
 									src={avt2}
 								/>
-									<h1 className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+								<h1 className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
 									GNS
 								</h1>
 							</div>
 						)}
 
 						<div className="flex justify-between align-center">
-						{/* 	{!collapse && (
+							{/* 	{!collapse && (
 							
 							)} */}
-							<button onClick={() => setCollapse(!collapse)} className="hover:bg-gray-600 rounded">
+							<button
+								onClick={() => setCollapse(!collapse)}
+								className="hover:bg-gray-600 rounded"
+							>
 								{collapse ? (
 									<Tooltip content="Expand" placement="right">
 										<GiHamburgerMenu className="m-1" />
@@ -59,8 +63,14 @@ export default function SidebarV2() {
 					</div>
 
 					<div className="flex flex-col gap-3">
-						<Link to="/dashboard">
-							<p className="flex gap-2 items-center text-white hover:bg-gray-700  p-3 rounded">
+						<Link to="/dashboard" onClick={() => setActive(true)}>
+							<p
+								className={
+									active
+										? "flex gap-2 items-center text-white bg-gray-700  p-3 rounded"
+										: "flex gap-2 items-center text-white hover:bg-gray-700  p-3 rounded"
+								}
+							>
 								{collapse ? (
 									<Tooltip content="Dashboard" placement="right">
 										<AiOutlineAppstore size={30} className="pr-2" />
@@ -74,69 +84,20 @@ export default function SidebarV2() {
 							</p>
 						</Link>
 
-						<p
-							onClick={() => setShowAppMenu(!showAppMenu)}
-							/* 	id="dropdownHelperButton"
-							data-dropdown-toggle="dropdownHelper" */
-							className="flex gap-2 items-center text-white hover:bg-gray-700 p-3 rounded"
-						>
-							{collapse ? (
-								<Tooltip content="Apps" placement="right">
-									<PiAppStoreLogo size={30} className="pr-2" />
-								</Tooltip>
-							) : (
-								<>
-									<PiAppStoreLogo size={30} />
-									Applications
-								</>
-							)}
-						</p>
-						{showAppMenu && (
-							<div
-								id="dropdownHelper"
-								className={`z-10 ${
-									showAppMenu ? "" : "hidden"
-								} bg-white divide-y divide-gray-100 rounded-lg shadow w-60 dark:bg-gray-700 dark:divide-gray-600`}
-							>
-								<Link to="/allApplication">
-									<p
-										id="dropdownHelperButton"
-										data-dropdown-toggle="dropdownHelper"
-										className="flex gap-2 items-center text-white hover:bg-gray-700 p-3 rounded"
-									>
-										{collapse ? (
-											<Tooltip content="All Applications" placement="right">
-												<BsMenuButtonWide size={30} className="pr-2" />
-											</Tooltip>
-										) : (
-											<>
-												<BsMenuButtonWide size={14} />
-												All Applications
-											</>
-										)}
-									</p>
-								</Link>
-
-								<Link to="/CreateApplication">
-									<p
-										id="dropdownHelperButton"
-										data-dropdown-toggle="dropdownHelper"
-										className="flex gap-2 items-center text-white hover:bg-gray-700 p-3 rounded"
-									>
-										{collapse ? (
-											<Tooltip content="Create An App" placement="right">
-												<IoCreateOutline size={30} className="pr-2" />
-											</Tooltip>
-										) : (
-											<>
-												<IoCreateOutline size={18} />
-												Create application
-											</>
-										)}
-									</p>
-								</Link>
-							</div>
-						)}
+						<Link to="/allApplication">
+							<p className="flex gap-2 items-center text-white hover:bg-gray-700  p-3 rounded">
+								{collapse ? (
+									<Tooltip content="Apps" placement="right">
+										<PiAppStoreLogo size={30} className="pr-2" />
+									</Tooltip>
+								) : (
+									<>
+										<PiAppStoreLogo size={30} />
+										Dashboard
+									</>
+								)}
+							</p>
+						</Link>
 
 						<Link to="/settings">
 							<p className="flex gap-2 items-center text-white hover:bg-gray-700 p-3 rounded">

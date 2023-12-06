@@ -8,7 +8,8 @@ import "react-toastify/dist/ReactToastify.css"
 import CustomLoader from "../components/CustomLoader"
 import { useNavigate } from "react-router-dom"
 
-const CreateApplication = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CreateApplication = ({ setVisible }: any) => {
 	const [createApp, { isLoading }] = useCreateAppMutation()
 	const notifySucess = () => toast.success("App Created Successfully")
 	const notifyError = () => toast.error("App Not Created")
@@ -25,12 +26,13 @@ const CreateApplication = () => {
 
 			description: Yup.string()
 				.min(10, "Name must be a minimum of 10 characters or more")
-				.required("A description is required!")
+				.required("A description is required!"),
 		}),
 		onSubmit: async (values) => {
 			try {
 				const data = await createApp(values).unwrap()
 				notifySucess()
+				setVisible(false)
 				navigate("/allApplication")
 
 				return data

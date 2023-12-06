@@ -6,6 +6,7 @@ type AppResponse = App[]
 //  type SMSResponse = SMS[];
 type EmailResponse = Email[]
 type PushResponse = Push[]
+type SmsResponse = SMS[]
 
 export const appApiSlice = apiSlice.injectEndpoints({
 	endpoints: (build) => ({
@@ -18,7 +19,16 @@ export const appApiSlice = apiSlice.injectEndpoints({
 				}
 			},
 			invalidatesTags: ["Notifications"],
-			
+		}),
+		sendAutomaticEmail: build.mutation<EmailResponse, Partial<Email>>({
+			query({ id, text, time, to, from, subject }) {
+				return {
+					url: `/notifications/automatic-emails/${id}`,
+					method: "POST",
+					body: { text, time, to, from, subject },
+				}
+			},
+			invalidatesTags: ["Notifications"],
 		}),
 		sendPush: build.mutation<PushResponse, Partial<Push>>({
 			query({ id, notification, token }) {
@@ -30,12 +40,22 @@ export const appApiSlice = apiSlice.injectEndpoints({
 			},
 			invalidatesTags: ["Notifications"],
 		}),
-		sendSMS: build.mutation<EmailResponse, Partial<SMS>>({
+		sendSMS: build.mutation<SmsResponse, Partial<SMS>>({
 			query({ id, message, mobiles }) {
 				return {
 					url: `/notifications/send-sms/${id}`,
 					method: "POST",
 					body: { message, mobiles },
+				}
+			},
+			invalidatesTags: ["Notifications"],
+		}),
+		sendAutomaticSMS: build.mutation<EmailResponse, Partial<SMS>>({
+			query({ message, mobiles, time, id }) {
+				return {
+					url: `notifications/automatic-sms/${id}`,
+					method: "POST",
+					body: { message, mobiles, time },
 				}
 			},
 			invalidatesTags: ["Notifications"],
@@ -57,7 +77,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
 			providesTags: ["Apps"],
 		}),
 
-		deleteApp: build.mutation<{ success: boolean; _id: number }, number>({
+		deleteApp: build.mutation<{ success: boolean; _id: any }, number>({
 			query(_id) {
 				return {
 					url: `/applications/${_id}`,
@@ -104,4 +124,6 @@ export const {
 	useSendEmailMutation,
 	useSendSMSMutation,
 	useSendPushMutation,
+	useSendAutomaticEmailMutation,
+	useSendAutomaticSMSMutation,
 } = appApiSlice

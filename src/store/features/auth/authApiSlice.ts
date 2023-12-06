@@ -8,7 +8,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: '/auth/sign_in',
                 method: 'POST',
                 body: { ...credentials }
-            })
+            }),
+            invalidatesTags: ['Apps', 'Notifications', 'User']
         }),
         signUp: builder.mutation({
             query: credentials => ({

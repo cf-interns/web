@@ -21,28 +21,32 @@ import { Dropdown, DropdownChangeEvent } from "primereact/dropdown"
 import { Dialog } from "primereact/dialog"
 import { Notification } from "../interfaces/notifications.interface"
 // import { useDispatch } from "react-redux"
-import NotificationData from "../components/NotificationData"
+import NotificationData from "./NotificationData"
 
 function NotificationTable({
 	realData,
-}: {
-	realData: Notification[] | undefined
-}) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+}: any) {
 	// console.log(updateStoreNotifications, "Store2")
 
 	// console.log("test", realData)'
 	const [visible, setVisible] = useState(false)
-	const [selectedNotif, setSelectedNotif] = useState<Notification>();
-	console.log(selectedNotif, 'Notifs')
+	const [selectedNotif, setSelectedNotif] = useState<Notification>()
+	console.log(selectedNotif, "Notifs")
 	const [globalFilterValue, setGlobalFilterValue] = useState<string>("")
-
 
 	const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />
 	const paginatorRight = <Button type="button" icon="pi pi-download" text />
 	const [filters, setFilters] = useState<DataTableFilterMeta>({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-		body: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-		status: { value: null, matchMode: FilterMatchMode.EQUALS },
+		body: {
+			operator: FilterOperator.OR,
+			constraints: [{ value: null, matchMode: FilterMatchMode.STARTS_WITH }],
+		},
+		status: {
+			operator: FilterOperator.OR,
+			constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
+		},
 	})
 	// const [statuses] = useState<string[]>(["PENDING", "SUCCESS", "FAILED"])
 
@@ -94,7 +98,6 @@ function NotificationTable({
 			<div className="flex justify-between p-2 items-center">
 				<div className="">
 					<div className="flex items-center gap-2">
-					
 						<Button
 							type="button"
 							icon="pi pi-filter-slash mr-2"
@@ -193,6 +196,7 @@ function NotificationTable({
 				tableStyle={{ minWidth: "50rem" }}
 				size="large"
 				sortOrder={-1}
+				radioGroup=""
 			>
 				<Column
 					field="_id"
@@ -202,7 +206,10 @@ function NotificationTable({
 						minWidth: "12rem",
 						padding: 10,
 						border: "1px solid lightgray",
+						textAlign: "center",
 					}}
+					align="center"
+					headerClassName="bg-gray-300"
 				/>
 				<Column
 					field="title"
@@ -217,6 +224,8 @@ function NotificationTable({
 					}}
 					body={(row) => row?.title || "N/A"}
 					// className="mb-8"
+					align="center"
+					headerClassName="bg-gray-300"
 				/>
 
 				<Column
@@ -229,6 +238,8 @@ function NotificationTable({
 						padding: 10,
 						border: "1px solid lightgray",
 					}}
+					align="center"
+					headerClassName="bg-gray-300"
 				/>
 				<Column
 					field="status"
@@ -244,6 +255,8 @@ function NotificationTable({
 						padding: 10,
 						border: "1px solid lightgray",
 					}}
+					align="center"
+					headerClassName="bg-gray-300"
 				/>
 				<Column
 					field="notification_type"
@@ -254,6 +267,8 @@ function NotificationTable({
 						padding: 10,
 						border: "1px solid lightgray",
 					}}
+					align="center"
+					headerClassName="bg-gray-300"
 				/>
 				<Column
 					field="sent_by"
@@ -264,6 +279,8 @@ function NotificationTable({
 						padding: 10,
 						border: "1px solid lightgray",
 					}}
+					align="center"
+					headerClassName="bg-gray-300"
 				/>
 				<Column
 					field="created_at"
@@ -274,6 +291,8 @@ function NotificationTable({
 						padding: 10,
 						border: "1px solid lightgray",
 					}}
+					align="center"
+					headerClassName="bg-gray-300"
 				/>
 				<Column
 					field="provider"
@@ -284,6 +303,8 @@ function NotificationTable({
 						padding: 10,
 						border: "1px solid lightgray",
 					}}
+					align="center"
+					headerClassName="bg-gray-300"
 				/>
 				<Column
 					field="Info"
@@ -293,6 +314,8 @@ function NotificationTable({
 						padding: 10,
 						border: "1px solid lightgray",
 					}}
+					align="center"
+					headerClassName="bg-gray-300 border-l-4"
 					body={(row) => (
 						<Button
 							label="Show"
