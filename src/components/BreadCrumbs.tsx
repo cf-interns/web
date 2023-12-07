@@ -17,7 +17,7 @@ console.log(breadcrumbs, 'Crumbs');
 						match.pathname === location.pathname
 							? "text-gray-900 text-2xl mx-2 p-2 hover:bg-gray-800 rounded hover:text-white"
 							: "text-gray-500 text-2xl w-full p-2 mx-2 hover:bg-gray-800 rounded hover:text-white"
-					}
+					}   
 				>
 					{breadcrumb}{" "}
 					<span className="">
@@ -27,7 +27,7 @@ console.log(breadcrumbs, 'Crumbs');
 						</i>
 					</span>
 				</Link>
-			))}0
+			))}
 		</nav>
 	)
 }

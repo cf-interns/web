@@ -24,7 +24,9 @@ const Settings2 = () => {
 	const [changeUserData] = useUpdateUserInfoMutation()
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
 	const notifySucess = () => toast.success("Password Updated Successfully")
+	const notifySucessinfo = () => toast.success("Info Updated Successfully")
 	const notifyError = () => toast.error("Password Update Notsuccessful")
+	const notifyErrorinfo = () => toast.error("PInfo Update Notsuccessful")
 	const user = localStorage.getItem("user")
 	const UserObj = JSON.parse(user ? user : "")
 	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
@@ -43,11 +45,11 @@ const Settings2 = () => {
 		onSubmit: async (values) => {
 			try {
 				const data = await changeUserData(values).unwrap()
-				notifySucess()
+				notifySucessinfo()
 				console.log(data, "USER PASSWORD++++++")
 				return data
 			} catch (error) {
-				notifyError()
+				notifyErrorinfo()
 				console.log(error)
 			}
 		},

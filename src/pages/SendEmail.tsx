@@ -7,24 +7,23 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "../store/store"
 import { Dropdown } from "primereact/dropdown"
-import { AppData } from "./sendSMS";
+import { AppData } from "./sendSMS"
 import { ToastContainer, toast } from "react-toastify"
-
+import { Link } from "react-router-dom"
 
 const SendEmail = () => {
 	const [sendEmail, { isLoading }] = useSendEmailMutation()
 	const [selectedApplication, setSelectedApplication] = useState<AppData>()
 	const notifySucess = () => toast.success("Email Sent!")
 	const notifyError = () => toast.error("Email Not Sent!")
-	const notifyErrorEmails = () => toast.error("Please enter a valid email address!")
+	const notifyErrorEmails = () =>
+		toast.error("Please enter a valid email address!")
 
-
-
-	const app = useSelector((store: RootState) => store.app.app);
-	const [emails, setEmails] = useState<string[]>([]);
+	const app = useSelector((store: RootState) => store.app.app)
+	const [emails, setEmails] = useState<string[]>([])
 	const onEmailAdd = () => {
 		const actualEmails = [...emails]
-		actualEmails.push(formik.values.to);
+		actualEmails.push(formik.values.to)
 		setEmails(actualEmails)
 		formik.setFieldValue("to", "")
 	}
@@ -48,17 +47,15 @@ const SendEmail = () => {
 
 			subject: Yup.string().required("Please enter the email subjcet"),
 
-			
 			token: Yup.string().required("Please choose an application"),
 		}),
 		onSubmit: async (values) => {
 			try {
 				if (emails.length > 0 || values.to) {
-
 					let email2 = emails
 
-					if(emails.length === 0) email2 = [values.to]
-					else email2 = emails;
+					if (emails.length === 0) email2 = [values.to]
+					else email2 = emails
 
 					const inputs = {
 						id: selectedApplication?.token,
@@ -71,7 +68,6 @@ const SendEmail = () => {
 					notifySucess()
 					return data
 				} else notifyErrorEmails()
-				
 			} catch (error) {
 				notifyError()
 				console.log(error)
@@ -85,6 +81,16 @@ const SendEmail = () => {
 
 	return (
 		<DashboardLayout>
+			<Link to={`/tools`}>
+				<svg
+					className="w-10 ml-20 mt-4"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+				>
+					<path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
+				</svg>
+			</Link>
+
 			<div className="flex justify-center w-[90vw] ">
 				<div className="w-[70vw] h-auto">
 					<form
@@ -191,9 +197,10 @@ const SendEmail = () => {
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
 								/>
-								<button className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
-								onClick={onEmailAdd}
-								type="button"
+								<button
+									className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
+									onClick={onEmailAdd}
+									type="button"
 								>
 									Add
 								</button>

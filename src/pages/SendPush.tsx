@@ -1,4 +1,4 @@
-import {  useFormik } from "formik"
+import { useFormik } from "formik"
 import { useSendPushMutation } from "../store/features/application/appApiSlice"
 import * as Yup from "yup"
 import { Label } from "flowbite-react"
@@ -6,17 +6,17 @@ import DashboardLayout from "../components/DashboardLayout"
 import { useSelector } from "react-redux"
 import { RootState } from "../store/store"
 import { AppData } from "./sendSMS"
-import { Dropdown } from "primereact/dropdown";
+import { Dropdown } from "primereact/dropdown"
 import { ToastContainer, toast } from "react-toastify"
 import { useState } from "react"
-
+import { Link } from "react-router-dom"
 
 const SendPush = () => {
 	const [selectedApplication, setSelectedApplication] = useState<AppData>()
 	const notifySucess = () => toast.success("Email Sent!")
 	const notifyError = () => toast.error("Email Not Sent!")
 
-	const [sendPush, ] = useSendPushMutation();
+	const [sendPush] = useSendPushMutation()
 	const app = useSelector((store: RootState) => store.app.app)
 	const useFullData = app?.map((app) => {
 		return {
@@ -26,7 +26,7 @@ const SendPush = () => {
 	})
 	const formik = useFormik({
 		initialValues: {
-			token: '',
+			token: "",
 			notification: {
 				body: "",
 				title: "",
@@ -67,6 +67,16 @@ const SendPush = () => {
 	}
 	return (
 		<DashboardLayout>
+			<Link to={`/tools`}>
+				<svg
+					className="w-10 ml-20 mt-4"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+				>
+					<path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
+				</svg>
+			</Link>
+
 			<div className="flex justify-center w-[90vw] ">
 				<div className="w-[70vw] h-auto">
 					<form
@@ -171,8 +181,6 @@ const SendPush = () => {
 			</div>
 		</DashboardLayout>
 	)
-
-	
 }
 
 export default SendPush

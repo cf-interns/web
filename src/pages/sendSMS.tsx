@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify"
 
 import { useSelector } from "react-redux"
 import { RootState } from "../store/store"
+import { Link } from "react-router-dom"
 // import BreadCrumbs from "../components/BreadCrumbs"
 
 export interface AppData {
@@ -53,12 +54,11 @@ const SendSMS = () => {
 		onSubmit: async (values) => {
 			try {
 				if (numbers.length > 0 || values.mobiles) {
-					
 					let mobileValues = numbers
 
 					if (numbers.length === 0) mobileValues = [values.mobiles]
 					else mobileValues = numbers
-					
+
 					const inputs = {
 						message: values?.message,
 						mobiles: mobileValues.toString(),
@@ -93,6 +93,16 @@ const SendSMS = () => {
 
 	return (
 		<DashboardLayout>
+			<Link to={`/tools`}>
+				<svg
+					className="w-10 ml-20 mt-4"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+				>
+					<path d="M7.82843 10.9999H20V12.9999H7.82843L13.1924 18.3638L11.7782 19.778L4 11.9999L11.7782 4.22168L13.1924 5.63589L7.82843 10.9999Z"></path>
+				</svg>
+			</Link>
+
 			{/* <div className="flex items-center p-2">
 				<BreadCrumbs />
 				<h1 className="text-2xl">SMS</h1>
