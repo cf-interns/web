@@ -1,5 +1,5 @@
 import { useFormik } from "formik"
-import { useSendEmailMutation } from "../store/features/application/appApiSlice"
+import { useSendAutomaticEmailMutation, useSendEmailMutation } from "../store/features/application/appApiSlice"
 import * as Yup from "yup"
 import { Label } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
@@ -12,11 +12,14 @@ import { ToastContainer, toast } from "react-toastify"
 
 
 const SendEmail = () => {
-	const [sendEmail, { isLoading }] = useSendEmailMutation()
+	const [sendEmail, { isLoading }] = useSendEmailMutation();
+	const [sendAutoEmail] = useSendAutomaticEmailMutation()
 	const [selectedApplication, setSelectedApplication] = useState<AppData>()
 	const notifySucess = () => toast.success("Email Sent!")
 	const notifyError = () => toast.error("Email Not Sent!")
 	const notifyErrorEmails = () => toast.error("Please enter a valid email address!")
+	const [toggleAutomatic, setoggleAutomatic] = useState("")
+    const formateDate = (date: string | Date) => new Date(date).toISOString()
 
 
 
@@ -42,23 +45,28 @@ const SendEmail = () => {
 			subject: "",
 			to: "",
 			from: "no-reply@payunit.com",
+			time: "",
 		},
 		validationSchema: Yup.object({
 			text: Yup.string().required("Message is required"),
 
 			subject: Yup.string().required("Please enter the email subjcet"),
 
-			
 			token: Yup.string().required("Please choose an application"),
+			time: Yup.date()
+				// .required()
+				.min(
+					Yup.ref("time"),
+					({ min }) => `Date needs to be after ${formateDate(min)}!!`
+				),
 		}),
 		onSubmit: async (values) => {
 			try {
 				if (emails.length > 0 || values.to) {
-
 					let email2 = emails
 
-					if(emails.length === 0) email2 = [values.to]
-					else email2 = emails;
+					if (emails.length === 0) email2 = [values.to]
+					else email2 = emails
 
 					const inputs = {
 						id: selectedApplication?.token,
@@ -66,12 +74,19 @@ const SendEmail = () => {
 						subject: values?.subject,
 						to: email2,
 						from: "no-reply@payunit.com",
+						time: values?.time
 					}
+					if (toggleAutomatic === "toggled") {
+						const data = await sendAutoEmail(inputs).unwrap()
+						notifySucess()
+						setEmails([])
+
+						return data
+					} 
 					const data = await sendEmail(inputs).unwrap()
 					notifySucess()
 					return data
 				} else notifyErrorEmails()
-				
 			} catch (error) {
 				notifyError()
 				console.log(error)
@@ -191,9 +206,10 @@ const SendEmail = () => {
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
 								/>
-								<button className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
-								onClick={onEmailAdd}
-								type="button"
+								<button
+									className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
+									onClick={onEmailAdd}
+									type="button"
 								>
 									Add
 								</button>
@@ -203,6 +219,54 @@ const SendEmail = () => {
 									{formik?.errors?.to}
 								</div>
 							)} */}
+						</div>
+						<div className="flex flex-col gap-4 pt-2 mb-4">
+							<div className="flex gap-2 items-center">
+								<input
+									type="radio"
+									className=""
+									name="automatic"
+									id="automatic"
+									value={toggleAutomatic}
+									onClick={() => setoggleAutomatic("toggled")}
+								/>
+								<Label
+									color="text-dark"
+									htmlFor="address"
+									value="Send Automatic Notification"
+									className="text-xl text-center p-1"
+								/>
+							</div>
+							{toggleAutomatic === "toggled" && (
+								<div className="mb-4">
+									<Label
+										color="text-dark"
+										htmlFor="Date & Time"
+										value="Date & Time"
+										className="text-xl text-center p-1"
+									/>
+									<input
+										className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-fit"
+										id="time"
+										type="datetime-local"
+										placeholder="Enter email subject"
+										name="time"
+										value={formik.values.time}
+										onChange={formik.handleChange}
+										onBlur={formik.handleBlur}
+									/>
+									{formik?.errors?.time && (
+										<div className="text-red-800 text-xs italic text-center">
+											{formik?.errors?.time}
+										</div>
+									)}
+								</div>
+							)}
+							{formik?.errors?.time && (
+								<div className="text-red-800 text-xs italic text-center">
+									{formik?.errors?.time}
+								</div>
+							)}
 						</div>
 
 						<button

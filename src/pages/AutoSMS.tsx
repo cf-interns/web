@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 
 const AutoSMS = () => {
-	const [sendAutoSMS, { isLoading }] = useSendAutomaticSMSMutation()
+	const [sendAutoSMS, { isLoading }] = useSendAutomaticSMSMutation();
 	const notifySucess = () => toast.success("SMS Sent!")
 	const notifyError = () => toast.error("SMS Not Sent!")
 	const notifyErrorNumbers = () => toast.error("Please enter a number!")
