@@ -23,9 +23,9 @@ export const  NavbarDash = () => {
 				<Navbar.Brand href="https://flowbite-react.com" />
 			
 				<Navbar.Brand href="https://flowbite-react.com">
-					<span className="whitespace-nowrap text-xl font-semibold dark:text-white">
+					{/* <span className="whitespace-nowrap text-xl font-semibold dark:text-white">
 						GNS 
-					</span>
+					</span> */}
 				</Navbar.Brand>
 				<div className="flex md:order-2">
 					<h1 className="text-xl text-white p-1 mr-2">{realUser?.lastName}</h1>
@@ -44,7 +44,7 @@ export const  NavbarDash = () => {
 						</Dropdown.Header>
 						<Link
 							to="/dashboard"
-							className="flex items-center justify-start py-2 px-4 text-sm text-gray-700 cursor-pointer w-full focus:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white"
+							className="flex items-center justify-start py-2 px-4 text-sm text-gray-700 cursor-pointer w-full focus:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-600 focus:outline-none dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white"
 						>
 							Dashboard
 						</Link>

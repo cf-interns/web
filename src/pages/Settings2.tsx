@@ -27,7 +27,9 @@ const Settings2 = () => {
 	const user = localStorage.getItem("user")
 	const UserObj = JSON.parse(user ? user : "")
 	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
-	const notifySucess = () => toast.success("User Info Updated")
+	const notifySucess = () => toast.success("User Info Updated");
+	const notifySucessPass = () => toast.success("Password Updated");
+
 	const notifyError = () => toast.error("User Info Not Updated")
 
 	const formik = useFormik({
@@ -85,7 +87,8 @@ const Settings2 = () => {
 		onSubmit: async (values) => {
 			try {
 				const data = await changePassword(values).unwrap()
-				console.log(data, "USER PASSWORD++++++")
+				console.log(data, "USER PASSWORD++++++");
+				notifySucessPass()
 				return data
 			} catch (error) {
 				console.log(error)
