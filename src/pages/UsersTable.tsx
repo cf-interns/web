@@ -136,7 +136,7 @@ const UsersTable = () => {
 					filterDisplay="menu" //===>>
 					globalFilterFields={["firstName", "lastName", "email"]}
 					header={renderHeader()}
-					emptyMessage="No customers found."
+					emptyMessage="No Users found."
 				>
 					<Column
 						header="First Name"

@@ -55,7 +55,7 @@ function NotificationTable({
 			case "FAILED":
 				return "danger"
 
-			case "success": //Adjust Api to return SUCCESS in caps
+			case "SUCCESS" || 'success': //Adjust Api to return SUCCESS in caps
 				return "success"
 
 			case "PENDING":

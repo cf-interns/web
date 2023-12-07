@@ -1,5 +1,5 @@
 import { useFormik } from "formik"
-import { useSendSMSMutation } from "../store/features/application/appApiSlice"
+import { useSendAutomaticSMSMutation, useSendSMSMutation } from "../store/features/application/appApiSlice"
 import * as Yup from "yup"
 import { Label } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
@@ -18,6 +18,7 @@ export interface AppData {
 
 const SendSMS = () => {
 	const [sendSMS, { isLoading /* isSuccess */ }] = useSendSMSMutation()
+	const [sendAutoSMS,] = useSendAutomaticSMSMutation()
 
 	const notifySucess = () => toast.success("SMS Sent!")
 	const notifyError = () => toast.error("SMS Not Sent!")
@@ -29,7 +30,9 @@ const SendSMS = () => {
 	3- Send Selected App on Form Submission!
 	
 	*/
-	const [selectedApplication, setSelectedApplication] = useState<AppData>()
+	const [selectedApplication, setSelectedApplication] = useState<AppData>();
+	const [toggleAutomatic, setoggleAutomatic] = useState('');
+
 
 	const [numbers, setNumbers] = useState<string[]>([])
 	const onAddNumber = () => {
@@ -38,38 +41,58 @@ const SendSMS = () => {
 		setNumbers(actualNumbers)
 		formik.setFieldValue("mobiles", "")
 	}
+  const formateDate = (date: string | Date) => new Date(date).toISOString()
 
 	const formik = useFormik({
 		initialValues: {
 			token: "",
 			message: "",
 			mobiles: "",
+			time: "",
 		},
 
 		validationSchema: Yup.object({
 			message: Yup.string().required("Please enter your message"),
 			token: Yup.string().required("Please choose an application"),
+			time: Yup.date()
+				// .required()
+				.min(
+					Yup.ref("time"),
+					({ min }) => `Date needs to be after ${formateDate(min)}!!`
+				),
 		}),
 		onSubmit: async (values) => {
 			try {
 				if (numbers.length > 0 || values.mobiles) {
-					
 					let mobileValues = numbers
 
 					if (numbers.length === 0) mobileValues = [values.mobiles]
 					else mobileValues = numbers
-					
+
 					const inputs = {
 						message: values?.message,
 						mobiles: mobileValues.toString(),
 						id: selectedApplication?.token,
+						time: values?.time
 					}
 
-					const data = await sendSMS(inputs).unwrap()
-					notifySucess()
-					setNumbers([])
+					if (toggleAutomatic === 'toggled') {
+						const data = await sendAutoSMS(inputs).unwrap()
+						notifySucess()
+						setNumbers([])
 
-					return data
+						return data;
+
+					} else {
+
+						const data = await sendSMS(inputs).unwrap()
+						notifySucess()
+						setNumbers([])
+
+						return data
+					}
+
+					
 				} else notifyErrorNumbers()
 			} catch (error) {
 				notifyError()
@@ -191,6 +214,54 @@ const SendSMS = () => {
 
 							{numbers.length === 0 && (
 								<div className="text-red-700 font-bold">{}</div>
+							)}
+						</div>
+						<div className="flex flex-col gap-4 pt-2 mb-4">
+							<div className="flex gap-2 items-center">
+								<input
+									type="radio"
+									className=""
+									name="automatic"
+									id="automatic"
+									value={toggleAutomatic}
+									onClick={() => setoggleAutomatic("toggled")}
+								/>
+								<Label
+									color="text-dark"
+									htmlFor="address"
+									value="Send Automatic Notification"
+									className="text-xl text-center p-1"
+								/>
+							</div>
+							{toggleAutomatic === "toggled" && (
+								<div className="mb-4">
+									<Label
+										color="text-dark"
+										htmlFor="Date & Time"
+										value="Date & Time"
+										className="text-xl text-center p-1"
+									/>
+									<input
+										className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-fit"
+										id="time"
+										type="datetime-local"
+										placeholder="Enter email subject"
+										name="time"
+										value={formik.values.time}
+										onChange={formik.handleChange}
+										onBlur={formik.handleBlur}
+									/>
+									{formik?.errors?.time && (
+										<div className="text-red-800 text-xs italic text-center">
+											{formik?.errors?.time}
+										</div>
+									)}
+								</div>
+							)}
+							{formik?.errors?.time && (
+								<div className="text-red-800 text-xs italic text-center">
+									{formik?.errors?.time}
+								</div>
 							)}
 						</div>
 
