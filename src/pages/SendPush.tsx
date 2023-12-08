@@ -13,8 +13,8 @@ import { useState } from "react"
 
 const SendPush = () => {
 	const [selectedApplication, setSelectedApplication] = useState<AppData>()
-	const notifySucess = () => toast.success("Email Sent!")
-	const notifyError = () => toast.error("Email Not Sent!")
+	const notifySucess = () => toast.success("Push Sent!")
+	const notifyError = () => toast.error("Push Not Sent!")
 
 	const [sendPush, ] = useSendPushMutation();
 	const app = useSelector((store: RootState) => store.app.app)
@@ -32,11 +32,11 @@ const SendPush = () => {
 				title: "",
 				// icon: ''
 			},
-			userToken: "",
+			 userToken: "",
 		},
 		validationSchema: Yup.object({
 			notification: Yup.object().required(),
-			userToken: Yup.string().required("Please recipient's token"),
+			userToken: Yup.string().required("Please enter recipient's token"),
 			token: Yup.string().required("Please choose an application"),
 		}),
 		onSubmit: async (values) => {
@@ -49,7 +49,7 @@ const SendPush = () => {
 						body: values?.notification.body,
 						title: values?.notification.title,
 					},
-					userToken: values?.userToken,
+					token: values?.userToken,
 				}
 				const data = await sendPush(inputs)
 				console.log(data, "<<<====token?")
@@ -110,6 +110,9 @@ const SendPush = () => {
 								type="text"
 								placeholder="Enter Push Message"
 								name="notification.body"
+								value={formik.values.notification.body}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
 							/>
 							{formik?.errors?.notification?.body && (
 								<div className="text-red-800 text-xs italic text-center">
@@ -130,6 +133,9 @@ const SendPush = () => {
 								type="text"
 								placeholder="Enter Push Title"
 								name="notification.title"
+								value={formik.values.notification.title}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
 							/>
 							{formik?.errors?.notification?.title && (
 								<div className="text-red-800 text-xs italic text-center">
@@ -140,7 +146,7 @@ const SendPush = () => {
 						<div className="mb-4">
 							<Label
 								color="text-dark"
-								htmlFor="token"
+								htmlFor="Recipient's token"
 								value="Recipient's token"
 								className="text-xl text-center p-1"
 							/>
@@ -150,6 +156,9 @@ const SendPush = () => {
 								type="text"
 								placeholder="Enter User token"
 								name="userToken"
+								value={formik.values.userToken}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
 							/>
 							{formik?.errors?.userToken && (
 								<div className="text-red-800 text-xs italic text-center">

@@ -138,6 +138,8 @@ const AllApplication = () => {
 									visible={visible}
 									style={{ width: "auto" }}
 									onHide={() => setVisible(false)}
+									header='Create An App'
+									headerClassName="text-center text-2xl font-bold"
 									className="bg-gray-300"
 								>
 									<CreateApplication setVisible={setVisible} />

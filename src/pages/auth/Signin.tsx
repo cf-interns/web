@@ -7,14 +7,16 @@ import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { useSignInMutation } from "../../store/features/auth/authApiSlice"
 import { setCredentials } from "../../store/features/auth/authSlice"
-import CustomLoader from "../../components/CustomLoader"
+import CustomLoader from "../../components/CustomLoader";
+import { ToastContainer, toast } from "react-toastify"
 
 YupPassword(Yup)
 
 const Signin = () => {
 	const navigate = useNavigate()
 	const [login, { isLoading }] = useSignInMutation()
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
+	const notifyInvalidLogin = () => toast.error('Invalid Login!')
 
 	// const url = 'http://localhost:5000/api/auth/sign_in'
 
@@ -42,25 +44,12 @@ const Signin = () => {
 
 					return data
 				} catch (error) {
-					console.log(error) //Build Custom Error Messages
+					if (error?.status === 400) {
+						notifyInvalidLogin()
+					}
+					console.log(error)
+					//Build Custom Error Messages
 				}
-				/* 
-                    console.log(values)
-                    axios({
-                        method: 'POST',
-                        url: url,
-                        data: values,
-                        withCredentials: true
-                    })
-                        .then(
-                            function (res) { console.log(res.data, 'User Data') }
-                        )
-                        .catch(function (error) {
-                            if (error.response) {
-                                console.log(error.response.data);
-
-                            }
-                        }) */
 			}}
 		>
 			<section className="bg-gray-50 dark:bg-gray-900">
@@ -133,8 +122,9 @@ const Signin = () => {
 												<CustomLoader />
 												Loging in...
 											</>
-										) : "Login "
-										}
+										) : (
+											"Login "
+										)}
 									</Button>
 
 									<div className="flex justify-between mt-2">
@@ -148,6 +138,7 @@ const Signin = () => {
 									</div>
 								</p>
 							</Form>
+							<ToastContainer />
 						</div>
 					</div>
 				</div>

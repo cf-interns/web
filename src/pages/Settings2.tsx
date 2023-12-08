@@ -1,5 +1,4 @@
 import DashboardLayout from "../components/DashboardLayout"
-import avt from "../assets/avatar2.jpeg"
 import { Button } from "primereact/button"
 import { useFormik } from "formik"
 import { Label } from "flowbite-react"
@@ -10,20 +9,14 @@ import {
 	useUpdateUserInfoMutation,
 } from "../store/features/user/usersApiSlice"
 import * as Yup from "yup"
-// import { useDispatch } from "react-redux"
-// import { logOut } from "../store/features/auth/authSlice"
-// import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { ToastContainer, toast } from "react-toastify"
 import BreadCrumbs from "../components/BreadCrumbs"
 
-// import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
 
 const Settings2 = () => {
-	// const dispatch = useDispatch()
 	const [changeUserData] = useUpdateUserInfoMutation()
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
-	// const [DeleteUser] = useDeleteUserMutation()
 	const user = localStorage.getItem("user")
 	const UserObj = JSON.parse(user ? user : "")
 	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
@@ -62,9 +55,7 @@ const Settings2 = () => {
 			confirmPassword: "",
 		},
 		validationSchema: Yup.object({
-			// oldPassword: Yup.string()
-			// 	.password()
-			// 	.required("Previous Password is required!"),
+
 			newPassword: Yup.string()
 				.password()
 				.required("Please enter the new password")
@@ -95,29 +86,6 @@ const Settings2 = () => {
 			}
 		},
 	})
-
-	/* const confirm2 = () => {
-		return confirmDialog({
-			message: "Note this Action is irreversible. Do you want to proceed?",
-			header: "Delete Confirmation",
-			icon: "pi pi-info-circle mr-2",
-			acceptClassName: "p-button-danger mr-2",
-			rejectClassName: " mr-[10px]",
-			accept: () => {
-				// console.log(UserObj._id, 'IDD');
-				
-				DeleteUser(UserObj._id)
-				dispatch(logOut()); 
-				navigate('/')
-				console.log("Deleted!")
-			},
-			reject: () => {
-				console.log('Preserved!');
-				
-			},
-		})
-	} */
-
 	useEffect(() => {
 		const { data } = loggedUser
 		formik.setFieldValue("firstName", data?.firstName)
@@ -127,22 +95,13 @@ const Settings2 = () => {
 
 	return (
 		<DashboardLayout>
-			<div className="flex flex-col gap-8 h-[90vh] w-fit ml-4 p-4">
-				<div className="flex items-center p-2">
-					<BreadCrumbs />
-					<h1 className="text-2xl ">Settings</h1>
-				</div>
-				<div className="flex gap-8 mt-4 h-[40vh] mb-8">
-					<div className="flex flex-col gap-10">
-						<div>
-							<img src={avt} alt="Avatar" className="rounded-full w-60 h-60" />
-							<Button
-								label="Upload"
-								className="bg-gray-300 h-fit w-fit p-2 ml-36 rounded-lg"
-							/>
+			<div className="flex flex-col items-center justify-center m-auto h-[90vh] w-fit">
+				<div className="flex flex-col h-fit mb-8">
+					<div>
+						<div className="my-5">
+							<BreadCrumbs />
 						</div>
-
-						<div className="" id="Personal Info">
+						<div className="mt-5" id="Personal Info">
 							<div className="p-2 w-[25vw]">
 								<h1 className="text-2xl text-gray-500">Personal Info</h1>
 								<p>Use a permanent address where you can receive mail.</p>
@@ -159,7 +118,7 @@ const Settings2 = () => {
 										className="flex flex-col gap-2 w-[60vw]"
 										onSubmit={formik.handleSubmit}
 									>
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80 py-2">
 											<Label
 												htmlFor="firstName"
 												value="First Name"
@@ -178,7 +137,7 @@ const Settings2 = () => {
 											/>
 										</div>
 
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80 py-2">
 											<Label
 												htmlFor="lastName"
 												value="Last Name"
@@ -197,7 +156,7 @@ const Settings2 = () => {
 											/>
 										</div>
 
-										<div className="flex flex-col gap-2 w-80">
+										<div className="flex flex-col gap-2 w-80 py-2">
 											<Label
 												htmlFor="Email"
 												value="Email"
@@ -228,9 +187,9 @@ const Settings2 = () => {
 					</div>
 				</div>
 
-				<hr className="border-gray-400 border-2xl " />
-				<div className="flex flex-col mt-4">
-					<div className="flex justify-between" id="Change Password">
+				<hr className="border-gray-400 border-4xl " />
+				<div className=" mt-8">
+					<div className="flex flex-col justify-between" id="Change Password">
 						<div className="p-2 w-[25vw]">
 							<h1 className="text-2xl text-gray-500">Change Password</h1>
 							<p>Update your password associated with your account.</p>
@@ -243,7 +202,7 @@ const Settings2 = () => {
 										className="flex flex-col gap-2 w-[60vw]"
 										onSubmit={formik2.handleSubmit}
 									>
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80 py-2">
 											<Label
 												htmlFor="Current Password"
 												value="Current Password"
@@ -267,7 +226,7 @@ const Settings2 = () => {
 											)}
 										</div>
 
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80 py-2">
 											<Label
 												htmlFor="New Password"
 												value="New Password"
@@ -290,7 +249,7 @@ const Settings2 = () => {
 											)}
 										</div>
 
-										<div className="flex flex-col gap-2 w-80">
+										<div className="flex flex-col gap-2 w-80 py-2">
 											<Label
 												htmlFor="confirmPassword"
 												value="Confirm Password"
@@ -325,32 +284,6 @@ const Settings2 = () => {
 						</div>
 					</div>
 				</div>
-
-				{/* 	<hr className="border-gray-400 border-2xl" />
-
-				<div className="flex gap-8" id="Delete Account">
-					<div className="p-2 w-[25vw]">
-						<h1 className="text-2xl text-gray-500">Delete Account</h1>
-						<p className="text-clip overf">
-							No longer want to use our service? You can delete your account
-							here. This action is not reversible. All information related to
-							this account will be deleted permanently.
-						</p>
-					</div>
-
-					<div className="">
-						<Button
-							className="w-[74%] rounded-lg p-2 bg-red-500 mt-2 text-white focus:ring-0"
-							label={isLoading ? "Deleting ..." : "Yes, Delete My Account"}
-							onClick={() => {
-								confirm2()
-							
-							}}
-							disabled={isLoading}
-						/>
-					</div>
-					<ConfirmDialog />
-				</div> */}
 			</div>
 		</DashboardLayout>
 	)

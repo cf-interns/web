@@ -26,21 +26,20 @@ export const requestPermission =() => {
 
       if (permission === 'granted') {
         console.log('Notification permission granted.');
-        return getToken(messaging, {vapidKey: "BN6aaUtlBZWl3oStjwEInofm-yiISIIqZxmyLcapJniABLOrNMicGLzC-BYGSj1_7e_IkOzlQbUaVFvMjZwQjvk"})
-
-        .then(currentToken => {
-            if (currentToken) {
-                console.log('Client Token', currentToken);
-                
-            } else {
-                console.log('Failed to generate token.');
-                
-            }
-        })
-        .catch(err => {
-            console.log('An error occurred while retrieving token.', err);
-            
-        }) 
+        return getToken(messaging, {
+					vapidKey:
+						"BC4SCZfHeuy-cgHaLakaVoWRuKfb8vcWpyNg9NKnSYDUl5hXf7xtrO57jFblSiW_bg7oW4-htQ9G_kdXKh0aISM",
+				})
+					.then((currentToken) => {
+						if (currentToken) {
+							console.log("Client Token", currentToken)
+						} else {
+							console.log("Failed to generate token.")
+						}
+					})
+					.catch((err) => {
+						console.log("An error occurred while retrieving token.", err)
+					}) 
         
       } else {
         console.log('User Permission Denied!');

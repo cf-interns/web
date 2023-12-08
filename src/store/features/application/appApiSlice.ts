@@ -33,7 +33,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
 		sendPush: build.mutation<PushResponse, Partial<Push>>({
 			query({ id, notification, token }) {
 				return {
-					url: `/notifications/send-notification/${id}`,
+					url: `/notifications/send-push/${id}`,
 					method: "POST",
 					body: { notification, token },
 				}
