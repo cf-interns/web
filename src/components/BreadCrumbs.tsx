@@ -8,10 +8,11 @@ const BreadCrumbs = () => {
 
 console.log(breadcrumbs, 'Crumbs');
   return (
-		<nav>
+		<nav> 
 			{breadcrumbs.map(({ match, breadcrumb }) => (
 				<Link
 					key={match.pathname}
+		
 					to={match.pathname}
 					className={
 						match.pathname === location.pathname
@@ -27,7 +28,7 @@ console.log(breadcrumbs, 'Crumbs');
 						</i>
 					</span>
 				</Link>
-			))}
+			))} 
 		</nav>
 	)
 }
