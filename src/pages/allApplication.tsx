@@ -30,10 +30,6 @@ const AllApplication = () => {
 	const footer = (_id: string, status: string) => {
 		return (
 			<div className="flex items-center justify-between gap-2">
-
-{/* 
-	
-						<Link to={`/appDetail/${_id}`}> */}
 							<Button className="flex p-1  text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded" onClick={() => setVisibleDetails(true)}>
 								<span>View Details</span>
 								<FiArrowRight />
@@ -154,7 +150,7 @@ const AllApplication = () => {
 						{apps.map((app, i) => {
 							return (
 								<div className="">
-									<Card
+									<Card 
 										footer={footer(app._id, app.status)}
 										header={header}
 										className="w-10rem ml-4"
@@ -170,92 +166,18 @@ const AllApplication = () => {
 											</p>
 										</div>
 
-										{/* <div
-										className="cursor-pointer justify-center flex p-2 gap-2 text-white bg-teal-900 w-fit   rounded-lg"
-										onClick={() => {
-											updateAppStatus({
-												_id: app?._id,
-												status: app.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
-											})
-											console.log(updateAppStatus)
-										}}
-									>
-										{isLoading ? (
-											<>
-												<CustomLoader />
-												Activating...
-											</>
-										) : app.status === "ACTIVE" ? (
-											"Deactivate"
-										) : (
-											"Activate"
-										)}
-									</div> */}
+									
 										<h5 className="text-xl font-light tracking-tight mt-5 text-gray-600">
 											<p>{app.description}</p>
 										</h5>
 
-										{/* <Link to={`/ViewDetails/${app._id}`}>
-										<Button>
-											<p className="mr-1">View Details</p>
-											<FiArrowRight />
-										</Button>
-									</Link> */}
+									
 									</Card>
 								</div>
 							)
 						})}
 					</div>
 
-					{/* 
-					<div className="mt-5 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-5 pb-5">
-						{apps.map((app, i) => {
-							return (
-								<Card
-									className="bg-green-800"
-									style={{ backgroundColor: "teal" }}
-									key={i}
-								>
-									<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-										<p>{app.appName}</p>
-									</h5>
-
-									<div
-										className="cursor-pointer justify-center flex p-2 gap-2 text-white bg-teal-900 w-fit   rounded-lg"
-										onClick={() => {
-											updateAppStatus({
-												_id: app?._id,
-												status: app.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
-											})
-											console.log(updateAppStatus)
-										}}
-									>
-										{isLoading ? (
-											<>
-												<CustomLoader />
-												Activating...
-											</>
-										) : app.status === "ACTIVE" ? (
-											"Deactivate"
-										) : (
-											"Activate"
-										)}
-									</div>
-
-									<div className="font-normal text-gray-900 dark:text-white">
-										<p>Status: {app.status}</p>
-										<p>Created: {app.createdAt.toString()}</p>
-									</div>
-									<Link to={`/appDetail/${app._id}`}>
-										<Button>
-											<p className="mr-1">View Details</p>
-											<FiArrowRight />
-										</Button>
-									</Link>
-								</Card>
-							)
-						})}
-					</div> */}
 				</div>
 			</DashboardLayout>
 		)

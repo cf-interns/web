@@ -77,6 +77,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
 			providesTags: ["Apps"],
 		}),
 
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		deleteApp: build.mutation<{ success: boolean; _id: any }, number>({
 			query(_id) {
 				return {
