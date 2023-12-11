@@ -121,9 +121,7 @@ const AllApplication = () => {
 							<div className="flex items-center">
 								<BreadCrumbs />
 
-								<h1 className="text-[#5a5c69] text-2xl px-4 font-normal cursor-pointer ml-6">
-									All Applications
-								</h1>
+							
 							</div>
 
 
@@ -138,6 +136,8 @@ const AllApplication = () => {
 									visible={visible}
 									style={{ width: "auto" }}
 									onHide={() => setVisible(false)}
+									header='Create An App'
+									headerClassName="text-center text-2xl font-bold"
 									className="bg-gray-300"
 								>
 									<CreateApplication setVisible={setVisible} />

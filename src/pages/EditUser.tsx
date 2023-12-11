@@ -31,8 +31,8 @@ const EditUser = (props: { prop: any }) => {
 		},
 	})
 	return (
-		<form className="p-8 flex flex-col gap-2" onSubmit={formik.handleSubmit}>
-			<div className="flex flex-col gap-2 whitespace-nowrap p-4 ">
+		<form className="px-5 py-2 flex flex-col gap-2" onSubmit={formik.handleSubmit}>
+			<div className="flex flex-col gap-2 whitespace-nowrap py-3">
 				<Label
 					htmlFor="firstName"
 					value="First Name"
@@ -51,7 +51,7 @@ const EditUser = (props: { prop: any }) => {
 				/>
 			</div>
 
-			<div className="flex flex-col gap-2 whitespace-nowrap p-4">
+			<div className="flex flex-col gap-2 whitespace-nowrap py-3">
 				<Label
 					htmlFor="lastName"
 					value="Last Name"
@@ -70,7 +70,7 @@ const EditUser = (props: { prop: any }) => {
 				/>
 			</div>
 
-			<div className="flex flex-col gap-2 whitespace-nowrap p-4 ">
+			<div className="flex flex-col gap-2 whitespace-nowrap py-3">
 				<Label
 					htmlFor="Email"
 					value="Email"
@@ -91,7 +91,7 @@ const EditUser = (props: { prop: any }) => {
 
 			<button
 				type="submit"
-				className="w-auto h-[40px] rounded-lg shadow-lg bg-gray-500 mt-4 text-white text-lg font-bold hover:bg-green-500 focus:ring-0"
+				className="w-full h-[40px] rounded-lg shadow-lg bg-gray-500 mt-4 text-white text-lg font-bold hover:bg-green-500 focus:ring-0"
 			>
 				Save
 			</button>

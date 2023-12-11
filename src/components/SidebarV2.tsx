@@ -7,18 +7,20 @@ import {
 import { PiAppStoreLogo } from "react-icons/pi"
 import { RiUserSettingsLine } from "react-icons/ri"
 import avt2 from "../assets/react.svg"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 /* import { BsMenuButtonWide } from "react-icons/bs"
 import { IoCreateOutline } from "react-icons/io5" */
 import { TbUsersGroup } from "react-icons/tb"
-import {GiHamburgerMenu} from 'react-icons/gi';
+import { GiHamburgerMenu } from "react-icons/gi"
 import { Tooltip } from "flowbite-react"
 
 export default function SidebarV2() {
 	// const [showAppMenu, setShowAppMenu] = useState(false)
-	const [collapse, setCollapse] = useState(true);
-	const [active, setActive] = useState(false);
+	const [collapse, setCollapse] = useState(false)
+	const [active, setActive] = useState(false)
+	const currentLink = useNavigate()
+	console.log(currentLink.name, "link")
 
 	return (
 		<Sidebar
@@ -63,13 +65,13 @@ export default function SidebarV2() {
 					</div>
 
 					<div className="flex flex-col gap-3">
-						<Link to="/dashboard" onClick={() => setActive(true)}>
+						<Link to="/dashboard" onClick={() => setActive(!active)}>
 							<p
-								className={
-									active
-										? "flex gap-2 items-center text-white bg-gray-700  p-3 rounded"
-										: "flex gap-2 items-center text-white hover:bg-gray-700  p-3 rounded"
-								}
+								className={`flex gap-2 items-center text-white ${
+									window.location.href.indexOf("dashboard") > 0
+										? "bg-gray-700"
+										: ""
+								} p-3 rounded`}
 							>
 								{collapse ? (
 									<Tooltip content="Dashboard" placement="right">
@@ -85,7 +87,13 @@ export default function SidebarV2() {
 						</Link>
 
 						<Link to="/allApplication">
-							<p className="flex gap-2 items-center text-white hover:bg-gray-700  p-3 rounded">
+							<p
+								className={`flex gap-2 items-center text-white ${
+									window.location.href.indexOf("allApplication") > 0
+										? "bg-gray-700"
+										: ""
+								} p-3 rounded`}
+							>
 								{collapse ? (
 									<Tooltip content="Apps" placement="right">
 										<PiAppStoreLogo size={30} className="pr-2" />
@@ -93,14 +101,20 @@ export default function SidebarV2() {
 								) : (
 									<>
 										<PiAppStoreLogo size={30} />
-										Dashboard
+										Applications
 									</>
 								)}
 							</p>
 						</Link>
 
 						<Link to="/settings">
-							<p className="flex gap-2 items-center text-white hover:bg-gray-700 p-3 rounded">
+							<p
+								className={`flex gap-2 items-center text-white ${
+									window.location.href.indexOf("settings") > 0
+										? "bg-gray-700"
+										: ""
+								} p-3 rounded`}
+							>
 								{collapse ? (
 									<Tooltip content="Settings" placement="right">
 										<RiUserSettingsLine size={30} className="pr-2" />
@@ -115,7 +129,13 @@ export default function SidebarV2() {
 						</Link>
 
 						<Link to="/users">
-							<p className="flex gap-2 items-center text-white hover:bg-gray-700 p-3 rounded">
+							<p
+								className={`flex gap-2 items-center text-white ${
+									window.location.href.indexOf("users") > 0
+										? "bg-gray-700"
+										: ""
+								} p-3 rounded`}
+							>
 								{collapse ? (
 									<Tooltip content="Users" placement="right">
 										<TbUsersGroup size={30} className="pr-2" />

@@ -90,15 +90,15 @@ const UsersTable = () => {
 					label=" USER"
 					onClick={() => {
 						// navigate("/sign-up")
-						setCreateUser(true) 
-						
+						setCreateUser(true)
 					}}
-					
 				/>
 				<Dialog
 					visible={createUser}
 					style={{ width: "30vw" }}
 					onHide={() => setCreateUser(false)}
+					header="Create user"
+					headerClassName="text-center text-2xl font-bold"
 				>
 					<PopupInfo setCreateUser={setCreateUser} />
 				</Dialog>
@@ -110,8 +110,12 @@ const UsersTable = () => {
 			message: "Do you want to delete this User?",
 			header: "Delete Confirmation",
 			icon: "pi pi-info-circle mr-2",
-			acceptClassName: "p-button-danger mr-2",
-			rejectClassName: " mr-[10px]",
+			acceptLabel: "Confirm",
+			rejectLabel: "Cancel",
+			acceptClassName: "mr-2 bg-green-500 text-white py-2 px-4 border border-white",
+			rejectClassName: "mr-[10px] py-2 px-4 border border-blue-200",
+			className: "w-[30vw]",
+
 			accept: () => {
 				deleteUser(row_id)
 			},
@@ -129,7 +133,6 @@ const UsersTable = () => {
 				<div className="flex items-center p-2">
 					<BreadCrumbs />
 
-					<h1 className="text-3xl text-gray-600 py-2">Users</h1>
 				</div>
 				<DataTable
 					value={realUsers || undefined}
@@ -237,8 +240,10 @@ const UsersTable = () => {
 				<ConfirmDialog />
 				<Dialog
 					visible={visible}
-					style={{ width: "70vw" }}
+					style={{ width: "40vw" }}
 					onHide={() => setVisible(false)}
+					header="Edit User Information"
+					headerClassName="text-center text-2xl font-bold"
 				>
 					<EditUser prop={seletedUser} />
 				</Dialog>
@@ -249,14 +254,4 @@ const UsersTable = () => {
 }
 
 export default UsersTable
-	// onSubmit={async (values)  => {
-	// 			try {
-	// 				const data = await createApp(values).unwrap()
-	// 				notifySucess()
-	// 				navigate("/allApplication")
 
-	// 				return data
-	// 				//Navigate Somewhre
-	// 			} catch (error) {
-	// 				return error
-	// 			}

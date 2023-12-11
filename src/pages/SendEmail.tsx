@@ -18,7 +18,7 @@ const SendEmail = () => {
 	const notifySucess = () => toast.success("Email Sent!")
 	const notifyError = () => toast.error("Email Not Sent!")
 	const notifyErrorEmails = () => toast.error("Please enter a valid email address!")
-	const [toggleAutomatic, setoggleAutomatic] = useState("")
+	const [toggleAutomatic, setoggleAutomatic] = useState(false)
     const formateDate = (date: string | Date) => new Date(date).toISOString()
 
 	const app = useSelector((store: RootState) => store.app.app)
@@ -74,7 +74,7 @@ const SendEmail = () => {
 						from: "no-reply@payunit.com",
 						time: values?.time
 					}
-					if (toggleAutomatic === "toggled") {
+					if (toggleAutomatic) {
 						const data = await sendAutoEmail(inputs).unwrap()
 						notifySucess()
 						setEmails([])
@@ -231,21 +231,20 @@ const SendEmail = () => {
 						<div className="flex flex-col gap-4 pt-2 mb-4">
 							<div className="flex gap-2 items-center">
 								<input
-									type="radio"
+									type="checkbox"
 									className=""
 									name="automatic"
 									id="automatic"
-									value={toggleAutomatic}
-									onClick={() => setoggleAutomatic("toggled")}
+									onClick={() => setoggleAutomatic(!toggleAutomatic)}
 								/>
 								<Label
 									color="text-dark"
-									htmlFor="address"
+									htmlFor="automatic"
 									value="Send Automatic Notification"
 									className="text-xl text-center p-1"
 								/>
 							</div>
-							{toggleAutomatic === "toggled" && (
+							{toggleAutomatic && (
 								<div className="mb-4">
 									<Label
 										color="text-dark"

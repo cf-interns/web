@@ -1,4 +1,4 @@
-import { Tooltip } from "flowbite-react"
+// import { Tooltip } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
 
 import NotificationTable from "../components/notifiTable"
@@ -13,7 +13,7 @@ import {
 import { useDispatch } from "react-redux"
 import { setUpNotifications } from "../store/features/notifications/notificationsSlice"
 import "primereact/resources/primereact.min.css" //core ;
-import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from "recharts"
+// import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from "recharts"
 import BreadCrumbs from "../components/BreadCrumbs"
 
 const Main1 = () => {
@@ -34,15 +34,15 @@ const Main1 = () => {
 			<div className="flex flex-col gap-4 mb-8">
 				<div className="p-2 m-4 flex items-center">
 					<BreadCrumbs />
-					<h1 className="text-[#5a5c69] text-3xl font-bold p-2 ml-2 font-normal cursor-pointer">
+					{/* <h1 className="text-[#5a5c69] text-3xl font-bold p-2 ml-2 font-normal cursor-pointer">
 						Dashboard
-					</h1>
+					</h1> */}
 				</div>
 
 				<Widgets />
 
 				<div className="flex lg:flex-col m-4 gap-[30px] mb-4">
-					<div className="bg-white shadow-md cursor-pointed rounded-[4px] p-4">
+				{/* 	<div className="bg-white shadow-md cursor-pointed rounded-[4px] p-4">
 						<div>
 							<LineChart
 								width={600}
@@ -69,7 +69,7 @@ const Main1 = () => {
 								<Line type="monotone" dataKey="uv" stroke="#82ca9d" />
 							</LineChart>
 						</div>
-					</div>
+					</div> */}
 					<div className="mb-5">
 						<NotificationTable realData={realData2} />
 					</div>
