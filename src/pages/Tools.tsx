@@ -27,10 +27,11 @@ const Tool = () => {
 		<img
 			alt="Card"
 			src="https://primefaces.org/cdn/primereact/images/usercard.png"
+			className="w-[20vw]"
 		/>
 	)
 	const footer = (link: string) => (
-		<div className="flex items-center justify-evenly">
+		<div className="">
 			<Link
 				to={link}
 				className="bg-gray-800 text-white text-center py-2 px-4 text-xl rounded w-[200px]"
@@ -46,7 +47,7 @@ const Tool = () => {
 					<h1 className="text-center  text-4xl font-bold text-gray-800 rounded p-4  w-full">
 						Send Notification
 					</h1>
-					<div className="card flex justify-center">
+					<div className="card flex justify-evenly">
 						{tools3.map((i, key) => {
 							return (
 								<Card
@@ -54,7 +55,7 @@ const Tool = () => {
 									footer={footer(i.link)}
 									header={header}
 									key={key}
-									className=" m-4"
+									className="m-4"
 								>
 									<p className="m-0">{i.text}</p>
 								</Card>

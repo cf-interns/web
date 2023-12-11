@@ -121,9 +121,7 @@ const AllApplication = () => {
 							<div className="flex items-center">
 								<BreadCrumbs />
 
-								<h1 className="text-[#5a5c69] text-2xl px-4 font-normal cursor-pointer ml-6">
-									All Applications
-								</h1>
+							
 							</div>
 
 

@@ -133,7 +133,6 @@ const UsersTable = () => {
 				<div className="flex items-center p-2">
 					<BreadCrumbs />
 
-					<h1 className="text-3xl text-gray-600 py-2">Users</h1>
 				</div>
 				<DataTable
 					value={realUsers || undefined}
@@ -255,14 +254,4 @@ const UsersTable = () => {
 }
 
 export default UsersTable
-// onSubmit={async (values)  => {
-// 			try {
-// 				const data = await createApp(values).unwrap()
-// 				notifySucess()
-// 				navigate("/allApplication")
 
-// 				return data
-// 				//Navigate Somewhre
-// 			} catch (error) {
-// 				return error
-// 			}
