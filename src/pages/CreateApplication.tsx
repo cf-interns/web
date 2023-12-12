@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom"
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CreateApplication = ({ setVisible }: any) => {
 	const [createApp, { isLoading }] = useCreateAppMutation()
-	const notifySucess = () => toast.success("App Created Successfully")
-	const notifyError = () => toast.error("App Not Created")
+	const notifySucess = () => toast.success("Application Created Successfully")
+	const notifyError = () => toast.error("Application Not Created")
 	const navigate = useNavigate()
 
 	const formik = useFormik({

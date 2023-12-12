@@ -21,11 +21,14 @@ import { Dialog } from "primereact/dialog"
 import AppDetails from "./AppDetails"
 import CreateApplication from "./CreateApplication"
 import { useState } from "react"
-import BreadCrumbs from "../components/BreadCrumbs"
+import BreadCrumbs from "../components/BreadCrumbs";
+import { format } from "date-fns"
+
 
 // import { format } from "date-fns";
 
 const AllApplication = () => {
+	
 	const header = <img alt="Card" src="/src/card5.jpg" className="h-[10rem]" />
 	const footer = (_id: string, status: string) => {
 		return (
@@ -150,7 +153,7 @@ const AllApplication = () => {
 						{apps.map((app, i) => {
 							return (
 								<div className="">
-									<Card 
+									<Card
 										footer={footer(app._id, app.status)}
 										header={header}
 										className="w-10rem ml-4"
@@ -162,16 +165,14 @@ const AllApplication = () => {
 										<div className=" flex items-center justify-between font-normal text-gray-900 mb-5 dark:text-black">
 											<p className="mt-4">Status: {app.status}</p>
 											<p className="mt-4">
-												Created: {app.createdAt.toString()}
+												Created:{" "}
+												 {format(new Date(app.createdAt), "MMMM do yyyy, h:mm:ss a")} 
 											</p>
 										</div>
 
-									
 										<h5 className="text-xl font-light tracking-tight mt-5 text-gray-600">
 											<p>{app.description}</p>
 										</h5>
-
-									
 									</Card>
 								</div>
 							)

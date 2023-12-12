@@ -11,8 +11,7 @@ import {
 import * as Yup from "yup"
 import { useEffect } from "react"
 import { ToastContainer, toast } from "react-toastify"
-import BreadCrumbs from "../components/BreadCrumbs"
-
+import BreadCrumbs from "../components/BreadCrumbs";
 
 const Settings2 = () => {
 	const [changeUserData] = useUpdateUserInfoMutation()
@@ -20,10 +19,12 @@ const Settings2 = () => {
 	const user = localStorage.getItem("user")
 	const UserObj = JSON.parse(user ? user : "")
 	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
-	const notifySucess = () => toast.success("User Info Updated");
-	const notifySucessPass = () => toast.success("Password Updated");
+	const notifySucess = () => toast.success("User Info Updated")
+	const notifySucessPassword = () => toast.success("User Password Changed!")
 
 	const notifyError = () => toast.error("User Info Not Updated")
+	const notifyErrorCurrentPassword = () =>
+		toast.error("Current Password Incorrect!")
 
 	const formik = useFormik({
 		initialValues: {
@@ -55,7 +56,9 @@ const Settings2 = () => {
 			confirmPassword: "",
 		},
 		validationSchema: Yup.object({
-
+			oldPassword: Yup.string()
+				.password()
+				.required("Previous Password is required!"),
 			newPassword: Yup.string()
 				.password()
 				.required("Please enter the new password")
@@ -78,10 +81,16 @@ const Settings2 = () => {
 		onSubmit: async (values) => {
 			try {
 				const data = await changePassword(values).unwrap()
-				console.log(data, "USER PASSWORD++++++");
-				notifySucessPass()
+				notifySucessPassword();
+				formik2.resetForm();
 				return data
 			} catch (error) {
+				if (error?.data.statusCode === 400) {
+					formik2.resetForm()
+					return notifyErrorCurrentPassword()
+				}
+				formik2.resetForm()
+				notifyError()
 				console.log(error)
 			}
 		},
@@ -103,8 +112,7 @@ const Settings2 = () => {
 						</div>
 						<div className="mt-5" id="Personal Info">
 							<div className="p-2 w-[25vw]">
-								<h1 className="text-2xl text-gray-500">Personal Info</h1>
-								<p>Use a permanent address where you can receive mail.</p>
+								<h1 className="text-2xl text-gray-500">General Information</h1>
 							</div>
 						</div>
 					</div>
@@ -118,7 +126,7 @@ const Settings2 = () => {
 										className="flex flex-col gap-2 w-[60vw]"
 										onSubmit={formik.handleSubmit}
 									>
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80 py-2">
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
 											<Label
 												htmlFor="firstName"
 												value="First Name"
@@ -135,9 +143,14 @@ const Settings2 = () => {
 												onBlur={formik.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
+											{formik.errors.firstName && formik.touched.firstName && (
+												<div className="text-red-700 italic">
+													{formik.errors.firstName}
+												</div>
+											)}
 										</div>
 
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80 py-2">
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
 											<Label
 												htmlFor="lastName"
 												value="Last Name"
@@ -154,9 +167,14 @@ const Settings2 = () => {
 												onBlur={formik.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
+											{formik.errors.lastName && formik.touched.lastName && (
+												<div className="text-red-700 italic">
+													{formik.errors.lastName}
+												</div>
+											)}
 										</div>
 
-										<div className="flex flex-col gap-2 w-80 py-2">
+										<div className="flex flex-col gap-2 w-80">
 											<Label
 												htmlFor="Email"
 												value="Email"
@@ -173,6 +191,11 @@ const Settings2 = () => {
 												onBlur={formik.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
+											{formik.errors.email && formik.touched.lastName && (
+												<div className="text-red-700 italic">
+													{formik.errors.email}
+												</div>
+											)}
 										</div>
 										<Button
 											type="submit"
@@ -189,20 +212,18 @@ const Settings2 = () => {
 
 				<hr className="border-gray-400 border-4xl " />
 				<div className=" mt-8">
-					<div className="flex flex-col justify-between" id="Change Password">
-						<div className="p-2 w-[25vw]">
-							<h1 className="text-2xl text-gray-500">Change Password</h1>
-							<p>Update your password associated with your account.</p>
-						</div>
-
+					<div className="flex justify-between" id="Change Password">
 						<div id="form" className="flex flex-col gap-4">
+							<div className="p-2 w-[25vw]">
+								<h1 className="text-2xl text-gray-500">Change password</h1>
+							</div>
 							<div>
 								<div className="">
 									<form
 										className="flex flex-col gap-2 w-[60vw]"
 										onSubmit={formik2.handleSubmit}
 									>
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80 py-2">
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
 											<Label
 												htmlFor="Current Password"
 												value="Current Password"
@@ -217,16 +238,16 @@ const Settings2 = () => {
 												value={formik2.values.oldPassword}
 												onChange={formik2.handleChange}
 												onBlur={formik2.handleBlur}
-												// sizing="sm"
-												// style={{ backgroundColor: "white" }}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
-											{formik2?.errors?.oldPassword && (
-												<div>{formik2?.errors?.oldPassword}</div>
+											{formik2.errors.oldPassword && (
+												<div className="text-red-700 italic">
+													{formik2.errors.oldPassword}
+												</div>
 											)}
 										</div>
 
-										<div className="flex flex-col gap-2 whitespace-nowrap w-80 py-2">
+										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
 											<Label
 												htmlFor="New Password"
 												value="New Password"
@@ -241,15 +262,16 @@ const Settings2 = () => {
 												value={formik2.values.newPassword}
 												onChange={formik2.handleChange}
 												onBlur={formik2.handleBlur}
-												// sizing="sm"
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
-											{formik2?.errors?.newPassword && (
-												<div>{formik2?.errors?.newPassword}</div>
+											{formik2.errors.newPassword && (
+												<div className="text-red-700 italic">
+													{formik2.errors.newPassword}
+												</div>
 											)}
 										</div>
 
-										<div className="flex flex-col gap-2 w-80 py-2">
+										<div className="flex flex-col gap-2 w-80">
 											<Label
 												htmlFor="confirmPassword"
 												value="Confirm Password"
@@ -264,11 +286,12 @@ const Settings2 = () => {
 												value={formik2.values.confirmPassword}
 												onChange={formik2.handleChange}
 												onBlur={formik2.handleBlur}
-												// sizing="sm"
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
-											{formik2?.errors?.confirmPassword && (
-												<div>{formik2?.errors?.confirmPassword}</div>
+											{formik2.errors.confirmPassword && (
+												<div className="text-red-700 italic">
+													{formik2.errors.confirmPassword}
+												</div>
 											)}
 										</div>
 										<Button
@@ -276,9 +299,10 @@ const Settings2 = () => {
 											disabled={isLoading}
 											label={isLoading ? "Submiting" : "Save"}
 											type="submit"
-											onClick={() => console.log("YO! 2")}
 										/>
 									</form>
+									<ToastContainer />
+									{/* onClick={() => console.log("YO! 2")} */}
 								</div>
 							</div>
 						</div>

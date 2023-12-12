@@ -25,6 +25,9 @@ const SendSMS = () => {
 
 	const notifySucess = () => toast.success("SMS Sent!")
 	const notifyError = () => toast.error("SMS Not Sent!")
+	const notifyErrorAppStatus = () =>
+		toast.error("Please Activate your Application!")
+
 	const notifyErrorNumbers = () => toast.error("Please enter a number!")
 
 	/* 
@@ -87,14 +90,20 @@ const SendSMS = () => {
 					} else {
 						const data = await sendSMS(inputs).unwrap()
 						notifySucess()
-						setNumbers([])
+						setNumbers([]);
+						formik.resetForm()
+						setSelectedApplication({} as AppData)
 
 						return data
 					}
 				} else notifyErrorNumbers()
-			} catch (error) {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} catch (error: any) {
+				if (error?.data.statusCode === 400) {
+					return notifyErrorAppStatus()
+				}
 				notifyError()
-				console.log(error)
+				// console.log(error?.data.statusCode)
 			}
 		},
 	})
@@ -120,157 +129,163 @@ const SendSMS = () => {
 			</div> */}
 			<div className="flex justify-center w-[55vw] m-auto">
 				<div className="w-[70vw] h-auto">
-					<form
-						onSubmit={formik.handleSubmit}
-						className="bg-white rounded px-8 pt-6 pb-8 mb-4 my-32 "
-						style={{ boxShadow: "71px 38px 50px 22px rgba(0,0,0,0.1)" }}
-					>
-						<div mb-4>
-							<Label
-								color="text-dark"
-								htmlFor="Application"
-								value="App"
-								className="text-xl text-center p-1"
-							/>
-							<Dropdown
-								value={selectedApplication}
-								onChange={(e) => onApplicationChange(e.value)}
-								options={useFullData}
-								optionLabel="name"
-								placeholder="Select An App"
-								// type="token"
-								name="token"
-								id="token"
-								className="w-full md:w-14rem"
-							/>
+					<div className="flex flex-col justify-center mt-32">
+						<h1 className="text-center text-2xl font-bold p-4">
+							Send SMS Notification
+						</h1>
+						<form
+							onSubmit={formik.handleSubmit}
+							className="bg-white rounded px-8 pt-6 pb-8 mb-4  "
+							style={{ boxShadow: "71px 38px 50px 22px rgba(0,0,0,0.1)" }}
+						>
+							<div mb-4>
+								<Label
+									color="text-dark"
+									htmlFor="Application"
+									value="App"
+									className="text-xl text-center p-1"
+								/>
+								<Dropdown
+									value={selectedApplication}
+									onChange={(e) => onApplicationChange(e.value)}
+									options={useFullData}
+									optionLabel="name"
+									placeholder="Select An App"
+									// type="token"
+									name="token"
+									id="token"
+									className="w-full md:w-14rem"
+								/>
 
-							{formik?.errors?.token && (
-								<div className="text-red-700 font-bold">
-									{formik?.errors?.token}
-								</div>
-							)}
-						</div>
-						<div className="my-4">
-							<Label
-								color="text-dark"
-								htmlFor="text"
-								value="Message"
-								className="text-xl text-center p-1"
-							/>
-							<input
-								className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
-								id="message"
-								type="text"
-								placeholder="Enter Message"
-								name="message"
-								// sizing="lg"
-								value={formik.values.message}
-								onChange={formik.handleChange}
-								onBlur={formik.handleBlur}
-							/>
-							{formik?.errors?.message && (
-								<div className="text-red-700 font-bold">
-									{formik?.errors?.message}
-								</div>
-							)}
-						</div>
-						<div className="flex gap-5">
-							{numbers.map((num) => (
-								<div
-									className="rounded-full bg-gray-300 w-fit p-2 px-4 shadow-lg mb-2 none group "
-									id="numberTip"
-								>
-									{num}
-								</div>
-							))}
-						</div>
-						<div className="mb-4">
-							<Label
-								color="text-dark"
-								htmlFor="address"
-								value="Mobile Number(s)"
-								className="text-xl text-center p-1"
-							/>
-							<div className="flex gap-4 pt-2">
+								{formik?.errors?.token && formik.touched.token && (
+									<div className="text-red-700 font-bold">
+										{formik?.errors?.token}
+									</div>
+								)}
+							</div>
+							<div className="my-4">
+								<Label
+									color="text-dark"
+									htmlFor="text"
+									value="Message"
+									className="text-xl text-center p-1"
+								/>
 								<input
-									className="shadow appearance-none border rounded-lg w-fit  text-grey-darker text-xl leading-tight focus:outline-none focus:shadow-outline h-fit"
-									id="mobiles"
-									placeholder="Enter mobile number"
-									name="mobiles"
-									value={formik.values.mobiles}
+									className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+									id="message"
+									type="text"
+									placeholder="Enter Message"
+									name="message"
+									// sizing="lg"
+									value={formik.values.message}
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
 								/>
-								<button
-									className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
-									type="button"
-									onClick={onAddNumber}
-								>
-									Add
-								</button>
+								{formik?.errors?.message && formik.touched.message && (
+									<div className="text-red-700 font-bold">
+										{formik?.errors?.message}
+									</div>
+								)}
 							</div>
-
-							{numbers.length === 0 && (
-								<div className="text-red-700 font-bold">{}</div>
-							)}
-						</div>
-						<div className="flex flex-col gap-4 pt-2 mb-4">
-							<div className="flex gap-2 items-center">
-								<input
-									type="checkbox"
-									className=""
-									name="automatic"
-									id="automatic"
-									onClick={() => setoggleAutomatic(!toggleAutomatic)}
-								/>
+							<div className="flex gap-5">
+								{numbers.map((num) => (
+									<div
+										className="rounded-full bg-gray-300 w-fit p-2 px-4 shadow-lg mb-2 none group "
+										id="numberTip"
+									>
+										{num}
+									</div>
+								))}
+							</div>
+							<div className="mb-4">
 								<Label
 									color="text-dark"
-									htmlFor="automatic"
-									value="Send Automatic Notification"
+									htmlFor="address"
+									value="Mobile Number(s)"
 									className="text-xl text-center p-1"
 								/>
-							</div>
-							{toggleAutomatic && (
-								<div className="mb-4">
-									<Label
-										color="text-dark"
-										htmlFor="Date & Time"
-										value="Date & Time"
-										className="text-xl text-center p-1"
-									/>
+								<div className="flex gap-4 pt-2">
 									<input
-										className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-fit"
-										id="time"
-										type="datetime-local"
-										placeholder="Enter email subject"
-										name="time"
-										value={formik.values.time}
+										className="shadow appearance-none border rounded-lg w-fit  text-grey-darker text-xl leading-tight focus:outline-none focus:shadow-outline h-fit"
+										id="mobiles"
+										placeholder="Enter mobile number"
+										name="mobiles"
+										value={formik.values.mobiles}
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
 									/>
-									{formik?.errors?.time && (
-										<div className="text-red-800 text-xs italic text-center">
-											{formik?.errors?.time}
-										</div>
-									)}
+									<button
+										className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
+										type="button"
+										onClick={onAddNumber}
+									>
+										Add
+									</button>
 								</div>
-							)}
-							{formik?.errors?.time && (
-								<div className="text-red-800 text-xs italic text-center">
-									{formik?.errors?.time}
-								</div>
-							)}
-						</div>
 
-						<button
-							disabled={isLoading}
-							type="submit"
-							style={{ backgroundColor: "rgb(31 41 55 / 1)" }}
-							className="self-center text-white border-black rounded-md hover:bg-green-300 p-2 hover:text-white w-full bg-gray-300"
-						>
-							{isLoading ? "Submitting..." : "Submit"}
-						</button>
-					</form>
+								{numbers.length === 0 && (
+									<div className="text-red-700 font-bold">{}</div>
+								)}
+							</div>
+							<div className="flex flex-col gap-4 pt-2 mb-4">
+								<div className="flex gap-2 items-center">
+									<input
+										type="checkbox"
+										className=""
+										name="automatic"
+										id="automatic"
+										onClick={() => setoggleAutomatic(!toggleAutomatic)}
+									/>
+									<Label
+										color="text-dark"
+										htmlFor="automatic"
+										value="Send SMS Notification Later"
+										className="text-xl text-center p-1"
+									/>
+								</div>
+								{toggleAutomatic && (
+									<div className="mb-4">
+										<Label
+											color="text-dark"
+											htmlFor="Date & Time"
+											value="Date & Time"
+											className="text-xl text-center p-1"
+										/>
+										<input
+											className="shadow appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-fit"
+											id="time"
+											type="datetime-local"
+											placeholder="Enter email subject"
+											name="time"
+											value={formik.values.time}
+											onChange={formik.handleChange}
+											onBlur={formik.handleBlur}
+										/>
+										{formik?.errors?.time && formik.touched.time && (
+											<div className="text-red-800 text-xs italic text-center">
+												{formik?.errors?.time}
+											</div>
+										)}
+									</div>
+								)}
+								{formik?.errors?.time && (
+									<div className="text-red-800 text-xs italic text-center">
+										{formik?.errors?.time}
+									</div>
+								)}
+							</div>
+
+							<button
+								disabled={isLoading}
+								type="submit"
+								style={{ backgroundColor: "rgb(31 41 55 / 1)" }}
+								className="self-center text-white border-black rounded-md hover:bg-green-300 p-2 hover:text-white w-full bg-gray-300"
+							>
+								{isLoading ? "Submitting..." : "Submit"}
+							</button>
+						</form>
+					</div>
+
 					<ToastContainer />
 				</div>
 			</div>

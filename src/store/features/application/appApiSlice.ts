@@ -31,11 +31,11 @@ export const appApiSlice = apiSlice.injectEndpoints({
 			invalidatesTags: ["Notifications"],
 		}),
 		sendPush: build.mutation<PushResponse, Partial<Push>>({
-			query({ id, notification, token }) {
+			query({ id, notification, userToken }) {
 				return {
 					url: `/notifications/send-push/${id}`,
 					method: "POST",
-					body: { notification, token },
+					body: { notification, userToken },
 				}
 			},
 			invalidatesTags: ["Notifications"],
@@ -60,6 +60,16 @@ export const appApiSlice = apiSlice.injectEndpoints({
 			},
 			invalidatesTags: ["Notifications"],
 		}),
+		sendAutomaticPushMessage: build.mutation<PushResponse, Partial<Push>>({
+			query({ id, notification, userToken, time }) {
+				return {
+					url: `notifications/automatic-push/${id}`,
+					method: 'POST',
+					body: {notification, userToken, time}
+				}
+			},
+			invalidatesTags:['Notifications']
+		}),
 
 		getAllApps: build.query<AppResponse, void>({
 			query: () => "/applications",
@@ -78,7 +88,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
 		}),
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		deleteApp: build.mutation<{ success: boolean; _id: any }, number>({
+		deleteApp: build.mutation<{ success: boolean; _id: number }, any>({
 			query(_id) {
 				return {
 					url: `/applications/${_id}`,
@@ -127,4 +137,5 @@ export const {
 	useSendPushMutation,
 	useSendAutomaticEmailMutation,
 	useSendAutomaticSMSMutation,
+	useSendAutomaticPushMessageMutation
 } = appApiSlice

@@ -39,9 +39,9 @@ export default function SidebarV2() {
 									className="mr-3 h-fit w-fit sm:h-9"
 									src={avt2}
 								/>
-								<h1 className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+								<Link className="self-center whitespace-nowrap text-xl font-semibold dark:text-white" to='/dashboard'>
 									GNS
-								</h1>
+								</Link>
 							</div>
 						)}
 

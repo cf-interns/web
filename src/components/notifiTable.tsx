@@ -55,7 +55,7 @@ function NotificationTable({
 			case "FAILED":
 				return "danger"
 
-			case "SUCCESS" || 'success': //Adjust Api to return SUCCESS in caps
+			case "SUCCESS": //Adjust Api to return SUCCESS in caps
 				return "success"
 
 			case "PENDING":
@@ -134,14 +134,19 @@ function NotificationTable({
 	const statusBodyTemplate = (rowData: Stat) => {
 		return (
 			<Tag
-				value={rowData.status}
+				value={rowData.status?.toUpperCase()}
 				className="w-fit p-2 rounded-md mb-2"
-				severity={getSeverity(rowData.status)}
+				severity={getSeverity(rowData.status?.toUpperCase())}
 			/>
 		)
 	}
 	const statusItemTemplate = (option: string) => {
-		return <Tag value={option} severity={getSeverity(option)} />
+		return (
+			<Tag
+				value={option?.toUpperCase()}
+				severity={getSeverity(option?.toUpperCase())}
+			/>
+		)
 	}
 
 	const statusRowFilterTemplate = (
@@ -335,7 +340,7 @@ function NotificationTable({
 			<Dialog
 				// header="Info"
 				visible={visible}
-				style={{ width: "70vw" }}
+				style={{ width: "40vw" }}
 				onHide={() => setVisible(false)}
 				className="bg-gray-300"
 			>
