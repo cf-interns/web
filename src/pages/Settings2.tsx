@@ -16,42 +16,42 @@ import { ToastContainer, toast } from "react-toastify"
 import { useEffect } from "react"
 // import { ToastContainer, toast } from "react-toastify"
 import BreadCrumbs from "../components/BreadCrumbs"
-
+import PersonalInfo from "../components/personalInfo"
 
 const Settings2 = () => {
-	const [changeUserData] = useUpdateUserInfoMutation()
+	// const [changeUserData] = useUpdateUserInfoMutation()
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
 	const notifySucess = () => toast.success("Password Updated Successfully")
-	const notifySucessinfo = () => toast.success("Info Updated Successfully")
+	// const notifySucessinfo = () => toast.success("Info Updated Successfully")
 	const notifyError = () => toast.error("Password Update Notsuccessful")
-	const notifyErrorinfo = () => toast.error("PInfo Update Notsuccessful")
-	const user = localStorage.getItem("user")
-	const UserObj = JSON.parse(user ? user : "")
-	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
+	// const notifyErrorinfo = () => toast.error("Info Update Notsuccessful")
+	// const user = localStorage.getItem("user")
+	// const UserObj = JSON.parse(user ? user : "")
+	// const loggedUser = useGetSpecificUserQuery(UserObj?._id)
 
-	const formik = useFormik({
-		initialValues: {
-			firstName: "",
-			lastName: "",
-			email: "",
-		},
-		validationSchema: Yup.object({
-			firstName: Yup.string().required("First Name is required!"),
-			lastName: Yup.string().required("Last Name is required!").strict(true),
-			email: Yup.string().email().required("Email Required!"),
-		}),
-		onSubmit: async (values) => {
-			try {
-				const data = await changeUserData(values).unwrap()
-				notifySucessinfo()
-				console.log(data, "USER PASSWORD++++++")
-				return data
-			} catch (error) {
-				notifyErrorinfo()
-				console.log(error)
-			}
-		},
-	})
+	// const formik = useFormik({
+	// 	initialValues: {
+	// 		firstName: "",
+	// 		lastName: "",
+	// 		email: "",
+	// 	},
+	// 	validationSchema: Yup.object({
+	// 		firstName: Yup.string().required("First Name is required!"),
+	// 		lastName: Yup.string().required("Last Name is required!").strict(true),
+	// 		email: Yup.string().email().required("Email Required!"),
+	// 	}),
+	// 	onSubmit: async (values) => {
+	// 		try {
+	// 			const data = await changeUserData(values).unwrap()
+	// 			notifySucessinfo()
+	// 			console.log(data, "USER PASSWORD++++++")
+	// 			return data
+	// 		} catch (error) {
+	// 			notifyErrorinfo()
+	// 			console.log(error)
+	// 		}
+	// 	},
+	// })
 
 	const formik2 = useFormik({
 		initialValues: {
@@ -96,18 +96,19 @@ const Settings2 = () => {
 		},
 	})
 
-	useEffect(() => {
-		const { data } = loggedUser
-		formik.setFieldValue("firstName", data?.firstName)
-		formik.setFieldValue("lastName", data?.lastName)
-		formik.setFieldValue("email", data?.email)
-	}, [loggedUser])
+	// useEffect(() => {
+	// 	const { data } = loggedUser
+	// 	formik.setFieldValue("firstName", data?.firstName)
+	// 	formik.setFieldValue("lastName", data?.lastName)
+	// 	formik.setFieldValue("email", data?.email)
+	// }, [loggedUser])
 
 	return (
 		<DashboardLayout>
 			<div className="flex flex-col items-center justify-center m-auto h-[90vh] w-fit">
 				<div className="flex flex-col h-fit mb-8">
-					<div>
+					<PersonalInfo/>
+					{/* <div>
 						<div className="my-5">
 							<BreadCrumbs />
 						</div>
@@ -197,7 +198,9 @@ const Settings2 = () => {
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> */}
+
+					
 				</div>
 
 				<hr className="border-gray-400 border-4xl " />
