@@ -61,7 +61,7 @@ const Settings2 = () => {
 		},
 		validationSchema: Yup.object({
 			oldPassword: Yup.string()
-				.password()
+				// .password()
 				.required("Previous Password is required!"),
 
 			newPassword: Yup.string()
@@ -75,7 +75,7 @@ const Settings2 = () => {
 				.minSymbols(1, "Must contain atleast 1 symbol"),
 				confirmPassword: Yup.string()
 				.password()
-				.required("Please enter the new password")
+				.required("Please confirm password")
 				.max(25)
 				.min(9)
 				.minUppercase(1, "Must contain atleast 1 uppercase letter")
