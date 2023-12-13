@@ -23,7 +23,7 @@ const Settings2 = () => {
 	const [changePassword, { isLoading }] = useChangePasswordMutation()
 	const notifySucess = () => toast.success("Password Updated Successfully")
 	// const notifySucessinfo = () => toast.success("Info Updated Successfully")
-	const notifyError = () => toast.error("Password Update Notsuccessful")
+	const notifyError = () => toast.error("Password Update Not Successful")
 	// const notifyErrorinfo = () => toast.error("Info Update Notsuccessful")
 	// const user = localStorage.getItem("user")
 	// const UserObj = JSON.parse(user ? user : "")
