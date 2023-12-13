@@ -1,29 +1,30 @@
 import DashboardLayout from "../components/DashboardLayout"
-import { Button } from "primereact/button"
-import { useFormik } from "formik"
-import { Label } from "flowbite-react"
-import {
-	useChangePasswordMutation,
-	useGetSpecificUserQuery,
-	useUpdateUserInfoMutation,
-} from "../store/features/user/usersApiSlice"
-import * as Yup from "yup"
+// import { Button } from "primereact/button"
+// import { useFormik } from "formik"
+// import { Label } from "flowbite-react"
+// import {
+// 	useChangePasswordMutation,
+// 	useGetSpecificUserQuery,
+// 	useUpdateUserInfoMutation,
+// } from "../store/features/user/usersApiSlice"
+// import * as Yup from "yup"
 // import { useEffect} from "react"
-import { ToastContainer, toast } from "react-toastify"
+// import { ToastContainer, toast } from "react-toastify"
 // import { useDispatch } from "react-redux"
 // import { logOut } from "../store/features/auth/authSlice"
 // import { useNavigate } from "react-router-dom"
-import { useEffect } from "react"
+// import { useEffect } from "react"
 // import { ToastContainer, toast } from "react-toastify"
-import BreadCrumbs from "../components/BreadCrumbs"
+// import BreadCrumbs from "../components/BreadCrumbs"
 import PersonalInfo from "../components/personalInfo"
+import ChangePassword from "../components/changePassword"
 
 const Settings2 = () => {
 	// const [changeUserData] = useUpdateUserInfoMutation()
-	const [changePassword, { isLoading }] = useChangePasswordMutation()
-	const notifySucess = () => toast.success("Password Updated Successfully")
+	// const [changePassword, { isLoading }] = useChangePasswordMutation()
+	// const notifySucess = () => toast.success("Password Updated Successfully")
 	// const notifySucessinfo = () => toast.success("Info Updated Successfully")
-	const notifyError = () => toast.error("Password Update Not Successful")
+	// const notifyError = () => toast.error("Password Update Not Successful")
 	// const notifyErrorinfo = () => toast.error("Info Update Notsuccessful")
 	// const user = localStorage.getItem("user")
 	// const UserObj = JSON.parse(user ? user : "")
@@ -53,48 +54,48 @@ const Settings2 = () => {
 	// 	},
 	// })
 
-	const formik2 = useFormik({
-		initialValues: {
-			oldPassword: "",
-			newPassword: "",
-			confirmPassword: "",
-		},
-		validationSchema: Yup.object({
-			oldPassword: Yup.string()
-				// .password()
-				.required("Previous Password is required!"),
+	// const formik2 = useFormik({
+	// 	initialValues: {
+	// 		oldPassword: "",
+	// 		newPassword: "",
+	// 		confirmPassword: "",
+	// 	},
+	// 	validationSchema: Yup.object({
+	// 		oldPassword: Yup.string()
+	// 			// .password()
+	// 			.required("Previous Password is required!"),
 
-			newPassword: Yup.string()
-				.password()
-				.required("Please enter the new password")
-				.max(25)
-				.min(9)
-				.minUppercase(1, "Must contain atleast 1 uppercase letter")
-				.minLowercase(1, "Must contain atleast 1 lowercase letter")
-				.minNumbers(1, "Must cantain atleast 1 number")
-				.minSymbols(1, "Must contain atleast 1 symbol"),
-				confirmPassword: Yup.string()
-				.password()
-				.required("Please confirm password")
-				.max(25)
-				.min(9)
-				.minUppercase(1, "Must contain atleast 1 uppercase letter")
-				.minLowercase(1, "Must contain atleast 1 lowercase letter")
-				.minNumbers(1, "Must cantain atleast 1 number")
-				.minSymbols(1, "Must contain atleast 1 symbol"),
-		}),
-		onSubmit: async (values) => {
-			try {
-				const data = await changePassword(values).unwrap()
-				notifySucess()
-				console.log(data, "USER PASSWORD++++++")
-				return data
-			} catch (error) {
-				notifyError()
-				console.log(error)
-			}
-		},
-	})
+	// 		newPassword: Yup.string()
+	// 			.password()
+	// 			.required("Please enter the new password")
+	// 			.max(25)
+	// 			.min(9)
+	// 			.minUppercase(1, "Must contain atleast 1 uppercase letter")
+	// 			.minLowercase(1, "Must contain atleast 1 lowercase letter")
+	// 			.minNumbers(1, "Must cantain atleast 1 number")
+	// 			.minSymbols(1, "Must contain atleast 1 symbol"),
+	// 			confirmPassword: Yup.string()
+	// 			.password()
+	// 			.required("Please confirm password")
+	// 			.max(25)
+	// 			.min(9)
+	// 			.minUppercase(1, "Must contain atleast 1 uppercase letter")
+	// 			.minLowercase(1, "Must contain atleast 1 lowercase letter")
+	// 			.minNumbers(1, "Must cantain atleast 1 number")
+	// 			.minSymbols(1, "Must contain atleast 1 symbol"),
+	// 	}),
+	// 	onSubmit: async (values) => {
+	// 		try {
+	// 			const data = await changePassword(values).unwrap()
+	// 			notifySucess()
+	// 			console.log(data, "USER PASSWORD++++++")
+	// 			return data
+	// 		} catch (error) {
+	// 			notifyError()
+	// 			console.log(error)
+	// 		}
+	// 	},
+	// })
 
 	// useEffect(() => {
 	// 	const { data } = loggedUser
@@ -203,7 +204,7 @@ const Settings2 = () => {
 					
 				</div>
 
-				<hr className="border-gray-400 border-4xl " />
+				{/* <hr className="border-gray-400 border-4xl " />
 				<div className=" mt-8">
 					<div className="flex flex-col justify-between" id="Change Password">
 						<div className="p-2 w-[25vw]">
@@ -286,13 +287,14 @@ const Settings2 = () => {
 										/>
 									</form>
 									<ToastContainer/>
-											{/* onClick={() => console.log("YO! 2")} */}
 										
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> */}
+
+				<ChangePassword/>
 			</div>
 		</DashboardLayout>
 	)

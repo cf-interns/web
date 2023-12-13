@@ -1,5 +1,3 @@
-import { Formik } from 'formik'
-import React from 'react'
 import { Button } from "primereact/button"
 import { useFormik } from "formik"
 import { Label } from "flowbite-react"
@@ -92,7 +90,7 @@ function PersonalInfo() {
 												onBlur={formik.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
-											{formik.errors.firstName &&  <div className="text-red-700 italic">{ formik.errors.firstName }</div>}
+											{formik.errors.firstName && formik.touched.firstName &&   <div className="text-red-700 italic">{ formik.errors.firstName }</div>}
 										</div>
 
 										<div className="flex flex-col gap-2 whitespace-nowrap w-80 py-2">
@@ -112,7 +110,7 @@ function PersonalInfo() {
 												onBlur={formik.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
-											{formik.errors.lastName &&  <div className="text-red-700 italic">{ formik.errors.lastName }</div>}
+											{formik.errors.lastName && formik.touched.lastName && <div className="text-red-700 italic">{ formik.errors.lastName }</div>}
 										</div>
 
 										<div className="flex flex-col gap-2 w-80 py-2">
@@ -132,7 +130,7 @@ function PersonalInfo() {
 												onBlur={formik.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
-											{formik.errors.email &&  <div className="text-red-700 italic">{ formik.errors.email }</div>}
+											{formik.errors.email && formik.touched.email &&  <div className="text-red-700 italic">{ formik.errors.email }</div>}
 										</div>
 										<Button
 											type="submit"
