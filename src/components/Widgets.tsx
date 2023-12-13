@@ -1,27 +1,22 @@
-
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"
 import { selectCurrentNotification } from "../store/features/notifications/notificationsSlice"
-import { HiOutlineMail} from "react-icons/hi"
-import {HiOutlineBellAlert} from 'react-icons/hi2'
-import { FaCommentSms } from "react-icons/fa6";
+import { HiOutlineMail } from "react-icons/hi"
+import { HiOutlineBellAlert } from "react-icons/hi2"
+import { FaCommentSms } from "react-icons/fa6"
 import { MdOutlineNotificationAdd } from "react-icons/md"
 
 const Widgets = () => {
 	// const notifs = store.getState().notification;
 	// console.log(notifs);
 
-	const data = useSelector(selectCurrentNotification) || [];
-	console.log('Notifications ===>',data);
-	const SMS = data.filter((sms) => sms.notification_type === 'SMS');
-	const EMAILS = data.filter((email) => email.notification_type === 'EMAIL');
-	const PUSH = data.filter((push) => push.notification_type === 'PUSH')
+	const data = useSelector(selectCurrentNotification) || []
+	console.log("Notifications ===>", data)
+	const SMS = data.filter((sms) => sms.notification_type === "SMS")
+	const EMAILS = data.filter((email) => email.notification_type === "EMAIL")
+	const PUSH = data.filter((push) => push.notification_type === "PUSH")
 
-   
 	return (
-		<div
-			className="bg-gray-100 m-4 rounded-lg"
-			id="Widgets"
-		>
+		<div className="bg-gray-100 m-4 rounded-lg" id="Widgets">
 			<div className="mx-auto w-3/4">
 				<div className="flex justify-between py-5 w-full lg:space-x-2 space-y-2 lg:space-y-0 mb-2 lg:mb-4">
 					<div className="w-full lg:w-1/5">

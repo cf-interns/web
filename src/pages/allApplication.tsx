@@ -28,6 +28,9 @@ import { format } from "date-fns"
 // import { format } from "date-fns";
 
 const AllApplication = () => {
+		const [updateAppStatus] = useUpdateAppStatusMutation()
+		const [visible, setVisible] = useState(false)
+		const [visibleDetails, setVisibleDetails] = useState(false)
 	
 	const header = <img alt="Card" src="/src/card5.jpg" className="h-[10rem]" />
 	const footer = (_id: string, status: string) => {
@@ -43,7 +46,7 @@ const AllApplication = () => {
 									onHide={() => setVisibleDetails(false)}
 									className="bg-gray-300"
 								>
-									<AppDetails id= {_id} />
+									<AppDetails id={_id} setVisibleDetails={() => setVisibleDetails}/>
 								</Dialog>
 						
 			
@@ -97,9 +100,7 @@ const AllApplication = () => {
 
 	// const { id } = useParams();
 
-	const [updateAppStatus] = useUpdateAppStatusMutation();
-	const [visible, setVisible] = useState(false)
-	const [visibleDetails, setVisibleDetails] = useState(false)
+
 
 
 

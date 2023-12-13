@@ -32,8 +32,10 @@ const CreateApplication = ({ setVisible }: any) => {
 			try {
 				const data = await createApp(values).unwrap()
 				notifySucess()
-				setVisible(false)
-				navigate("/allApplication")
+				setVisible(false);
+				console.log(setVisible);
+				
+				navigate("/allApplication");
 
 				return data
 				//Navigate Somewhre

@@ -11,7 +11,7 @@ import {
 import * as Yup from "yup"
 import { useEffect } from "react"
 import { ToastContainer, toast } from "react-toastify"
-import BreadCrumbs from "../components/BreadCrumbs";
+import BreadCrumbs from "../components/BreadCrumbs"
 
 const Settings2 = () => {
 	const [changeUserData] = useUpdateUserInfoMutation()
@@ -57,7 +57,7 @@ const Settings2 = () => {
 		},
 		validationSchema: Yup.object({
 			oldPassword: Yup.string()
-				.password()
+				// .password()
 				.required("Previous Password is required!"),
 			newPassword: Yup.string()
 				.password()
@@ -81,8 +81,8 @@ const Settings2 = () => {
 		onSubmit: async (values) => {
 			try {
 				const data = await changePassword(values).unwrap()
-				notifySucessPassword();
-				formik2.resetForm();
+				notifySucessPassword()
+				formik2.resetForm()
 				return data
 			} catch (error) {
 				if (error?.data.statusCode === 400) {
@@ -240,11 +240,12 @@ const Settings2 = () => {
 												onBlur={formik2.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
-											{formik2.errors.oldPassword && (
-												<div className="text-red-700 italic">
-													{formik2.errors.oldPassword}
-												</div>
-											)}
+											{formik2.errors.oldPassword &&
+												formik2.touched.oldPassword && (
+													<div className="text-red-700 italic">
+														{formik2.errors.oldPassword}
+													</div>
+												)}
 										</div>
 
 										<div className="flex flex-col gap-2 whitespace-nowrap w-80">
@@ -264,11 +265,12 @@ const Settings2 = () => {
 												onBlur={formik2.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
-											{formik2.errors.newPassword && (
-												<div className="text-red-700 italic">
-													{formik2.errors.newPassword}
-												</div>
-											)}
+											{formik2.errors.newPassword &&
+												formik2.touched.newPassword && (
+													<div className="text-red-700 italic">
+														{formik2.errors.newPassword}
+													</div>
+												)}
 										</div>
 
 										<div className="flex flex-col gap-2 w-80">
@@ -288,11 +290,12 @@ const Settings2 = () => {
 												onBlur={formik2.handleBlur}
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
-											{formik2.errors.confirmPassword && (
-												<div className="text-red-700 italic">
-													{formik2.errors.confirmPassword}
-												</div>
-											)}
+											{formik2.errors.confirmPassword &&
+												formik2.touched.confirmPassword && (
+													<div className="text-red-700 italic">
+														{formik2.errors.confirmPassword}
+													</div>
+												)}
 										</div>
 										<Button
 											className="w-full h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"

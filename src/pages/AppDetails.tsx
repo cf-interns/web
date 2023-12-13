@@ -4,21 +4,46 @@ import {
 	useGetSpecificAppQuery,
 	useDeleteAppMutation,
 } from "../store/features/application/appApiSlice"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { format } from "date-fns"
+import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
+import { ToastContainer, toast } from "react-toastify"
+import { useState } from "react"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AppDetails = (id: any) => {
-	const navigate = useNavigate()
-	// const { id } = useParams()
+const AppDetails = (id: any, { setVisibleDetails }: any) => {
+    const [clicked ,setClicked] = useState(false);
 	const { data: app, isSuccess } = useGetSpecificAppQuery(id?.id)
-	const [hook, ] = useDeleteAppMutation()
+	const [hook] = useDeleteAppMutation()
 	const handeleCopyBtn = (token: string) => {
 		navigator.clipboard.writeText(token)
-	};
-	const date2 = (date: Date) => new Date(date);
+	}
+	const date2 = (date: Date) => new Date(date)
+	const notifyDeleted = (appName: string) => toast.success(`${appName} Deleted!`)
+	const confirm2 = (_id: string, appName: string) => {
+		return confirmDialog({
+			message: "Do you want to delete this Application?",
+			header: "Delete Confirmation",
+			icon: "pi pi-info-circle mr-2",
+			acceptLabel: "Confirm",
+			rejectLabel: "Cancel",
+			acceptClassName:
+				"mr-2 bg-green-500 text-white py-2 px-4 border border-white",
+			rejectClassName: "mr-[10px] py-2 px-4 border border-blue-200",
+			className: "w-[30vw]",
 
-	console.log("TEST", app?._id)
+			accept: () => {
+				hook(_id)
+				notifyDeleted(appName)
+				setVisibleDetails(false)
+			},
+			
+			reject: () => {
+				
+			},
+		})
+	}
+
 	return (
 		<Card className="w-[30vw] dark:bg-white border-none">
 			<div className="flex flex-col items-center">
@@ -70,27 +95,33 @@ const AppDetails = (id: any) => {
 
 						<button
 							type="button"
-							onClick={() => handeleCopyBtn(app?.token || "")}
+							onClick={() => {
+								handeleCopyBtn(app?.token || "")
+								setClicked(!clicked)
+							}}
 							className="text-white bg-teal-800 p-4 rounded"
 						>
-							Copy
+							{clicked ? "Copied" : "Copy"}
 						</button>
 						<button
 							type="button"
 							onClick={() => {
-								hook(app?._id)
+								confirm2(app?._id as string, app?.appName as string)
+								/* hook(app?._id)
 								// if (isLoading) return "loading..."
 								if (isSuccess) {
 									navigate("/allApplication")
-								}
+								} */
 							}}
 							className="text-white bg-red-600 text-md w-36 rounded py-4"
 						>
-							Delete App
+							Delete
 						</button>
 					</div>
+					<ToastContainer />
+					<ConfirmDialog />
 				</div>
-				<div></div>
+				{/* <div></div> */}
 			</div>
 		</Card>
 
