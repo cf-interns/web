@@ -15,14 +15,15 @@ import { Dialog } from "primereact/dialog"
 import EditUser from "./EditUser"
 import { User } from "../store/features/api/apiSlice"
 import PopupInfo from "../components/PopupInfo"
-import { ToastContainer } from "react-toastify"
-import BreadCrumbs from "../components/BreadCrumbs"
+import BreadCrumbs from "../components/BreadCrumbs";
+import { ToastContainer, toast } from "react-toastify"
 
 const UsersTable = () => {
 	// const [selectedNotif, setSelectedNotif] = useState(null);
 	const [createUser, setCreateUser] = useState(false)
 	// const [noPassed, setuserPassed]
-	const actions = ["DELETE", "EDIT"]
+	const actions = ["DELETE", "EDIT"];
+	const notifyDeletion = (user) => toast.success(`User ${user} Account Deleted!`)
 
 	const { data: realUsers } = useGetUsersQuery()
 	const [deleteUser] = useDeleteUserMutation()
@@ -36,12 +37,11 @@ const UsersTable = () => {
 		}
 	}
 
-	const user = localStorage.getItem("user");
-	const userMain = JSON.parse(user as string);
+	const user = localStorage.getItem("user")
+	const userMain = JSON.parse(user as string)
 	// console.log('Current User', userMain._id);
 
 	const realUser2 = realUsers?.filter((user: User) => user._id !== userMain._id)
-	
 
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -111,7 +111,7 @@ const UsersTable = () => {
 			</div>
 		)
 	}
-	const confirm2 = (row_id: string) => {
+	const confirm2 = (row_id: string, firstName: string) => {
 		return confirmDialog({
 			message: "Do you want to delete this User?",
 			header: "Delete Confirmation",
@@ -124,7 +124,8 @@ const UsersTable = () => {
 			className: "w-[30vw]",
 
 			accept: () => {
-				deleteUser(row_id)
+				deleteUser(row_id);
+				notifyDeletion(firstName)
 			},
 			reject: () => {},
 		})
@@ -218,7 +219,7 @@ const UsersTable = () => {
 										className="w-[60px] p-3 rounded-md mb-2 cursor-pointer"
 										severity={getSeverity(actions[0])}
 										onClick={() => {
-											confirm2(row._id)
+											confirm2(row._id, row.firstName)
 											// setVisible(true)
 										}}
 										// icon="pi pi-times"
@@ -261,4 +262,3 @@ const UsersTable = () => {
 }
 
 export default UsersTable
-

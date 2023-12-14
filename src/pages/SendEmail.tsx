@@ -81,6 +81,7 @@ const SendEmail = () => {
 						const data = await sendAutoEmail(inputs).unwrap()
 						notifySucess()
 						setEmails([]);
+						formik.resetForm();
 				/* 		formik.setFieldValue('text', '');
 						formik.setFieldValue("text", "")
 						formik.setFieldValue("text", "")

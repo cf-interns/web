@@ -1,5 +1,5 @@
 import { useCreateAppMutation } from "../store/features/application/appApiSlice"
-import {useFormik} from "formik"
+import { useFormik } from "formik"
 import * as Yup from "yup"
 import "../createapp.css"
 import { Label } from "flowbite-react"
@@ -32,13 +32,10 @@ const CreateApplication = ({ setVisible }: any) => {
 			try {
 				const data = await createApp(values).unwrap()
 				notifySucess()
-				setVisible(false);
-				console.log(setVisible);
-				
-				navigate("/allApplication");
+				setVisible(false)
+				navigate("/allApplication")
 
 				return data
-				//Navigate Somewhre
 			} catch (error) {
 				notifyError()
 				return error
@@ -69,7 +66,7 @@ const CreateApplication = ({ setVisible }: any) => {
 					onChange={formik.handleChange}
 					onBlur={formik.handleBlur}
 				/>
-				{formik?.errors?.appName && (
+				{formik?.errors?.appName && formik.touched.appName && (
 					<div className="text-red-500 text-lg mb-2 italic">
 						{formik?.errors?.appName}
 					</div>
@@ -94,7 +91,7 @@ const CreateApplication = ({ setVisible }: any) => {
 					onBlur={formik.handleBlur}
 				/>
 
-				{formik?.errors?.description && (
+				{formik?.errors?.description && formik.touched.description && (
 					<div className="text-red-500 text-lg mb-2 italic">
 						{formik?.errors?.description}
 					</div>

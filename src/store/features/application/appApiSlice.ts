@@ -121,7 +121,7 @@ export const appApiSlice = apiSlice.injectEndpoints({
 				}
 			},
 
-			invalidatesTags: (_result, _error, { _id }) => [{ type: "Apps", _id }],
+			invalidatesTags: ['Apps'],
 		}),
 	}),
 })

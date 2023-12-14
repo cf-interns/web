@@ -1,48 +1,39 @@
-// import { Card, Dropdown } from 'flowbite-react';
 import { Card } from "flowbite-react"
 import {
 	useGetSpecificAppQuery,
 	useDeleteAppMutation,
 } from "../store/features/application/appApiSlice"
-// import { useNavigate } from "react-router-dom"
 import { format } from "date-fns"
-import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog"
+import { ConfirmDialog } from "primereact/confirmdialog"
 import { ToastContainer, toast } from "react-toastify"
 import { useState } from "react"
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const AppDetails = (id: any, { setVisibleDetails }: any) => {
-    const [clicked ,setClicked] = useState(false);
-	const { data: app, isSuccess } = useGetSpecificAppQuery(id?.id)
+const AppDetails = ({
+	id,
+	setVisibleDetails,
+}: {
+	id: string
+	setVisibleDetails: (arg: boolean) => void
+}) => {
+	const [clicked, setClicked] = useState(false)
+	const [visible, setVisible] = useState(false)
+	const { data: app, isSuccess } = useGetSpecificAppQuery(id)
 	const [hook] = useDeleteAppMutation()
 	const handeleCopyBtn = (token: string) => {
 		navigator.clipboard.writeText(token)
 	}
 	const date2 = (date: Date) => new Date(date)
-	const notifyDeleted = (appName: string) => toast.success(`${appName} Deleted!`)
-	const confirm2 = (_id: string, appName: string) => {
-		return confirmDialog({
-			message: "Do you want to delete this Application?",
-			header: "Delete Confirmation",
-			icon: "pi pi-info-circle mr-2",
-			acceptLabel: "Confirm",
-			rejectLabel: "Cancel",
-			acceptClassName:
-				"mr-2 bg-green-500 text-white py-2 px-4 border border-white",
-			rejectClassName: "mr-[10px] py-2 px-4 border border-blue-200",
-			className: "w-[30vw]",
+	const notifyDeleted = (appName: string) =>
+		toast.success(`${appName} Deleted!`)
 
-			accept: () => {
-				hook(_id)
-				notifyDeleted(appName)
-				setVisibleDetails(false)
-			},
-			
-			reject: () => {
-				
-			},
-		})
+	const accept = (_id: string, appName: string) => {
+		hook(_id)
+		notifyDeleted(appName)
+		setVisible(false)
+		setVisibleDetails(false)
 	}
+
+	const reject = () => {}
 
 	return (
 		<Card className="w-[30vw] dark:bg-white border-none">
@@ -105,30 +96,33 @@ const AppDetails = (id: any, { setVisibleDetails }: any) => {
 						</button>
 						<button
 							type="button"
-							onClick={() => {
-								confirm2(app?._id as string, app?.appName as string)
-								/* hook(app?._id)
-								// if (isLoading) return "loading..."
-								if (isSuccess) {
-									navigate("/allApplication")
-								} */
-							}}
+							onClick={() => setVisible(true)}
 							className="text-white bg-red-600 text-md w-36 rounded py-4"
 						>
 							Delete
 						</button>
 					</div>
 					<ToastContainer />
-					<ConfirmDialog />
+					<ConfirmDialog
+						visible={visible}
+						onHide={() => setVisible(false)}
+						message="Do you want to delete this Application?"
+						header="Delete Confirmation"
+						icon="pi pi-info-circle mr-2"
+						acceptLabel="Confirm"
+						rejectLabel="Cancel"
+						acceptClassName="mr-2 bg-green-500 text-white py-2 px-4 border border-white"
+						rejectClassName="mr-[10px] py-2 px-4 border border-blue-200"
+						className="w-[30vw]"
+						accept={() => {
+							accept(id, app?.appName as string)
+						}}
+						reject={reject}
+					/>
 				</div>
-				{/* <div></div> */}
 			</div>
 		</Card>
-
-		// return content;
 	)
 }
-
-// 66d3dc53-1818-4010-ab33-133d15b18222
 
 export default AppDetails
