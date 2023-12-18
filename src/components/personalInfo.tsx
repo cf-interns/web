@@ -131,7 +131,7 @@ function PersonalInfo() {
 												className="bg-white w-[60vw] rounded-lg shadow-md"
 											/>
 											{formik.errors.email && formik.touched.email &&  <div className="text-red-700 italic">{ formik.errors.email }</div>}
-										</div>
+			 							</div>
 										<Button
 											type="submit"
 											className="w-full h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
