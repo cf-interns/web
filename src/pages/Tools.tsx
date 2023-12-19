@@ -11,19 +11,19 @@ const Tool = () => {
 			name: "Email",
 			text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae amet cumqu",
 			link: "/sendemail",
-			img: <img alt="Card" src={Email} className="w-[15vw]" />,
+			img: <img alt="Card" src={Email} className="w-[12vw] my-4 mx-auto" />,
 		},
 		{
 			name: "Sms",
 			text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae amet cumqu",
 			link: "/send-sms",
-			img: <img alt="Card" src={SMS} className="w-[15vw]" />,
+			img: <img alt="Card" src={SMS} className="w-[12vw] my-4 mx-auto" />,
 		},
 		{
 			name: "Push",
 			text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae amet cumqu",
 			link: "/send-push",
-			img: <img alt="Card" src={Push} className="w-[15vw] self-center" />,
+			img: <img alt="Card" src={Push} className="w-[9vw] my-12 mx-auto" />,
 		},
 	]
 
@@ -43,7 +43,7 @@ const Tool = () => {
 			<div className="m-12">
 				<div className="m-auto w-[80vw] rounded p-20 ">
 					<h1 className="text-center  text-4xl font-bold text-gray-800 rounded p-4  w-full">
-						Send Notification
+						Send A Notification
 					</h1>
 					<div className="card flex justify-evenly">
 						{tools3.map((i, key) => {

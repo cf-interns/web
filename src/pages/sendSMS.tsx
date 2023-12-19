@@ -37,7 +37,6 @@ const SendSMS = () => {
 	
 	*/
 	const [selectedApplication, setSelectedApplication] = useState<AppData>()
-	const [toggleAutomatic, setoggleAutomatic] = useState(false)
 
 	const [numbers, setNumbers] = useState<string[]>([])
 	const onAddNumber = () => {
@@ -46,7 +45,6 @@ const SendSMS = () => {
 		setNumbers(actualNumbers)
 		formik.setFieldValue("mobiles", "")
 	}
-	const formateDate = (date: string | Date) => new Date(date).toISOString()
 
 	const formik = useFormik({
 		initialValues: {
@@ -54,17 +52,20 @@ const SendSMS = () => {
 			message: "",
 			mobiles: "",
 			time: "",
+			toggleAutomatic: false,
 		},
 
 		validationSchema: Yup.object({
 			message: Yup.string().required("Please enter your message"),
 			token: Yup.string().required("Please choose an application"),
 			time: Yup.date()
-				// .required()
-				.min(
-					Yup.ref("time"),
-					({ min }) => `Date needs to be after ${formateDate(min)}!!`
+				.min(new Date(), "Minimum date is today")
+				.when("toggleAutomatic", (toggleAutomatic, schema) =>
+					toggleAutomatic[0]
+						? schema.required("Time and Date is required!")
+						: schema
 				),
+			toggleAutomatic: Yup.boolean(),
 		}),
 		onSubmit: async (values) => {
 			try {
@@ -81,7 +82,7 @@ const SendSMS = () => {
 						time: values?.time,
 					}
 
-					if (toggleAutomatic) {
+					if (values.toggleAutomatic) {
 						const data = await sendAutoSMS(inputs).unwrap()
 						notifySucess()
 						setNumbers([])
@@ -90,14 +91,14 @@ const SendSMS = () => {
 					} else {
 						const data = await sendSMS(inputs).unwrap()
 						notifySucess()
-						setNumbers([]);
+						setNumbers([])
 						formik.resetForm()
 						setSelectedApplication({} as AppData)
 
 						return data
 					}
 				} else notifyErrorNumbers()
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			} catch (error: any) {
 				if (error?.data.statusCode === 400) {
 					return notifyErrorAppStatus()
@@ -158,7 +159,7 @@ const SendSMS = () => {
 								/>
 
 								{formik?.errors?.token && formik.touched.token && (
-									<div className="text-red-700 font-bold">
+									<div className="text-red-800 text-xs italic mt-2">
 										{formik?.errors?.token}
 									</div>
 								)}
@@ -182,7 +183,7 @@ const SendSMS = () => {
 									onBlur={formik.handleBlur}
 								/>
 								{formik?.errors?.message && formik.touched.message && (
-									<div className="text-red-700 font-bold">
+									<div className="text-red-800 text-xs italic mt-2">
 										{formik?.errors?.message}
 									</div>
 								)}
@@ -224,7 +225,7 @@ const SendSMS = () => {
 								</div>
 
 								{numbers.length === 0 && (
-									<div className="text-red-700 font-bold">{}</div>
+									<div className="text-red-800 text-xs italic mt-2">{}</div>
 								)}
 							</div>
 							<div className="flex flex-col gap-4 pt-2 mb-4">
@@ -234,7 +235,12 @@ const SendSMS = () => {
 										className=""
 										name="automatic"
 										id="automatic"
-										onClick={() => setoggleAutomatic(!toggleAutomatic)}
+										onClick={() =>
+											formik.setFieldValue(
+												"toggleAutomatic",
+												!formik.values.toggleAutomatic
+											)
+										}
 									/>
 									<Label
 										color="text-dark"
@@ -243,7 +249,7 @@ const SendSMS = () => {
 										className="text-xl text-center p-1"
 									/>
 								</div>
-								{toggleAutomatic && (
+								{formik.values.toggleAutomatic && (
 									<div className="mb-4">
 										<Label
 											color="text-dark"
@@ -262,7 +268,7 @@ const SendSMS = () => {
 											onBlur={formik.handleBlur}
 										/>
 										{formik?.errors?.time && formik.touched.time && (
-											<div className="text-red-800 text-xs italic text-center">
+											<div className="text-red-800 text-xs italic mt-2">
 												{formik?.errors?.time}
 											</div>
 										)}

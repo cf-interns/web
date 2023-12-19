@@ -4,8 +4,9 @@ import { useFormik } from "formik"
 import { Label } from "flowbite-react"
 import {
 	useChangePasswordMutation,
+	useGetAuthUserQuery,
 	// useDeleteUserMutation,
-	useGetSpecificUserQuery,
+	// useGetSpecificUserQuery,
 	useUpdateUserInfoMutation,
 } from "../store/features/user/usersApiSlice"
 import * as Yup from "yup"
@@ -15,10 +16,12 @@ import BreadCrumbs from "../components/BreadCrumbs"
 
 const Settings2 = () => {
 	const [changeUserData] = useUpdateUserInfoMutation()
-	const [changePassword, { isLoading }] = useChangePasswordMutation()
-	const user = localStorage.getItem("user")
-	const UserObj = JSON.parse(user ? user : "")
-	const loggedUser = useGetSpecificUserQuery(UserObj?._id)
+	const [changePassword, { isLoading }] = useChangePasswordMutation();
+	const {data:authUser} = useGetAuthUserQuery();
+	// console.log(authUser, 'Auht User');
+	
+	
+	// const loggedUser = useGetSpecificUserQuery(authUser?._id)
 	const notifySucess = () => toast.success("User Info Updated")
 	const notifySucessPassword = () => toast.success("User Password Changed!")
 
@@ -69,6 +72,7 @@ const Settings2 = () => {
 				.minNumbers(1, "Must cantain atleast 1 number")
 				.minSymbols(1, "Must contain atleast 1 symbol"),
 			confirmPassword: Yup.string()
+				.oneOf([Yup.ref("newPassword"), ''], "Passwords don't match.")
 				.password()
 				.required("Please enter the new password")
 				.max(25)
@@ -84,8 +88,12 @@ const Settings2 = () => {
 				notifySucessPassword()
 				formik2.resetForm()
 				return data
-			} catch (error) {
-				if (error?.data.statusCode === 400) {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} catch (error: any) {
+				if (
+					error?.data.message ===
+					"Incorrect Password. Please enter the current password"
+				) {
 					formik2.resetForm()
 					return notifyErrorCurrentPassword()
 				}
@@ -96,11 +104,11 @@ const Settings2 = () => {
 		},
 	})
 	useEffect(() => {
-		const { data } = loggedUser
-		formik.setFieldValue("firstName", data?.firstName)
-		formik.setFieldValue("lastName", data?.lastName)
-		formik.setFieldValue("email", data?.email)
-	}, [loggedUser])
+		// const { data } = authUser
+		formik.setFieldValue("firstName", authUser?.firstName)
+		formik.setFieldValue("lastName", authUser?.lastName)
+		formik.setFieldValue("email", authUser?.email)
+	}, [authUser])
 
 	return (
 		<DashboardLayout>
@@ -134,7 +142,7 @@ const Settings2 = () => {
 												className="text-sm"
 											/>
 											<input
-												placeholder={UserObj.firstName}
+												placeholder={authUser?.firstName}
 												type="text"
 												id="firstName"
 												name="firstName"
@@ -158,7 +166,7 @@ const Settings2 = () => {
 												className="text-sm"
 											/>
 											<input
-												placeholder={UserObj.lastName}
+												placeholder={authUser?.lastName}
 												type="text"
 												name="lastName"
 												id="lastName"
@@ -174,29 +182,6 @@ const Settings2 = () => {
 											)}
 										</div>
 
-										<div className="flex flex-col gap-2 w-80">
-											<Label
-												htmlFor="Email"
-												value="Email"
-												color="text-dark"
-												className="text-sm mr-8"
-											/>
-											<input
-												placeholder={UserObj.email}
-												type="email"
-												name="email"
-												id="email"
-												value={formik.values.email}
-												onChange={formik.handleChange}
-												onBlur={formik.handleBlur}
-												className="bg-white w-[60vw] rounded-lg shadow-md"
-											/>
-											{formik.errors.email && formik.touched.lastName && (
-												<div className="text-red-700 italic">
-													{formik.errors.email}
-												</div>
-											)}
-										</div>
 										<Button
 											type="submit"
 											className="w-full h-[40px] rounded-lg p-2 bg-gray-500 mt-2 text-white hover:bg-green-500 focus:ring-0"
