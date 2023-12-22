@@ -21,8 +21,6 @@ const SendPush = () => {
 	const notifyAppStatus = () => toast.error("Please Activate your Application")
 	const notifyInvalidToken = () => toast.error("Invalid Recipient Token")
 	const notifyTokens = () => toast.error("Please enter Recipient Token(s)")
-	const [toggleAutomatic, setoggleAutomatic] = useState(false)
-	const formateDate = (date: string | Date) => new Date(date).toISOString()
 
 	const [sendPush] = useSendPushMutation()
 	const [sendAutoPush] = useSendAutomaticPushMessageMutation()
@@ -50,16 +48,23 @@ const SendPush = () => {
 			},
 			userToken: "",
 			time: "",
+			toggleAutomatic: false,
 		},
 		validationSchema: Yup.object({
-			notification: Yup.object().required(),
+			notification: Yup.object({
+				body: Yup.string().required('Message required!'),
+				title: Yup.string().required('Title required')
+			}).required(),
 			// userToken: Yup.string().required("Please enter recipient's token"),
 			token: Yup.string().required("Please choose an application"),
+			
+			toggleAutomatic: Yup.boolean(),
 			time: Yup.date()
-				// .required()
-				.min(
-					Yup.ref("time"),
-					({ min }) => `Date needs to be after ${formateDate(min)}!!`
+				.min(new Date(), "Minimum date is today")
+				.when("toggleAutomatic", (toggleAutomatic, schema) =>
+					toggleAutomatic[0]
+						? schema.required("Time and Date is required!")
+						: schema
 				),
 		}),
 		onSubmit: async (values) => {
@@ -79,7 +84,7 @@ const SendPush = () => {
 						userToken: fcmTokens2,
 						time: values?.time,
 					}
-					if (toggleAutomatic) {
+					if (values.toggleAutomatic) {
 						console.log("UserToken?", inputs)
 
 						const data = await sendAutoPush(inputs).unwrap()
@@ -96,7 +101,7 @@ const SendPush = () => {
 					formik.resetForm()
 					return data
 				} else notifyTokens()
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			} catch (error: any) {
 				if (error?.data.message === "Please Activate Your App!") {
 					return notifyAppStatus()
@@ -157,7 +162,7 @@ const SendPush = () => {
 									className="w-full md:w-14rem"
 								/>
 								{formik?.errors?.token && formik.touched.token && (
-									<div className="text-red-800 text-xs italic text-center">
+									<div className="text-red-800 text-xs italic mt-2">
 										{formik?.errors?.token}
 									</div>
 								)}
@@ -181,7 +186,7 @@ const SendPush = () => {
 								/>
 								{formik?.errors?.notification?.body &&
 									formik.touched.notification?.body && (
-										<div className="text-red-800 text-xs italic text-center">
+										<div className="text-red-800 text-xs italic mt-2">
 											{formik?.errors?.notification.body}
 										</div>
 									)}
@@ -205,7 +210,7 @@ const SendPush = () => {
 								/>
 								{formik?.errors?.notification?.title &&
 									formik.touched.notification?.title && (
-										<div className="text-red-800 text-xs italic text-center">
+										<div className="text-red-800 text-xs italic mt-2">
 											{formik?.errors?.notification.title}
 										</div>
 									)}
@@ -259,7 +264,12 @@ const SendPush = () => {
 										className=""
 										name="automatic"
 										id="automatic"
-										onClick={() => setoggleAutomatic(!toggleAutomatic)}
+										onClick={() =>
+											formik.setFieldValue(
+												"toggleAutomatic",
+												!formik.values.toggleAutomatic
+											)
+										}
 									/>
 									<Label
 										color="text-dark"
@@ -268,7 +278,7 @@ const SendPush = () => {
 										className="text-xl text-center p-1"
 									/>
 								</div>
-								{toggleAutomatic && (
+								{formik.values.toggleAutomatic && (
 									<div className="mb-4">
 										<Label
 											color="text-dark"
@@ -287,15 +297,10 @@ const SendPush = () => {
 											onBlur={formik.handleBlur}
 										/>
 										{formik?.errors?.time && (
-											<div className="text-red-800 text-xs italic text-center">
+											<div className="text-red-800 text-xs italic mt-2">
 												{formik?.errors?.time}
 											</div>
 										)}
-									</div>
-								)}
-								{formik?.errors?.time && (
-									<div className="text-red-800 text-xs italic text-center">
-										{formik?.errors?.time}
 									</div>
 								)}
 							</div>

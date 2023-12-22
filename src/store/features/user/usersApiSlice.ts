@@ -15,12 +15,11 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 			query: () => "/users",
 			// keepUnusedDataFor: 5,
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			providesTags: ['User']
+			providesTags: ["User"],
 		}),
-		getSpecificUser: build.query< User, void>({
+		getSpecificUser: build.query<User, void>({
 			query: (_id) => `/users/${_id}`,
 			keepUnusedDataFor: 1,
-			
 		}),
 		changePassword: build.mutation<UserPassword, UserChangePasswordResponse>({
 			query(body) {
@@ -30,7 +29,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 					body,
 				}
 			},
-			invalidatesTags: ['User'],
+			invalidatesTags: ["User"],
 		}),
 		updateUserInfo: build.mutation<object, UpdateUserInfo>({
 			query(body) {
@@ -40,7 +39,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 					body,
 				}
 			},
-			invalidatesTags: ['User']
+			invalidatesTags: ["User"],
 		}),
 		deleteUser: build.mutation<void, string>({
 			query(id) {
@@ -49,9 +48,19 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 					method: "DELETE",
 				}
 			},
-			invalidatesTags: ['Apps', 'User']
+			invalidatesTags: ["Apps", "User"],
+		}),
+
+		getAuthUser: build.query<User, void>({
+			query: () => {
+				return {
+					url: "users/authenticated-user",
+				}
+			},
+		//  invalidatesTags: [],
+		providesTags: ['User']
 		}),
 	}),
 })
 
-export const { useGetUsersQuery, useGetSpecificUserQuery, useChangePasswordMutation, useDeleteUserMutation, useUpdateUserInfoMutation } = usersApiSlice
+export const { useGetUsersQuery, useGetSpecificUserQuery, useChangePasswordMutation, useDeleteUserMutation, useUpdateUserInfoMutation, useGetAuthUserQuery } = usersApiSlice

@@ -22,7 +22,7 @@ const CreateApplication = ({ setVisible }: any) => {
 			description: "",
 		},
 		validationSchema: Yup.object({
-			appName: Yup.string().required("Application Name is required"),
+			appName: Yup.string().required("Application Name is required").min(5, 'Application Name must be atleast 5 characters!'),
 
 			description: Yup.string()
 				.min(10, "Name must be a minimum of 10 characters or more")
@@ -81,7 +81,7 @@ const CreateApplication = ({ setVisible }: any) => {
 					/>
 				</div>
 				<input
-					className="shadow-lg mb-4 mt-2 appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+					className="shadow-lg mb-4 mt-2 appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-[10vh]"
 					// as="textarea"
 					id="description"
 					placeholder="App Description"
@@ -89,6 +89,7 @@ const CreateApplication = ({ setVisible }: any) => {
 					value={formik.values.description}
 					onChange={formik.handleChange}
 					onBlur={formik.handleBlur}
+					type="textarea"
 				/>
 
 				{formik?.errors?.description && formik.touched.description && (

@@ -3,6 +3,7 @@ import { useFormik } from "formik"
 import { useUpdateUserInfoMutation } from "../store/features/user/usersApiSlice"
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
+import { useEffect } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const EditUser = (props: { prop: any }) => {
@@ -18,14 +19,25 @@ const EditUser = (props: { prop: any }) => {
 			email: "",
 		},
 		validationSchema: Yup.object({
-			firstName: Yup.string().required("First Name is required!"),
-			lastName: Yup.string().required("Last Name is required!"),
+			firstName: Yup.string()
+				.required("First Name is required!")
+				.matches(
+					/^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/g,
+					"Name can only contain letters."
+				),
+			lastName: Yup.string()
+				.required("Last Name is required!")
+				.matches(
+					/^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/g,
+					"Name can only contain letters."
+				),
 			email: Yup.string().email().required("Email Required!"),
 		}),
 		onSubmit: async (values) => {
 			try {
-				const data = await changeUserData(values).unwrap();
+				const data = await changeUserData(values).unwrap()
 				notifySucccess()
+				formik.resetForm()
 				return data
 			} catch (error) {
 				notifyError()
@@ -33,6 +45,13 @@ const EditUser = (props: { prop: any }) => {
 			}
 		},
 	})
+
+	useEffect(() => {
+		// const { data } = authUser
+		formik.setFieldValue("firstName", prop?.firstName)
+		formik.setFieldValue("lastName", prop?.lastName)
+		formik.setFieldValue("email", prop?.email)
+	}, [prop])
 	return (
 		<>
 			<form

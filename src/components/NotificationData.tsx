@@ -22,7 +22,7 @@ const NotificationData = (props: { prop: Notification }) => {
 						</div>
 						<div className="flex flex-col p-2">
 							<label className="text-lg">Application Name</label>
-							<p className="font-bold text-xl ">{prop?.author?.appName}</p>
+							<p className="font-bold text-xl text-black">{prop?.author?.appName || 'N/A'}</p>
 						</div>
 						<div className="flex flex-col p-2">
 							<label className="text-lg  ">Sent at:</label>
@@ -39,7 +39,7 @@ const NotificationData = (props: { prop: Notification }) => {
 						<div className="flex flex-col p-2">
 							<label className="text-lg">Token</label>
 							<p className="font-bold text-xl text-black">
-								{prop?.author?.token}
+								{prop?.author?.token || 'N/A'}
 							</p>
 						</div>
 						<div className="flex flex-col p-2">
@@ -62,11 +62,7 @@ const NotificationData = (props: { prop: Notification }) => {
 					<div className="w-full mt-5">
 						<label className="text-lg  ">Content</label>
 						<p className="text-xl text-gray-700">
-							{prop?.body || "Lorem Ipseum kvikjavsasjkas"} Lorem, ipsum dolor
-							sit amet consectetur adipisicing elit. Beatae, iste nisi. Veniam
-							illum accusantium cupiditate. Nulla rerum dolor ab ipsum nihil,
-							voluptatum inventore perferendis reprehenderit. Omnis
-							necessitatibus obcaecati doloribus nihil?
+							{prop?.body || ""}
 						</p>
 					</div>
 				</div>

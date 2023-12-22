@@ -22,11 +22,12 @@ import { Dialog } from "primereact/dialog"
 import { Notification } from "../interfaces/notifications.interface"
 // import { useDispatch } from "react-redux"
 import NotificationData from "./NotificationData"
+import { format } from "date-fns"
 
 function NotificationTable({
 	realData,
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-}: any) {
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+any) {
 	// console.log(updateStoreNotifications, "Store2")
 
 	// console.log("test", realData)'
@@ -290,6 +291,9 @@ function NotificationTable({
 				<Column
 					field="created_at"
 					header="Date"
+					body={(row) => (
+						<>{format(new Date(row.created_at), "MMMM do yyyy, hh:mm:ss a")}</>
+					)}
 					sortable
 					style={{
 						minWidth: "12rem",

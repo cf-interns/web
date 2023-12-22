@@ -6,12 +6,15 @@ import avt from '../assets/avatar2.jpeg';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../store/features/auth/authSlice';
 import { Link } from 'react-router-dom';
+import { useGetAuthUserQuery } from '../store/features/user/usersApiSlice';
 // import avt2 from '../assets/react.svg'
 
 export const  NavbarDash = () => {
   const dispatch = useDispatch();
   const user2 = localStorage.getItem('user');
-  const realUser = JSON.parse(user2 || '{}')
+  const realUser = JSON.parse(user2 || '{}');
+
+  const {data:getUser} = useGetAuthUserQuery()
 
   
 
@@ -28,7 +31,7 @@ export const  NavbarDash = () => {
 					</span> */}
 				</Navbar.Brand>
 				<div className="flex md:order-2">
-					<h1 className="text-xl text-white p-1 mr-2">{realUser?.lastName}</h1>
+					<h1 className="text-xl text-white p-1 mr-2">{getUser?.lastName}</h1>
 					<Dropdown
 						arrowIcon={false}
 						inline
@@ -36,10 +39,10 @@ export const  NavbarDash = () => {
 					>
 						<Dropdown.Header>
 							<span className="block text-sm">
-								{realUser?.firstName || "John"}
+								{getUser?.firstName || "John"}
 							</span>
 							<span className="block truncate text-sm font-medium">
-								{realUser?.email || "john@doe.com"}
+								{getUser?.email || "john@doe.com"}
 							</span>
 						</Dropdown.Header>
 						<Link

@@ -23,7 +23,7 @@ const UsersTable = () => {
 	const [createUser, setCreateUser] = useState(false)
 	// const [noPassed, setuserPassed]
 	const actions = ["DELETE", "EDIT"];
-	const notifyDeletion = (user) => toast.success(`User ${user} Account Deleted!`)
+	const notifyDeletion = (user: string) => toast.success(`User ${user} Account Deleted!`)
 
 	const { data: realUsers } = useGetUsersQuery()
 	const [deleteUser] = useDeleteUserMutation()

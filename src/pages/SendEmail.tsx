@@ -1,5 +1,8 @@
 import { useFormik } from "formik"
-import { useSendAutomaticEmailMutation, useSendEmailMutation } from "../store/features/application/appApiSlice"
+import {
+	useSendAutomaticEmailMutation,
+	useSendEmailMutation,
+} from "../store/features/application/appApiSlice"
 import * as Yup from "yup"
 import { Label } from "flowbite-react"
 import DashboardLayout from "../components/DashboardLayout"
@@ -12,15 +15,15 @@ import { ToastContainer, toast } from "react-toastify"
 import { Link } from "react-router-dom"
 
 const SendEmail = () => {
-	const [sendEmail, { isLoading }] = useSendEmailMutation();
+	const [sendEmail, { isLoading }] = useSendEmailMutation()
 	const [sendAutoEmail] = useSendAutomaticEmailMutation()
 	const [selectedApplication, setSelectedApplication] = useState<AppData>()
 	const notifySucess = () => toast.success("Email Sent!")
 	const notifyError = () => toast.error("Email Not Sent!")
-	const notifyErrorEmails = () => toast.error("Please enter a valid email address!");
-	const notifyErrorAppStatus = () => toast.error('Please Activate your Application!')
-	const [toggleAutomatic, setoggleAutomatic] = useState(false)
-    const formateDate = (date: string | Date) => new Date(date).toISOString()
+	const notifyErrorEmails = () =>
+		toast.error("Please enter a valid email address!")
+	const notifyErrorAppStatus = () =>
+		toast.error("Please Activate your Application!")
 
 	const app = useSelector((store: RootState) => store.app.app)
 	const [emails, setEmails] = useState<string[]>([])
@@ -45,18 +48,21 @@ const SendEmail = () => {
 			to: "",
 			from: "no-reply@payunit.com",
 			time: "",
+			toggleAutomatic: false,
 		},
 		validationSchema: Yup.object({
 			text: Yup.string().required("Message is required"),
+			toggleAutomatic: Yup.boolean(),
 
 			subject: Yup.string().required("Please enter the email subjcet"),
 
 			token: Yup.string().required("Please choose an application"),
 			time: Yup.date()
-				// .required()
-				.min(
-					Yup.ref("time"),
-					({ min }) => `Date needs to be after ${formateDate(min)}!!`
+				.min(new Date(), "Minimum date is today")
+				.when("toggleAutomatic", (toggleAutomatic, schema) =>
+					toggleAutomatic[0]
+						? schema.required("Time and Date is required!")
+						: schema
 				),
 		}),
 		onSubmit: async (values) => {
@@ -73,28 +79,29 @@ const SendEmail = () => {
 						subject: values?.subject,
 						to: email2,
 						from: "no-reply@payunit.com",
-						time: values?.time
+						time: values?.time,
 					}
-					if (toggleAutomatic) {
+					if (values.toggleAutomatic) {
 						const data = await sendAutoEmail(inputs).unwrap()
 						notifySucess()
-						setEmails([]);
-						formik.resetForm();
-				/* 		formik.setFieldValue('text', '');
+						setEmails([])
+						formik.resetForm()
+						/* 		formik.setFieldValue('text', '');
 						formik.setFieldValue("text", "")
 						formik.setFieldValue("text", "")
 						formik.setFieldValue("text", "") */
 
 						return data
-					} 
+					}
 					const data = await sendEmail(inputs).unwrap()
-					notifySucess();
+					notifySucess()
 					// formik.setFieldValue('token', '')
 					formik.resetForm()
 					return data
 				} else notifyErrorEmails()
-			} catch (error) {
-				if (error?.data.statusCode === 400) {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} catch (error: any) {
+				if (error?.data.message === "Please Activate Your App") {
 					return notifyErrorAppStatus()
 				}
 				notifyError()
@@ -150,7 +157,7 @@ const SendEmail = () => {
 								/>
 
 								{formik?.errors?.token && formik.touched.token && (
-									<div className="text-red-800 text-xs italic text-center">
+									<div className="text-red-800 text-xs italic mt-2">
 										{formik?.errors?.token}
 									</div>
 								)}
@@ -174,7 +181,7 @@ const SendEmail = () => {
 								/>
 
 								{formik?.errors?.text && formik.touched.text && (
-									<div className="text-red-800 text-xs italic text-center">
+									<div className="text-red-800 text-xs italic mt-2">
 										{formik?.errors?.text}
 									</div>
 								)}
@@ -197,7 +204,7 @@ const SendEmail = () => {
 									onBlur={formik.handleBlur}
 								/>
 								{formik?.errors?.subject && formik.touched.subject && (
-									<div className="text-red-800 text-xs italic text-center">
+									<div className="text-red-800 text-xs italic mt-2">
 										{formik?.errors?.subject}
 									</div>
 								)}
@@ -229,6 +236,7 @@ const SendEmail = () => {
 										value={formik.values.to}
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
+										checked={formik.values.toggleAutomatic}
 									/>
 									<button
 										className="rounded-lg bg-gray-800 hover:bg-green-500 w-fit p-2 text-white group-hover:block"
@@ -251,7 +259,14 @@ const SendEmail = () => {
 										className=""
 										name="automatic"
 										id="automatic"
-										onClick={() => setoggleAutomatic(!toggleAutomatic)}
+										onChange={formik.handleChange}
+										onBlur={formik.handleBlur}
+										onClick={() =>
+											formik.setFieldValue(
+												"toggleAutomatic",
+												!formik.values.toggleAutomatic
+											)
+										}
 									/>
 									<Label
 										color="text-dark"
@@ -260,7 +275,7 @@ const SendEmail = () => {
 										className="text-xl text-center p-1"
 									/>
 								</div>
-								{toggleAutomatic && (
+								{formik.values.toggleAutomatic && (
 									<div className="mb-4">
 										<Label
 											color="text-dark"
@@ -279,15 +294,10 @@ const SendEmail = () => {
 											onBlur={formik.handleBlur}
 										/>
 										{formik?.errors?.time && (
-											<div className="text-red-800 text-xs italic text-center">
+											<div className="text-red-800 text-xs italic mt-2">
 												{formik?.errors?.time}
 											</div>
 										)}
-									</div>
-								)}
-								{formik?.errors?.time && (
-									<div className="text-red-800 text-xs italic text-center">
-										{formik?.errors?.time}
 									</div>
 								)}
 							</div>
