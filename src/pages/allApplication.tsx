@@ -22,29 +22,34 @@ import AppDetails from "./AppDetails"
 import CreateApplication from "./CreateApplication"
 import { useState } from "react"
 import BreadCrumbs from "../components/BreadCrumbs"
+import { format } from "date-fns"
 
 // import { format } from "date-fns";
 
 const AllApplication = () => {
+	const [updateAppStatus] = useUpdateAppStatusMutation()
+	const [visible, setVisible] = useState(false)
+	const [visibleDetails, setVisibleDetails] = useState(false)
+
 	const header = <img alt="Card" src="/src/card5.jpg" className="h-[10rem]" />
-	const footer = (_id: string, status: string) => {
+	const footer = (id: string, status: string) => {
 		return (
 			<div className="flex items-center justify-between gap-2">
-							<Button className="flex p-1  text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded" onClick={() => setVisibleDetails(true)}>
-								<span>View Details</span>
-								<FiArrowRight />
-							</Button>
-							<Dialog
-									visible={visibleDetails}
-									style={{ width: "auto" }}
-									onHide={() => setVisibleDetails(false)}
-									className="bg-gray-300"
-								>
-									<AppDetails id= {_id} />
-								</Dialog>
-						
-			
-
+				<Button
+					className="flex p-1  text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded"
+					onClick={() => setVisibleDetails(true)}
+				>
+					<span>View Details</span>
+					<FiArrowRight />
+				</Button>
+				<Dialog
+					visible={visibleDetails}
+					style={{ width: "auto" }}
+					onHide={() => setVisibleDetails(false)}
+					className="bg-gray-300"
+				>
+					<AppDetails setVisibleDetails={setVisibleDetails} id={id} />
+				</Dialog>
 
 				<Link to={`/tools`}>
 					<Button className="flex p-1 text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded">
@@ -56,7 +61,7 @@ const AllApplication = () => {
 					className="cursor-pointer justify-center flex p-2 gap-2 text-white bg-teal-900 rounded"
 					onClick={() => {
 						updateAppStatus({
-							_id: _id,
+							_id: id,
 							status: status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
 						})
 						console.log(updateAppStatus)
@@ -85,20 +90,12 @@ const AllApplication = () => {
 		isSuccess,
 		isError,
 		error,
-	} = useGetAllAppsQuery();
+	} = useGetAllAppsQuery()
 
-	const dispatch = useDispatch();
-	dispatch(setUpApplications({ app: apps }));
-
-
+	const dispatch = useDispatch()
+	dispatch(setUpApplications({ app: apps }))
 
 	// const { id } = useParams();
-
-	const [updateAppStatus] = useUpdateAppStatusMutation();
-	const [visible, setVisible] = useState(false)
-	const [visibleDetails, setVisibleDetails] = useState(false)
-
-
 
 	// app({status: 'ACTIVE'})
 
@@ -116,14 +113,9 @@ const AllApplication = () => {
 				<div className="border w-full">
 					<div className=" px-2 divide-x-2 mt-8  w-full gap-2">
 						<div className="flex justify-between items-center ">
-
-
 							<div className="flex items-center">
 								<BreadCrumbs />
-
-							
 							</div>
-
 
 							<div>
 								<button
@@ -136,7 +128,7 @@ const AllApplication = () => {
 									visible={visible}
 									style={{ width: "auto" }}
 									onHide={() => setVisible(false)}
-									header='Create An App'
+									header="Create An App"
 									headerClassName="text-center text-2xl font-bold"
 									className="bg-gray-300"
 								>
@@ -150,7 +142,7 @@ const AllApplication = () => {
 						{apps.map((app, i) => {
 							return (
 								<div className="">
-									<Card 
+									<Card
 										footer={footer(app._id, app.status)}
 										header={header}
 										className="w-10rem ml-4"
@@ -162,22 +154,22 @@ const AllApplication = () => {
 										<div className=" flex items-center justify-between font-normal text-gray-900 mb-5 dark:text-black">
 											<p className="mt-4">Status: {app.status}</p>
 											<p className="mt-4">
-												Created: {app.createdAt.toString()}
+												Created:{" "}
+												{format(
+													new Date(app.createdAt),
+													"MMMM do yyyy, h:mm:ss a"
+												)}
 											</p>
 										</div>
 
-									
 										<h5 className="text-xl font-light tracking-tight mt-5 text-gray-600">
 											<p>{app.description}</p>
 										</h5>
-
-									
 									</Card>
 								</div>
 							)
 						})}
 					</div>
-
 				</div>
 			</DashboardLayout>
 		)

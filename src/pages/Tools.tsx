@@ -1,35 +1,33 @@
 import DashboardLayout from "../components/DashboardLayout"
 import { Link } from "react-router-dom"
-import { Card } from "primereact/card"
+import { Card } from "primereact/card";
+import Email from '../assets/emailPic.png';
+import SMS from '../assets/SMS-2.png';
+import Push from '../assets/Push2.png';
+
 const Tool = () => {
 	const tools3 = [
 		{
 			name: "Email",
 			text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae amet cumqu",
 			link: "/sendemail",
-			img: "",
+			img: <img alt="Card" src={Email} className="w-[15vw]" />,
 		},
 		{
 			name: "Sms",
 			text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae amet cumqu",
 			link: "/send-sms",
-			img: "",
+			img: <img alt="Card" src={SMS} className="w-[15vw]" />,
 		},
 		{
 			name: "Push",
 			text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae amet cumqu",
 			link: "/send-push",
-			img: "",
+			img: <img alt="Card" src={Push} className="w-[15vw] self-center" />,
 		},
 	]
 
-	const header = (
-		<img
-			alt="Card"
-			src="https://primefaces.org/cdn/primereact/images/usercard.png"
-			className="w-[20vw]"
-		/>
-	)
+
 	const footer = (link: string) => (
 		<div className="">
 			<Link
@@ -43,7 +41,7 @@ const Tool = () => {
 	return (
 		<DashboardLayout>
 			<div className="m-12">
-				<div className="m-auto w-[80vw] rounded p-20 shadow-xl">
+				<div className="m-auto w-[80vw] rounded p-20 ">
 					<h1 className="text-center  text-4xl font-bold text-gray-800 rounded p-4  w-full">
 						Send Notification
 					</h1>
@@ -53,7 +51,7 @@ const Tool = () => {
 								<Card
 									title={i.name}
 									footer={footer(i.link)}
-									header={header}
+									header={i.img}
 									key={key}
 									className="m-4"
 								>

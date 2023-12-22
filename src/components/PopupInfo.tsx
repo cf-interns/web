@@ -65,7 +65,7 @@ import { ToastContainer, toast } from "react-toastify"
 						className="bg-white w-auto rounded-lg shadow-lg"
 					/>
 				</div>
-				{formik?.errors?.firstName && (
+				{formik?.errors?.firstName && formik.touched.firstName && (
 					<div className="text-red-500 text-xs italic">
 						{formik?.errors?.firstName}
 					</div>
@@ -89,7 +89,7 @@ import { ToastContainer, toast } from "react-toastify"
 						className="bg-white w-full rounded-lg shadow-lg"
 					/>
 				</div>
-				{formik?.errors?.lastName && (
+				{formik?.errors?.lastName && formik.touched.lastName && (
 					<div className="text-red-500 text-xs italic">
 						{formik?.errors?.lastName}
 					</div>
@@ -113,7 +113,7 @@ import { ToastContainer, toast } from "react-toastify"
 						className="bg-white w-full rounded-lg shadow-lg"
 					/>
 				</div>
-				{formik?.errors?.email && (
+				{formik?.errors?.email && formik.touched.email && (
 					<div className="text-red-500 text-xs italic">
 						{formik?.errors?.email}
 					</div>
@@ -137,7 +137,7 @@ import { ToastContainer, toast } from "react-toastify"
 						className="bg-white w-full rounded-lg shadow-lg"
 					/>
 				</div>
-				{formik?.errors?.password && (
+				{formik?.errors?.password && formik.touched.password && (
 					<div className="text-red-500 text-xs italic">
 						{formik?.errors?.password}
 					</div>

@@ -1,24 +1,19 @@
-import { Notification } from "../interfaces/notifications.interface"
+import { Notification } from "../interfaces/notifications.interface";
+import {format} from 'date-fns'
 
 const NotificationData = (props: { prop: Notification }) => {
 	const { prop } = props 
 	
 	return (
-		<div id="app" className="bg-gray-100 m-auto w-fit h-fit">
-			<div className="w-fit mx-auto  px-8 py-8 h-fit">
+		<div id="app" className="bg-gray-100 m-auto">
+			<div className="mx-auto">
 				<h2 className="uppercase font-bold text-gray-600 text-3xl text-center pb-8">
 					{`${prop.notification_type} Notification`}
 				</h2>
-
-				<div className="shadow-lg flex h-fit gap-4 justify-between p-2 m-2">
-					<div id="NotifInfo">
-						<h1 className="text-2xl mb-3">Notification Data</h1>
-						<div className="flex flex-col p-2">
-							<label className="text-lg "># ID</label>
-							<p className="font-bold text-xl text-black ">
-								{prop?._id || 'N/A'}
-							</p>
-						</div>
+				<div className="mt-4">
+					<h1 className="text-xl mb-3">#ID - {prop?._id || "N/A"}</h1>
+					<hr className="my-1" />
+					<div className="grid grid-cols-3">
 						<div className="flex flex-col p-2">
 							<label className="text-lg "> Title</label>
 							<p className="font-bold text-xl text-black">
@@ -26,21 +21,13 @@ const NotificationData = (props: { prop: Notification }) => {
 							</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-lg  ">Body</label>
-							<p className="font-bold text-xl text-black">
-								{prop?.body || "Lorem Ipseum kvikjavsasjkas"}
-							</p>
-						</div>
-						<div className="flex flex-col p-2">
-							<label className="text-lg  ">Recipient</label>
-							<p className="font-bold text-xl text-black">
-								{prop?.recipient || "N/A"}
-							</p>
+							<label className="text-lg">Application Name</label>
+							<p className="font-bold text-xl ">{prop?.author?.appName}</p>
 						</div>
 						<div className="flex flex-col p-2">
 							<label className="text-lg  ">Sent at:</label>
 							<p className="font-bold text-xl text-black">
-								{prop?.created_at ? prop.created_at.toLocaleString() : "N/A"}
+								{prop?.created_at ? format(new Date(prop.created_at), 'MMMM do yyyy, h:mm:ss a') : "N/A"}
 							</p>
 						</div>
 						<div className="flex flex-col p-2">
@@ -48,15 +35,6 @@ const NotificationData = (props: { prop: Notification }) => {
 							<p className="font-bold text-xl text-black">
 								{prop?.subject || "N/A"}
 							</p>
-						</div>
-					</div>
-
-					<div id="NotifDetail">
-						<div className="flex flex-col p-2">
-							<h1 className="text-2xl mb-3">Notification Status</h1>
-
-							<label className="text-lg">Status</label>
-							<p className="font-bold text-xl text-green-400">ACTIVE</p>
 						</div>
 						<div className="flex flex-col p-2">
 							<label className="text-lg">Token</label>
@@ -74,15 +52,22 @@ const NotificationData = (props: { prop: Notification }) => {
 								{prop?.notification_type}
 							</p>
 						</div>
-					</div>
-					<div id="NotifAppDetail">
 						<div className="flex flex-col p-2">
-							<h1 className="text-2xl mb-3">Application Data</h1>
-
-							<label className="text-lg">App Name</label>
-							<p className="font-bold text-xl ">{prop?.author?.appName}</p>
+							<label className="text-lg  ">Recipient</label>
+							<p className="font-bold text-xl text-black">
+								{prop?.recipient || "N/A"}
+							</p>
 						</div>
-	
+					</div>
+					<div className="w-full mt-5">
+						<label className="text-lg  ">Content</label>
+						<p className="text-xl text-gray-700">
+							{prop?.body || "Lorem Ipseum kvikjavsasjkas"} Lorem, ipsum dolor
+							sit amet consectetur adipisicing elit. Beatae, iste nisi. Veniam
+							illum accusantium cupiditate. Nulla rerum dolor ab ipsum nihil,
+							voluptatum inventore perferendis reprehenderit. Omnis
+							necessitatibus obcaecati doloribus nihil?
+						</p>
 					</div>
 				</div>
 			</div>

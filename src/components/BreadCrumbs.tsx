@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const BreadCrumbs = () => {
     const breadcrumbs = useBreadcrumbs(protectedRoutes);
 
-console.log(breadcrumbs, 'Crumbs');
   return (
 		<nav> 
 			{breadcrumbs.map(({ match, breadcrumb }) => (

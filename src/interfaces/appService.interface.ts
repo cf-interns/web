@@ -30,7 +30,8 @@ export interface Push {
         body: string,
         title: string,
     },
+    time?: string,
    
     id: string;
-    token: string;
+    userToken: string[];
 }

@@ -7,7 +7,7 @@ import {
 import { PiAppStoreLogo } from "react-icons/pi"
 import { RiUserSettingsLine } from "react-icons/ri"
 import avt2 from "../assets/react.svg"
-import { Link, useNavigate } from "react-router-dom"
+import { Link,  } from "react-router-dom"
 import { useState } from "react"
 /* import { BsMenuButtonWide } from "react-icons/bs"
 import { IoCreateOutline } from "react-icons/io5" */
@@ -19,8 +19,6 @@ export default function SidebarV2() {
 	// const [showAppMenu, setShowAppMenu] = useState(false)
 	const [collapse, setCollapse] = useState(false)
 	const [active, setActive] = useState(false)
-	const currentLink = useNavigate()
-	console.log(currentLink.name, "link")
 
 	return (
 		<Sidebar
@@ -39,9 +37,9 @@ export default function SidebarV2() {
 									className="mr-3 h-fit w-fit sm:h-9"
 									src={avt2}
 								/>
-								<h1 className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+								<Link className="self-center whitespace-nowrap text-xl font-semibold dark:text-white" to='/dashboard'>
 									GNS
-								</h1>
+								</Link>
 							</div>
 						)}
 

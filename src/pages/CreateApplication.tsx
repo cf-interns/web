@@ -1,5 +1,5 @@
 import { useCreateAppMutation } from "../store/features/application/appApiSlice"
-import {useFormik} from "formik"
+import { useFormik } from "formik"
 import * as Yup from "yup"
 import "../createapp.css"
 import { Label } from "flowbite-react"
@@ -11,8 +11,8 @@ import { useNavigate } from "react-router-dom"
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CreateApplication = ({ setVisible }: any) => {
 	const [createApp, { isLoading }] = useCreateAppMutation()
-	const notifySucess = () => toast.success("App Created Successfully")
-	const notifyError = () => toast.error("App Not Created")
+	const notifySucess = () => toast.success("Application Created Successfully")
+	const notifyError = () => toast.error("Application Not Created")
 	const navigate = useNavigate()
 
 	const formik = useFormik({
@@ -36,7 +36,6 @@ const CreateApplication = ({ setVisible }: any) => {
 				navigate("/allApplication")
 
 				return data
-				//Navigate Somewhre
 			} catch (error) {
 				notifyError()
 				return error
@@ -67,7 +66,7 @@ const CreateApplication = ({ setVisible }: any) => {
 					onChange={formik.handleChange}
 					onBlur={formik.handleBlur}
 				/>
-				{formik?.errors?.appName && (
+				{formik?.errors?.appName && formik.touched.appName && (
 					<div className="text-red-500 text-lg mb-2 italic">
 						{formik?.errors?.appName}
 					</div>
@@ -92,7 +91,7 @@ const CreateApplication = ({ setVisible }: any) => {
 					onBlur={formik.handleBlur}
 				/>
 
-				{formik?.errors?.description && (
+				{formik?.errors?.description && formik.touched.description && (
 					<div className="text-red-500 text-lg mb-2 italic">
 						{formik?.errors?.description}
 					</div>
