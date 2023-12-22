@@ -19,9 +19,7 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import { ToastContainer, toast } from "react-toastify"
 
 const UsersTable = () => {
-	// const [selectedNotif, setSelectedNotif] = useState(null);
 	const [createUser, setCreateUser] = useState(false)
-	// const [noPassed, setuserPassed]
 	const actions = ["DELETE", "EDIT"];
 	const notifyDeletion = (user: string) => toast.success(`User ${user} Account Deleted!`)
 
@@ -39,7 +37,6 @@ const UsersTable = () => {
 
 	const user = localStorage.getItem("user")
 	const userMain = JSON.parse(user as string)
-	// console.log('Current User', userMain._id);
 
 	const realUser2 = realUsers?.filter((user: User) => user._id !== userMain._id)
 

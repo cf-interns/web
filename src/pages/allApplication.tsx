@@ -122,13 +122,13 @@ const AllApplication = () => {
 									className=" bg-gray-800 text-white w-50 text-md w-52 rounded py-4"
 									onClick={() => setVisible(true)}
 								>
-									Create App
+									Create Application
 								</button>
 								<Dialog
 									visible={visible}
 									style={{ width: "auto" }}
 									onHide={() => setVisible(false)}
-									header="Create An App"
+									header="Create An Application"
 									headerClassName="text-center text-2xl font-bold"
 									className="bg-gray-300"
 								>

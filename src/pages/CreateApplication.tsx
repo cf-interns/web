@@ -57,7 +57,7 @@ const CreateApplication = ({ setVisible }: any) => {
 				/>
 
 				<input
-					className="shadow-lg mb-4 mt-2 appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
+					className="mb-4 mt-2 appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline"
 					id="appName"
 					type="text"
 					placeholder="A GNS application"
@@ -77,11 +77,11 @@ const CreateApplication = ({ setVisible }: any) => {
 						className="text-2xl mb-2"
 						color="text-dark"
 						htmlFor="appdescription"
-						value="Application Desc"
+						value="Application Description"
 					/>
 				</div>
 				<input
-					className="shadow-lg mb-4 mt-2 appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-[10vh]"
+					className="mb-4 mt-2 appearance-none border rounded-lg w-full py-2 px-3 text-grey-darker leading-tight focus:outline-none focus:shadow-outline h-[10vh]"
 					// as="textarea"
 					id="description"
 					placeholder="App Description"

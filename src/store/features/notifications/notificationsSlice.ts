@@ -21,6 +21,7 @@ const notificationSlice = createSlice({
 			return state
 		},
 	},
+	
 })
 
 export const { setUpNotifications } = notificationSlice.actions

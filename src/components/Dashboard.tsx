@@ -11,8 +11,6 @@ import { useGetAuthUserQuery } from '../store/features/user/usersApiSlice';
 
 export const  NavbarDash = () => {
   const dispatch = useDispatch();
-  const user2 = localStorage.getItem('user');
-  const realUser = JSON.parse(user2 || '{}');
 
   const {data:getUser} = useGetAuthUserQuery()
 

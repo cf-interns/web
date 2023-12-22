@@ -36,7 +36,6 @@ const Signup = () => {
 	const navigate = useNavigate()
 	const [sigup, { isLoading }] = useSignUpMutation()
 
-	// const url =  'http://localhost:5000/api/auth/sign_up';
 
 	const content = isLoading ? (
 		<h1>Submitting ....</h1>
@@ -51,10 +50,18 @@ const Signup = () => {
 			validationSchema={Yup.object({
 				firstName: Yup.string()
 					.max(15, "Must be 15 characters or less")
-					.required("Firstname required"),
+					.required("Firstname required")
+					.matches(
+						/^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi,
+						"Name can only contain Latin letters."
+					),
 				lastName: Yup.string()
 					.max(20, "Must be 20 characters or less")
-					.required("Lastname required"),
+					.required("Lastname required")
+					.matches(
+						/^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi,
+						"Name can only contain Latin letters."
+					),
 				email: Yup.string()
 					.email("Invalid email address")
 					.required("Email Required"),
@@ -68,7 +75,7 @@ const Signup = () => {
 					.minSymbols(1, "Must contain atleast 1 symbol"),
 			})}
 			onSubmit={async (values) => {
-				console.log(values, "USER SIGNUP DATA++++++++")
+				// console.log(values, "USER SIGNUP DATA++++++++")
 
 				try {
 					const data = await sigup(values).unwrap()
@@ -78,29 +85,6 @@ const Signup = () => {
 				} catch (error) {
 					console.log(error)
 				}
-
-				// console.log(values);
-
-				/*    axios({
-                    method: 'POST',
-                    url: url,
-                    data: values
-                })
-                .then(
-                    function(res) {
-                      console.log(res.data, 'User Data');
-                      
-                    }
-                )
-                .catch(function (error) {
-                    if (error.response) {
-                      // The request was made and the server responded with a status code
-                      // that falls out of the range of 2xx
-                      console.log(error.response.data, 'Failed REsponse');
-                      console.log(error.response.status);
-                      console.log(error.response.headers); 
-                    } 
-                  }) */
 			}}
 		>
 			<section className="bg-gray-50 dark:bg-gray-900">
@@ -109,11 +93,7 @@ const Signup = () => {
 						href="#"
 						className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
 					>
-						<img
-							className="w-8 h-8 mr-2"
-							src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-							alt="logo"
-						/>
+						<img className="w-8 h-8 mr-2" src="" alt="logo" />
 						GNS
 					</a>
 					<div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -247,8 +227,9 @@ const Signup = () => {
 												<CustomLoader />
 												Signing in...
 											</>
-										) : "Signin"
-										}
+										) : (
+											"Signin"
+										)}
 									</a>
 								</p>
 							</Form>

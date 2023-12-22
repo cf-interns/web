@@ -63,6 +63,12 @@ const baseQueryWithReauth = async (
 		}
 	}
 
+	//Manually refectch Notifications every minute
+		setTimeout(() => {
+			api.dispatch(apiSlice.util.invalidateTags(["Notifications"]))
+		}, 60000)
+
+
 	return result
 }
 
@@ -71,7 +77,10 @@ export const apiSlice = createApi({
 	tagTypes: ["Apps", "User", "Notifications"],
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	endpoints: (_builder) => ({}),
-	refetchOnReconnect: true,
-	keepUnusedDataFor: 60
+	refetchOnMountOrArgChange: true,
+	keepUnusedDataFor: 60,
 	
-})
+	
+	
+});
+

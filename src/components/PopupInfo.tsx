@@ -4,13 +4,11 @@ import * as Yup from "yup"
 import { useSignUpMutation } from "../store/features/auth/authApiSlice"
 import { ToastContainer, toast } from "react-toastify"
 
- const PopupInfo = ({setCreateUser}: {setCreateUser: any}) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const PopupInfo = ({ setCreateUser }: { setCreateUser: any }) => {
 	const [createUser] = useSignUpMutation()
-	// const notifyPassorfail = () =>
-	// 	formik ?  toast.passed("passed") || formik : toast.failed("Failed")
- 
 
-	const notifySuccess = () => toast.success('User Added!');
+	const notifySuccess = () => toast.success("User Added!")
 	const notifyError = () => toast.error("User Not Added!")
 
 	const formik = useFormik({
@@ -21,25 +19,42 @@ import { ToastContainer, toast } from "react-toastify"
 			password: "",
 		},
 		validationSchema: Yup.object({
-			firstName: Yup.string().required("First Name is required!"),
-			lastName: Yup.string().required("Last Name is required!"),
+			firstName: Yup.string()
+				.required("First Name is required!")
+				.matches(
+					/^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi,
+					"Name can only contain letters."
+				),
+			lastName: Yup.string()
+				.required("Last Name is required!")
+				.matches(
+					/^([A-Za-z\u00C0-\u00D6\u00D8-\u00f6\u00f8-\u00ff\s]*)$/gi,
+					"Name can only contain Latin letters."
+				),
 			email: Yup.string().email().required("Email Required!"),
-			password: Yup.string().required("Password Required!"),
+			password: Yup.string()
+				.required("Password Required!")
+				.password()
+				.max(25)
+				.min(9)
+				.minUppercase(1, "Must contain atleast 1 uppercase letter")
+				.minLowercase(1, "Must contain atleast 1 lowercase letter")
+				.minNumbers(1, "Must cantain atleast 1 number")
+				.minSymbols(1, "Must contain atleast 1 symbol"),
 		}),
 		onSubmit: async (values) => {
 			try {
 				const data = await createUser(values).unwrap()
-				notifySuccess();
-				setCreateUser(false);
-				
-				return data
-			} catch (error) {
-				console.log(error);
-				notifyError();
+				notifySuccess()
 				setCreateUser(false)
 
+				return data
+			} catch (error) {
+				console.log(error)
+				notifyError()
+				setCreateUser(false)
 			}
-		}
+		},
 	})
 	return (
 		<div>

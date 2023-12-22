@@ -11,7 +11,8 @@ import { useSelector } from "react-redux"
 import { RootState } from "../store/store"
 import { Dropdown } from "primereact/dropdown"
 import { AppData } from "./sendSMS"
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer, toast } from "react-toastify";
+import {formatISO} from "date-fns";
 
 const SendEmail = () => {
 	const [sendEmail, { isLoading }] = useSendEmailMutation()
@@ -78,7 +79,9 @@ const SendEmail = () => {
 						subject: values?.subject,
 						to: email2,
 						from: "no-reply@payunit.com",
-						time: values?.time,
+						time: formatISO(
+							new Date(values?.time),
+						),
 					}
 					if (values.toggleAutomatic) {
 						const data = await sendAutoEmail(inputs).unwrap()
