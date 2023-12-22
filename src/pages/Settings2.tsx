@@ -22,35 +22,34 @@ const Settings2 = () => {
 	const notifyErrorPassword = () => toast.error("User Password Not Changed!")
 	const notifySucessPassword = () => toast.success("User Password Changed!")
 
-    
 	const notifySucessinfo = () => toast.success("Info Updated Successfully")
 	const notifyErrorinfo = () => toast.error("Info Update Notsuccessful")
-   
+
 	const notifyErrorCurrentPassword = () =>
 		toast.error("Current Password Incorrect!")
-		const formik = useFormik({
-			initialValues: {
-				firstName: "",
-				lastName: "",
-				email: "",
-			},
-			validationSchema: Yup.object({
-				firstName: Yup.string().required("First Name is required!"),
-				lastName: Yup.string().required("Last Name is required!").strict(true),
-				email: Yup.string().email().required("Email Required!"),
-			}),
-			onSubmit: async (values) => {
-				try {
-					const data = await changeUserData(values).unwrap()
-					notifySucessinfo()
-					console.log(data, "USER PASSWORD++++++")
-					return data
-				} catch (error) {
-					notifyErrorinfo()
-					console.log(error)
-				}
-			},
-		})
+	const formik = useFormik({
+		initialValues: {
+			firstName: "",
+			lastName: "",
+			email: "",
+		},
+		validationSchema: Yup.object({
+			firstName: Yup.string().required("First Name is required!"),
+			lastName: Yup.string().required("Last Name is required!").strict(true),
+			email: Yup.string().email().required("Email Required!"),
+		}),
+		onSubmit: async (values) => {
+			try {
+				const data = await changeUserData(values).unwrap()
+				notifySucessinfo()
+				console.log(data, "USER PASSWORD++++++")
+				return data
+			} catch (error) {
+				notifyErrorinfo()
+				console.log(error)
+			}
+		},
+	})
 
 	const formik2 = useFormik({
 		initialValues: {
@@ -60,6 +59,7 @@ const Settings2 = () => {
 		},
 		validationSchema: Yup.object({
 			oldPassword: Yup.string()
+			.oneOf([Yup.ref("oldPassword")], "Passwords does not match")
 				// .password()
 				.required("Previous Password is required!"),
 			newPassword: Yup.string()
@@ -71,9 +71,8 @@ const Settings2 = () => {
 				.minLowercase(1, "Must contain atleast 1 lowercase letter")
 				.minNumbers(1, "Must cantain atleast 1 number")
 				.minSymbols(1, "Must contain atleast 1 symbol"),
-			confirmPassword: Yup
-			.string()
-			.oneOf([Yup.ref('newPassword')], 'Passwords must match')
+			confirmPassword: Yup.string()
+				.oneOf([Yup.ref("newPassword")], "Passwords must match")
 				.password()
 				.required("Please enter the new password")
 				.max(25)
@@ -209,11 +208,9 @@ const Settings2 = () => {
 							</div>
 						</div>
 					</div>
-
-					
 				</div>
 
-				 <hr className="border-gray-400 border-4xl " />
+				<hr className="border-gray-400 border-4xl " />
 				<div className=" mt-8">
 					<div className="flex justify-between" id="Change Password">
 						<div id="form" className="flex flex-col gap-4">
@@ -307,15 +304,15 @@ const Settings2 = () => {
 											type="submit"
 										/>
 									</form>
-									<ToastContainer/>
-										
+									<ToastContainer />
+
 									<ToastContainer />
 									{/* onClick={() => console.log("YO! 2")} */}
 								</div>
 							</div>
 						</div>
 					</div>
-				</div> 
+				</div>
 
 				{/* <ChangePassword/> */}
 			</div>
