@@ -3,6 +3,7 @@ import {
 	AiOutlineAppstore,
 	AiOutlineClose,
 	// AiOutlineCloseCircle,
+	AiOutlineNotification,
 } from "react-icons/ai"
 import { PiAppStoreLogo } from "react-icons/pi"
 import { RiUserSettingsLine } from "react-icons/ri"
@@ -37,7 +38,10 @@ export default function SidebarV2() {
 									className="mr-3 h-fit w-fit sm:h-9"
 									src={avt2}
 								/>
-								<Link className="self-center whitespace-nowrap text-xl font-semibold dark:text-white" to='/dashboard'>
+								<Link
+									className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+									to="/dashboard"
+								>
 									GNS
 								</Link>
 							</div>
@@ -64,7 +68,7 @@ export default function SidebarV2() {
 
 					<div className="flex flex-col gap-3">
 						<Link to="/dashboard" onClick={() => setActive(!active)}>
-							<p
+							<div
 								className={`flex gap-2 items-center text-white ${
 									window.location.href.indexOf("dashboard") > 0
 										? "bg-gray-700"
@@ -81,11 +85,11 @@ export default function SidebarV2() {
 										Dashboard
 									</>
 								)}
-							</p>
+							</div>
 						</Link>
 
 						<Link to="/allApplication">
-							<p
+							<div
 								className={`flex gap-2 items-center text-white ${
 									window.location.href.indexOf("allApplication") > 0
 										? "bg-gray-700"
@@ -102,11 +106,30 @@ export default function SidebarV2() {
 										Applications
 									</>
 								)}
-							</p>
+							</div>
+						</Link>
+
+						<Link to="/tools">
+							<div
+								className={`flex gap-2 items-center text-white ${
+									window.location.href.indexOf("tools") > 0 ? "bg-gray-700" : ""
+								} p-3 rounded`}
+							>
+								{collapse ? (
+									<Tooltip content="Notifications" placement="right">
+										<AiOutlineNotification size={30} className="pr-2" />
+									</Tooltip>
+								) : (
+									<>
+										<AiOutlineNotification size={30} />
+										Send Notification
+									</>
+								)}
+							</div>
 						</Link>
 
 						<Link to="/settings">
-							<p
+							<div
 								className={`flex gap-2 items-center text-white ${
 									window.location.href.indexOf("settings") > 0
 										? "bg-gray-700"
@@ -123,15 +146,13 @@ export default function SidebarV2() {
 										Settings
 									</>
 								)}
-							</p>
+							</div>
 						</Link>
 
 						<Link to="/users">
-							<p
+							<div
 								className={`flex gap-2 items-center text-white ${
-									window.location.href.indexOf("users") > 0
-										? "bg-gray-700"
-										: ""
+									window.location.href.indexOf("users") > 0 ? "bg-gray-700" : ""
 								} p-3 rounded`}
 							>
 								{collapse ? (
@@ -144,7 +165,7 @@ export default function SidebarV2() {
 										Users
 									</>
 								)}
-							</p>
+							</div>
 						</Link>
 					</div>
 				</Sidebar.ItemGroup>

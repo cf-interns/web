@@ -33,9 +33,13 @@ const SendPush = () => {
 	const [fcmTokens, setFcmTokens] = useState<string[]>([])
 	const onTokenAdd = () => {
 		const actualTokens = [...fcmTokens]
-		actualTokens.push(formik.values.userToken)
-		setFcmTokens(actualTokens)
-		formik.setFieldValue("userToken", "")
+		if (formik.values.userToken && formik.values.userToken.length > 10) {
+			actualTokens.push(formik.values.userToken)
+			setFcmTokens(actualTokens)
+			formik.setFieldValue("userToken", "")
+			return
+		}
+		toast.error("Invalid token")
 	}
 	const formik = useFormik({
 		initialValues: {
@@ -51,12 +55,14 @@ const SendPush = () => {
 		},
 		validationSchema: Yup.object({
 			notification: Yup.object({
-				body: Yup.string().required('Message required!'),
-				title: Yup.string().required('Title required')
+				body: Yup.string().required("Message required!"),
+				title: Yup.string().required("Title required"),
 			}).required(),
 			// userToken: Yup.string().required("Please enter recipient's token"),
 			token: Yup.string().required("Please choose an application"),
-			
+
+			userToken: Yup.string().min(10).required("Please Enter a valid token"),
+
 			toggleAutomatic: Yup.boolean(),
 			time: Yup.date()
 				.min(new Date(), "Minimum date is today")
@@ -137,7 +143,7 @@ const SendPush = () => {
 								<Label
 									color="text-dark"
 									htmlFor="text"
-									value="Message"
+									value="Select An Application"
 									className="text-xl text-center p-1"
 								/>
 								<Dropdown

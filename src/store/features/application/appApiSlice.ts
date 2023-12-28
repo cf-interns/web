@@ -11,11 +11,11 @@ type SmsResponse = SMS[]
 export const appApiSlice = apiSlice.injectEndpoints({
 	endpoints: (build) => ({
 		sendEmail: build.mutation<EmailResponse, Partial<Email>>({
-			query({ id, text, to, from, subject }) {
+			query({ id, html, to, from, subject, text }) {
 				return {
 					url: `/notifications/send-email/${id}`,
 					method: "POST",
-					body: { text, subject, to, from },
+					body: { html, subject, to, from,text },
 				}
 			},
 			invalidatesTags: ["Notifications"],

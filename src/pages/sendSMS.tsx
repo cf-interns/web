@@ -85,14 +85,16 @@ const SendSMS = () => {
 					if (values.toggleAutomatic) {
 						const data = await sendAutoSMS(inputs).unwrap()
 						notifySucess()
-						setNumbers([])
+						setNumbers([]);
+						formik.resetForm()
+
 
 						return data
 					} else {
 						const data = await sendSMS(inputs).unwrap()
 						notifySucess()
 						setNumbers([])
-						formik.resetForm()
+						formik.resetForm();
 						setSelectedApplication({} as AppData)
 
 						return data
@@ -100,7 +102,7 @@ const SendSMS = () => {
 				} else notifyErrorNumbers()
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			} catch (error: any) {
-				if (error?.data.statusCode === 400) {
+				if (error?.data.message === "Please Activate Your App") {
 					return notifyErrorAppStatus()
 				}
 				notifyError()

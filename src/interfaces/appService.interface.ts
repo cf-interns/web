@@ -22,6 +22,7 @@ export interface Email {
     text: string;
     from: string;
     time?: string
+    html?: string
 }
 
 export interface Push {

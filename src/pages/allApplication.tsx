@@ -10,7 +10,6 @@ import { useUpdateAppStatusMutation } from "../store/features/application/appApi
 /* import {FiArrowRight,} from 'react-icons/fi'; */
 import "../createapp.css"
 // import { ,  } from "flowbite-react"
-import { Link } from "react-router-dom"
 import DashboardLayout from "../components/DashboardLayout"
 import CustomLoader from "../components/CustomLoader"
 import { Card } from "primereact/card"
@@ -51,14 +50,16 @@ const AllApplication = () => {
 					<AppDetails setVisibleDetails={setVisibleDetails} id={id} />
 				</Dialog>
 
-				<Link to={`/tools`}>
+				{/* <Link to={`/tools`}>
 					<Button className="flex p-1 text-black bg-transparent hover:bg-teal-900 outline outline-teal-900 outline-1 hover:text-white w-fit rounded">
 						<span>send Notification</span>
 						<FiArrowRight />
 					</Button>
-				</Link>
+				</Link> */}
 				<Button
 					className="cursor-pointer justify-center flex p-2 gap-2 text-white bg-teal-900 rounded"
+					
+					
 					onClick={() => {
 						updateAppStatus({
 							_id: id,
