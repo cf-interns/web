@@ -53,7 +53,7 @@ const NotificationData = (props: { prop: Notification }) => {
 							</p>
 						</div>
 						<div className="flex flex-col p-2">
-							<label className="text-lg  ">Recipient</label>
+							<label className="text-lg">Recipient(s)</label>
 							<p className="font-bold text-xl text-black">
 								{prop?.recipient || "N/A"}
 							</p>

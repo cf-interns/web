@@ -280,8 +280,11 @@ const SendEmail = () => {
 									// initialValue='Enter'
 
 									onBlur={formik.handleBlur}
-									onEditorChange={(value) => {
-										formik.setFieldValue("message", value)
+									onEditorChange={(value, e) => {
+										const str = e.getContent({format: 'text'})
+										formik.setFieldValue("message", value);
+										formik.setFieldValue("text", str);
+
 									}}
 								/>
 

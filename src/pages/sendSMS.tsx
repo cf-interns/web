@@ -86,6 +86,7 @@ const SendSMS = () => {
 						const data = await sendAutoSMS(inputs).unwrap()
 						notifySucess()
 						setNumbers([]);
+						setSelectedApplication({} as AppData)
 						formik.resetForm()
 
 
@@ -95,7 +96,7 @@ const SendSMS = () => {
 						notifySucess()
 						setNumbers([])
 						formik.resetForm();
-						setSelectedApplication({} as AppData)
+						setSelectedApplication({} as AppData);
 
 						return data
 					}
