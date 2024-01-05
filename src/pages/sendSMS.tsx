@@ -16,7 +16,9 @@ import { RootState } from "../store/store"
 
 export interface AppData {
 	name: string
-	token: string
+	_id: string
+	live_api_key: string
+	live_api_secret: string
 }
 
 const SendSMS = () => {
@@ -78,7 +80,7 @@ const SendSMS = () => {
 					const inputs = {
 						message: values?.message,
 						mobiles: mobileValues.toString(),
-						id: selectedApplication?.token,
+						id: selectedApplication?._id,
 						time: values?.time,
 					}
 

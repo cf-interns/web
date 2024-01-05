@@ -15,6 +15,13 @@ export interface User {
 	_id: string
 
 }
+// const app = App
+export interface AppLogin {
+	signature:object
+	mode: string
+}
+
+
 
 export interface UserResponse {
 	user: User
@@ -23,8 +30,17 @@ export interface UserResponse {
 const baseQuery = fetchBaseQuery({
 	baseUrl: "http://localhost:5000/api",
 	credentials: "include",
-	prepareHeaders: (headers /* { getState } */) => {
-	return headers
+	prepareHeaders: (headers, { getState, endpoint }) => {
+		const user = (getState() as RootState).auth.app
+		const appLogin = {
+			signature: `${user?.live_api_key}:${user?.live_api_secret}`,
+			mode: user?.mode
+		}
+
+		if (user && endpoint !== "refresh") {
+			headers.set("authorization", `Bearer ${appLogin}`)
+		}
+		return headers
 	},
 })
 

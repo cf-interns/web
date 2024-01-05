@@ -15,14 +15,16 @@ export interface SMS {
 
 
 export interface Email {
-    app: App;
-    id: string;
-    to: string[];
-    subject: string;
-    text: string;
-    from: string;
-    time?: string
-    html?: string
+	app: App
+	id: string
+	to: string[]
+	subject: string
+	text: string
+	from: string
+	time?: string
+	html?: string
+	live_api_key: string
+	live_api_secret: string
 }
 
 export interface Push {

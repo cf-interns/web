@@ -68,7 +68,10 @@ const protectedRoutes = [
 	},
 	{
 		path: "/appDetail/:id",
-		element: <AppDetails />,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		element: (id: string, details: any) => {
+			<AppDetails id={id} setVisibleDetails={details} />
+		},
 	},
 	{
 		path: "/sendpushnotification",

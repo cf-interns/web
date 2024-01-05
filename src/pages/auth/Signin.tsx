@@ -43,7 +43,7 @@ const Signin = () => {
 					navigate("/dashboard")
 
 					return data
-				} catch (error) {
+				} catch (error: any) {
 					if (error?.status === 400) {
 						notifyInvalidLogin()
 					}

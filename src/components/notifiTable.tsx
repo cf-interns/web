@@ -33,7 +33,7 @@ any) {
 	// console.log("test", realData)'
 	const [visible, setVisible] = useState(false)
 	const [selectedNotif, setSelectedNotif] = useState<Notification>()
-	console.log(selectedNotif, "Notifs")
+	// console.log(selectedNotif, "Notifs")
 	const [globalFilterValue, setGlobalFilterValue] = useState<string>("")
 
 	const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />
@@ -332,7 +332,7 @@ any) {
 							onClick={() => {
 								setVisible(true)
 								setSelectedNotif(row)
-								console.log(selectedNotif, "TYPE")
+								// console.log(selectedNotif, "TYPE")
 							}}
 							severity="info"
 							className="hover:bg-gray-200 w-fit p-2"

@@ -11,7 +11,7 @@ const Widgets = () => {
 	// console.log(notifs);
 
 	const data = useSelector(selectCurrentNotification) || []
-	console.log("Notifications ===>", data)
+	// console.log("Notifications ===>", data)
 	const SMS = data.filter((sms) => sms.notification_type === "SMS")
 	const EMAILS = data.filter((email) => email.notification_type === "EMAIL")
 	const PUSH = data.filter((push) => push.notification_type === "PUSH");

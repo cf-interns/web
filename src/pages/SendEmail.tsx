@@ -48,19 +48,20 @@ const SendEmail = () => {
 	const useFullData = app?.map((app) => {
 		return {
 			name: app.appName,
-			token: app.token,
+			_id: app._id,
 		}
 	})
+
 	const formik = useFormik({
 		initialValues: {
-			token: "",
+			_id: "",
 			message: "",
 			subject: "",
 			to: "",
 			from: "no-reply@payunit.com",
 			time: "",
 			toggleAutomatic: false,
-			text: ''
+			text: "",
 		},
 		validationSchema: Yup.object({
 			message: Yup.string().required("Message is required"),
@@ -68,7 +69,7 @@ const SendEmail = () => {
 			subject: Yup.string().required("Please enter the email subject"),
 			// to: Yup.array().of(Yup.string().email("email is required")),
 			to: Yup.string().email("email is required"),
-			token: Yup.string().required("Please choose an application"),
+			_id: Yup.string().required("Please choose an application"),
 			time: Yup.date()
 				.min(new Date(), "Minimum date is today")
 				.when("toggleAutomatic", (toggleAutomatic, schema) =>
@@ -89,20 +90,24 @@ const SendEmail = () => {
 						? formatISO(new Date(values?.time))
 						: values?.time
 					const inputs = {
-						id: selectedApplication?.token,
+						id: selectedApplication?._id,
 						html: values?.message,
 						subject: values?.subject,
 						to: email2,
 						from: "no-reply@payunit.com",
 						time,
 						text: values?.text,
-					}
+
+						live_api_key: selectedApplication?.live_api_key as string,
+						live_api_secret: selectedApplication?.live_api_secret as string,
+					};
+					console.log(inputs, 'data')
 					if (values.toggleAutomatic) {
 						const data = await sendAutoEmail(inputs).unwrap()
 						notifySucess()
 						setEmails([])
 						formik.resetForm()
-					setSelectedApplication({} as AppData)
+						setSelectedApplication({} as AppData)
 
 						return data
 					}
@@ -110,7 +115,7 @@ const SendEmail = () => {
 					notifySucess()
 					formik.resetForm()
 					setEmails([])
-					setSelectedApplication({} as AppData);
+					setSelectedApplication({} as AppData)
 					return data
 				} else notifyErrorEmails()
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -123,14 +128,15 @@ const SendEmail = () => {
 			}
 		},
 	})
+
 	const onApplicationChange = (selectedApp: AppData) => {
 		setSelectedApplication(selectedApp)
-		formik.setFieldValue("token", selectedApp?.token)
+		formik.setFieldValue("_id", selectedApp?._id)
 	}
 
 	return (
 		<DashboardLayout>
-			<div className="flex justify-center w-[90vw] ">
+			<div className="flex justify-center w-[90vw] mb-8">
 				<div className="w-[70vw] h-auto">
 					<div className="flex flex-col justify-center mt-12">
 						<h1 className="text-center text-2xl font-bold p-4 ml-32">
@@ -155,14 +161,14 @@ const SendEmail = () => {
 									options={useFullData}
 									optionLabel="name"
 									placeholder="Select an Application"
-									name="token"
-									id="token"
+									name="_id"
+									id="_id"
 									className="w-full md:w-14rem mt-2"
 								/>
 
-								{formik?.errors?.token && formik.touched.token && (
+								{formik?.errors?._id && formik.touched._id && (
 									<div className="text-red-800 text-xs italic mt-2">
-										{formik?.errors?.token}
+										{formik?.errors?._id}
 									</div>
 								)}
 							</div>
@@ -281,10 +287,9 @@ const SendEmail = () => {
 
 									onBlur={formik.handleBlur}
 									onEditorChange={(value, e) => {
-										const str = e.getContent({format: 'text'})
-										formik.setFieldValue("message", value);
-										formik.setFieldValue("text", str);
-
+										const str = e.getContent({ format: "text" })
+										formik.setFieldValue("message", value)
+										formik.setFieldValue("text", str)
 									}}
 								/>
 
@@ -348,6 +353,7 @@ const SendEmail = () => {
 								type="submit"
 								style={{ backgroundColor: "rgb(31 41 55 / 1)" }}
 								disabled={isLoading}
+								// onClick={() => console.log(formik.values, 'Values')}
 								className="self-center text-white border-black rounded-md hover:bg-green-300 p-2 hover:text-white w-full bg-gray-300"
 							>
 								{isLoading ? "Submitting ..." : "Submit"}

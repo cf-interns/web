@@ -23,7 +23,7 @@ const Main1 = () => {
 	console.log(realData, 'DATA'); */
 	
 	const { data: realData2 } = useGetAllNotifsInDbQuery()
-	console.log(realData2, "DATA 2")
+	// console.log(realData2, "DATA 2")
 
 
 	const dispatch = useDispatch()

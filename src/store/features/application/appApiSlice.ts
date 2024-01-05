@@ -11,11 +11,14 @@ type SmsResponse = SMS[]
 export const appApiSlice = apiSlice.injectEndpoints({
 	endpoints: (build) => ({
 		sendEmail: build.mutation<EmailResponse, Partial<Email>>({
-			query({ id, html, to, from, subject, text }) {
+			query({ id, html, to, from, subject, text, live_api_key, live_api_secret }) {
 				return {
 					url: `/notifications/send-email/${id}`,
 					method: "POST",
 					body: { html, subject, to, from,text },
+					headers: {
+						'authorization': `${live_api_key as string}:${live_api_secret as string}`
+					}
 				}
 			},
 			invalidatesTags: ["Notifications"],
@@ -26,9 +29,11 @@ export const appApiSlice = apiSlice.injectEndpoints({
 					url: `/notifications/automatic-emails/${id}`,
 					method: "POST",
 					body: { text, time, to, from, subject },
+					
 				}
 			},
 			invalidatesTags: ["Notifications"],
+			
 		}),
 		sendPush: build.mutation<PushResponse, Partial<Push>>({
 			query({ id, notification, userToken }) {

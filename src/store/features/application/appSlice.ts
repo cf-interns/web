@@ -18,7 +18,9 @@ const appSlice = createSlice({
         setUpApplications: (state, {payload: {app}}: PayloadAction<{app: App[] | undefined}>) => {
              state.app = app;
         },
-    }
+    },
+    
+    
 });
 
 

@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../store"
-import { User } from "../api/apiSlice"
 import type { PayloadAction } from "@reduxjs/toolkit"
 import storage from "redux-persist/lib/storage"
+import { App } from "../../../interfaces/application.interface"
+import { User } from "../api/apiSlice"
 
 type AuthState = {
 	user: User | null
+	app:  App | null
 }
 
 const authSlice = createSlice({
 	name: "auth",
-	initialState: { user: null } as AuthState,
+	initialState: { user: null, app: null } as AuthState,
 	reducers: {
 		setCredentials: (
 			state,
